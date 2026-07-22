@@ -1,0 +1,60 @@
+.android-btn-filled {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s, transform 0.1s;
+}
+
+.android-btn-filled:active {
+    transform: scale(0.97);
+}
+
+.android-btn-filled.disabled,
+.android-btn-filled:disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.android-btn-filled .ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.android-btn-filled:active .ripple {
+    opacity: 1;
+    transition: opacity 0s;
+}
+
+.android-btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.android-btn-md {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+}
+
+.android-btn-lg {
+    padding: 0.75rem 1.25rem;
+    font-size: 1.10rem;
+}
+
+/* backgrounds */
+
+.bg-secondary {
+
+}
