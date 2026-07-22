@@ -1,0 +1,14 @@
+services:
+  reactts:
+    container_name: ui-reactts
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /home/node/app
+    user: node
+    ports:
+      - "5173:5173"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/home/node/app
