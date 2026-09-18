@@ -1,0 +1,251 @@
+/* ==========================================================================
+   Android Material Design 3 - Base Configuration
+   ========================================================================== */
+
+.android-btn {
+    --btn-color: #0d6efd;
+    --btn-bg: var(--btn-color);
+    --btn-text: #ffffff;
+    --btn-disabled-bg: rgba(28, 27, 31, 0.12);
+    --btn-disabled-color: rgba(28, 27, 31, 0.38);
+    --btn-disabled-border: transparent;
+
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
+    border-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+    border-radius 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Shapes: Pill vs Rounded Rectangle */
+.android-btn-pill.android-btn-sm { border-radius: 16px; }
+.android-btn-pill.android-btn-md { border-radius: 20px; }
+.android-btn-pill.android-btn-lg { border-radius: 24px; }
+
+.android-btn-rounded.android-btn-sm { border-radius: 6px; }
+.android-btn-rounded.android-btn-md { border-radius: 8px; }
+.android-btn-rounded.android-btn-lg { border-radius: 12px; }
+
+/* ==========================================================================
+   M3 Base Disabled Behavior (Universal Reset)
+   ========================================================================== */
+
+.android-btn:disabled,
+.android-btn.disabled,
+fieldset:disabled .android-btn {
+    cursor: not-allowed !important;
+    box-shadow: none !important;
+    pointer-events: none;
+    opacity: 0.38 !important; /* M3 standard opacity for disabled state */
+}
+
+/* Maintain original background color when disabled with opacity */
+.android-btn-filled:disabled,
+.android-btn-filled.disabled {
+    background-color: var(--btn-bg) !important;
+    color: var(--btn-text) !important;
+    border-color: transparent !important;
+}
+
+.android-btn-elevated:disabled,
+.android-btn-elevated.disabled {
+    background-color: #ffffff !important;
+    color: var(--btn-color) !important;
+    border-color: transparent !important;
+}
+
+.android-btn-tonal:disabled,
+.android-btn-tonal.disabled {
+    background-color: color-mix(in srgb, var(--btn-color) 16%, #ffffff) !important;
+    color: var(--btn-color) !important;
+    border-color: transparent !important;
+}
+
+.android-btn-outlined:disabled,
+.android-btn-outlined.disabled {
+    background-color: transparent !important;
+    color: var(--btn-color) !important;
+    border-color: var(--btn-color) !important;
+}
+
+.android-btn-text:disabled,
+.android-btn-text.disabled {
+    background-color: transparent !important;
+    color: var(--btn-color) !important;
+    border-color: transparent !important;
+}
+
+/* ==========================================================================
+   M3 Styles (Filled, Elevated, Tonal, Outlined, Text)
+   ========================================================================== */
+
+/* 1. Filled Button */
+.android-btn-filled {
+    background-color: var(--btn-bg);
+    color: var(--btn-text) !important;
+}
+.android-btn-filled:hover:not(:disabled):not(.disabled) {
+    filter: brightness(0.92);
+}
+
+/* 2. Elevated Button */
+.android-btn-elevated {
+    background-color: #ffffff;
+    color: var(--btn-color) !important;
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+}
+.android-btn-elevated:hover:not(:disabled):not(.disabled) {
+    box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* 3. Filled Tonal Button */
+.android-btn-tonal {
+    background-color: color-mix(in srgb, var(--btn-color) 16%, #ffffff);
+    color: var(--btn-color) !important;
+}
+.android-btn-tonal:hover:not(:disabled):not(.disabled) {
+    background-color: color-mix(in srgb, var(--btn-color) 24%, #ffffff);
+}
+
+/* 4. Outlined Button */
+.android-btn-outlined {
+    background-color: transparent;
+    color: var(--btn-color) !important;
+    border-color: var(--btn-color);
+}
+.android-btn-outlined:hover:not(:disabled):not(.disabled) {
+    background-color: color-mix(in srgb, var(--btn-color) 8%, transparent);
+}
+
+/* 5. Text Button */
+.android-btn-text {
+    background-color: transparent;
+    color: var(--btn-color) !important;
+}
+.android-btn-text:hover:not(:disabled):not(.disabled) {
+    background-color: color-mix(in srgb, var(--btn-color) 8%, transparent);
+}
+
+/* ==========================================================================
+   Ripple Effect
+   ========================================================================== */
+
+.android-btn .ripple {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.android-btn:active:not(:disabled):not(.disabled) .ripple {
+    opacity: 0.12;
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.android-btn-sm {
+    height: 32px;
+    padding: 0 12px;
+    font-size: 0.8125rem;
+}
+
+.android-btn-md {
+    height: 40px;
+    padding: 0 24px;
+    font-size: 0.875rem;
+}
+
+.android-btn-lg {
+    height: 48px;
+    padding: 0 28px;
+    font-size: 1rem;
+}
+
+/* ==========================================================================
+   Color Mapping and Text Contrast Fixes
+   ========================================================================== */
+
+.android-btn.btn-primary {
+    --btn-color: #0d6efd;
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-secondary {
+    --btn-color: #6c757d;
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-success {
+    --btn-color: #198754;
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-danger {
+    --btn-color: #dc3545;
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-warning {
+    --btn-color: #ffc107;
+    --btn-text: #000000;
+}
+
+.android-btn.btn-info {
+    --btn-color: #0dcaf0;
+    --btn-text: #000000;
+}
+
+.android-btn.btn-light {
+    --btn-color: #6c757d;
+    --btn-bg: #f8f9fa;
+    --btn-text: #212529;
+}
+
+.android-btn.btn-dark {
+    --btn-color: #212529;
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-link {
+    --btn-color: #0d6efd;
+    --btn-text: #0d6efd;
+    background-color: transparent !important;
+    text-decoration: underline;
+    box-shadow: none !important;
+}
+
+/* Custom Lion Variants */
+.android-btn.btn-lion-packages {
+    --btn-color: var(--lion-packages, #6f42c1);
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-lion-parking {
+    --btn-color: var(--lion-parking, #fd7e14);
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-lion-tech {
+    --btn-color: var(--lion-tech, #20c997);
+    --btn-text: #ffffff;
+}
+
+.android-btn.btn-lion-glam {
+    --btn-color: var(--lion-glam, #e83e8c);
+    --btn-text: #ffffff;
+}
