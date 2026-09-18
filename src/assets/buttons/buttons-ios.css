@@ -1,0 +1,191 @@
+/* ==========================================================================
+   iOS Human Interface Guidelines (HIG) - Base Configuration
+   ========================================================================== */
+
+.ios-btn {
+    /* Default CSS Variables for Color Inheritance */
+    --btn-color: #007aff; /* Apple standard system blue */
+    --btn-bg: var(--btn-color);
+    --btn-text: #ffffff;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.24px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    /* Native iOS Spring Transition Mechanics */
+    transition: opacity 0.1s ease-out, transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1), background-color 0.15s ease-in-out;
+    will-change: transform, opacity;
+}
+
+/* Native iOS Hover State (Desktop Web Match) */
+@media (hover: hover) {
+    .ios-btn-filled:hover:not(:disabled) {
+        filter: brightness(0.96);
+    }
+    .ios-btn-tinted:hover:not(:disabled) {
+        background-color: color-mix(in srgb, var(--btn-color) 22%, transparent);
+    }
+    .ios-btn-gray:hover:not(:disabled) {
+        background-color: rgba(120, 120, 128, 0.24);
+    }
+    .ios-btn-plain:hover:not(:disabled) {
+        opacity: 0.8;
+    }
+}
+
+/* Native iOS Active Press Behavior */
+.ios-btn:active:not(:disabled) {
+    opacity: 0.55;
+    transform: scale(0.96);
+    transition-duration: 0.05s;
+}
+
+/* Shapes: HIG Continuous Curved Corners (Squircle simulation via percentage-based radii) */
+.ios-btn-rounded.ios-btn-sm { border-radius: 9px; }
+.ios-btn-rounded.ios-btn-md { border-radius: 12px; }
+.ios-btn-rounded.ios-btn-lg { border-radius: 16px; }
+
+.ios-btn-capsule { border-radius: 9999px; }
+
+/* Disabled State */
+.ios-btn.disabled,
+.ios-btn:disabled {
+    opacity: 0.35 !important;
+    cursor: not-allowed;
+    transform: none !important;
+    filter: none !important;
+}
+
+/* ==========================================================================
+   iOS Button Styles (Filled, Tinted, Gray, Plain)
+   ========================================================================== */
+
+/* 1. Filled Button (High Emphasis) */
+.ios-btn-filled {
+    background-color: var(--btn-bg);
+    color: var(--btn-text) !important;
+}
+
+/* 2. Tinted Button (Medium Emphasis) */
+.ios-btn-tinted {
+    background-color: color-mix(in srgb, var(--btn-color) 15%, transparent);
+    color: var(--btn-color) !important;
+}
+
+/* 3. Gray Button (Neutral Background) */
+.ios-btn-gray {
+    background-color: rgba(120, 120, 128, 0.16);
+    color: var(--btn-color) !important;
+}
+
+/* 4. Plain Button (Low Emphasis / Text Only) */
+.ios-btn-plain {
+    background-color: transparent;
+    color: var(--btn-color) !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.ios-btn-sm {
+    height: 28px;
+    padding: 0 10px;
+    font-size: 0.8125rem;
+}
+
+.ios-btn-md {
+    height: 36px;
+    padding: 0 16px;
+    font-size: 0.9375rem;
+}
+
+.ios-btn-lg {
+    height: 50px;
+    padding: 0 22px;
+    font-size: 1.0625rem;
+}
+
+/* ==========================================================================
+   Color Mapping & Readability Fixes
+   ========================================================================== */
+
+.ios-btn.btn-primary {
+    --btn-color: #007aff;
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-secondary {
+    --btn-color: #8e8e93;
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-success {
+    --btn-color: #34c759;
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-danger {
+    --btn-color: #ff3b30;
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-warning {
+    --btn-color: #ff9500;
+    --btn-text: #000000; /* Dark text for readability on yellow/orange */
+}
+
+.ios-btn.btn-info {
+    --btn-color: #5ac8fa;
+    --btn-text: #000000; /* Dark text for readability on light blue */
+}
+
+.ios-btn.btn-light {
+    --btn-color: #8e8e93;
+    --btn-bg: #e5e5ea;
+    --btn-text: #000000;
+}
+
+.ios-btn.btn-dark {
+    --btn-color: #1c1c1e;
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-link {
+    --btn-color: #007aff;
+    --btn-text: #000000;
+    background-color: transparent !important;
+    text-decoration: underline;
+}
+
+/* Custom Lion Variants */
+.ios-btn.btn-lion-packages {
+    --btn-color: var(--lion-packages, #af52de);
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-lion-parking {
+    --btn-color: var(--lion-parking, #ff9500);
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-lion-tech {
+    --btn-color: var(--lion-tech, #30b0c7);
+    --btn-text: #ffffff;
+}
+
+.ios-btn.btn-lion-glam {
+    --btn-color: var(--lion-glam, #ff2d55);
+    --btn-text: #ffffff;
+}

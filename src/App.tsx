@@ -1,41 +1,36 @@
-import {Container, Form} from "react-bootstrap";
-import AndroidButton from "./components/buttons/AndroidButton.tsx";
-import {Variant} from "./types/Variant.tsx";
+import "./assets/index.css";
+import "./assets/custom.css";
+import "./assets/buttons/buttons-android.css";
+import "./assets/buttons/buttons-ios.css";
+import "./assets/buttons/buttons-web.css";
 
-const VariantList: Array<Variant> = [
-    Variant.SECONDARY,
-    Variant.PRIMARY,
-    Variant.SUCCESS,
-    Variant.DANGER,
-    Variant.WARNING,
-    Variant.INFO,
-    Variant.LIGHT,
-    Variant.DARK,
-    Variant.LION_RED,
-    Variant.LION_ORANGE,
-];
+import {Fragment} from "react";
+import {Container} from "react-bootstrap";
+import {Routes, Route} from 'react-router-dom';
+import Header from "./features/Header.tsx";
+import ButtonsSection from "./features/buttons/ButtonsSection.tsx";
+import ButtonsAndroidSection from "./features/buttons/components/ButtonsAndroidSection.tsx";
+import ButtonsIOSSection from "./features/buttons/components/ButtonsIOSSection.tsx";
+import ButtonsBootstrapSection from "./features/buttons/components/ButtonsBootstrapSection.tsx";
 
 export default function App() {
-    const buttonEvent = () => alert("Hola desde @lion/ui");
-
     return (
-        <Container>
-            <h1>Components</h1>
+        <Fragment>
+            <Header />
 
-            <hr />
+            <Container className={"py-2"}>
+                <Routes>
+                    <Route path={"/"} element={<h1>Explore the page.</h1>} />
 
-            <Form.Group>
-                {VariantList.map((variant: Variant) => (
-                    <AndroidButton
-                        variant={variant}
-                        platform="web"
-                        className={"me-2"}
-                        onClick={buttonEvent}
-                    >
-                        {"Check"}
-                    </AndroidButton>
-                ))}
-            </Form.Group>
-        </Container>
+                    <Route path={"buttons"} element={<ButtonsSection />}>
+                        <Route path={"android"} element={<ButtonsAndroidSection />} />
+
+                        <Route path={"ios"} element={<ButtonsIOSSection />} />
+
+                        <Route path={"web"} element={<ButtonsBootstrapSection />} />
+                    </Route>
+                </Routes>
+            </Container>
+        </Fragment>
     );
 }

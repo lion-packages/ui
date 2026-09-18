@@ -1,4 +1,4 @@
-export const Size = {
+export const SizeTypes = {
     SX: "sm",
     SM: "sm",
     MD: "md",
@@ -7,5 +7,5 @@ export const Size = {
     XXL: "lg",
 } as const;
 
-export type Size =
-    (typeof Size)[keyof typeof Size];
+export type SizeTypes =
+    (typeof SizeTypes)[keyof typeof SizeTypes];
