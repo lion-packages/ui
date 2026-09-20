@@ -1,0 +1,138 @@
+/* ==========================================================================
+   Bootstrap 5 Extended - Custom Lion Variants & Overrides
+   ========================================================================== */
+
+/* Fix for Native Bootstrap Outlined Light Button Contrast on Light Backgrounds */
+.btn-outline-light {
+    --bs-btn-color: #212529;
+    --bs-btn-border-color: #ced4da; /* Visible neutral border for light background */
+    --bs-btn-hover-color: #000000;
+    --bs-btn-hover-bg: #f8f9fa;
+    --bs-btn-hover-border-color: #ced4da;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #e9ecef;
+    --bs-btn-active-border-color: #ced4da;
+    --bs-btn-disabled-color: #6c757d;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #ced4da;
+}
+
+/* 1. Lion Packages Variant */
+.btn-lion-packages {
+    --bs-btn-color: var(--lion-white);
+    --bs-btn-bg: var(--lion-packages, #6f42c1);
+    --bs-btn-border-color: var(--lion-packages, #6f42c1);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--lion-packages, #6f42c1) 85%, #000000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--lion-packages, #6f42c1) 85%, #000000);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: color-mix(in srgb, var(--lion-packages, #6f42c1) 75%, #000000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--lion-packages, #6f42c1) 75%, #000000);
+    --bs-btn-disabled-color: var(--lion-white);
+    --bs-btn-disabled-bg: var(--lion-packages, #6f42c1);
+    --bs-btn-disabled-border-color: var(--lion-packages, #6f42c1);
+}
+
+.btn-outline-lion-packages {
+    --bs-btn-color: var(--lion-packages, #6f42c1);
+    --bs-btn-border-color: var(--lion-packages, #6f42c1);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: var(--lion-packages, #6f42c1);
+    --bs-btn-hover-border-color: var(--lion-packages, #6f42c1);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: var(--lion-packages, #6f42c1);
+    --bs-btn-active-border-color: var(--lion-packages, #6f42c1);
+    --bs-btn-disabled-color: var(--lion-packages, #6f42c1);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--lion-packages, #6f42c1);
+}
+
+/* 2. Lion Parking Variant */
+.btn-lion-parking {
+    --bs-btn-color: var(--lion-white);
+    --bs-btn-bg: var(--lion-parking, #fd7e14);
+    --bs-btn-border-color: var(--lion-parking, #fd7e14);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--lion-parking, #fd7e14) 85%, #000000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--lion-parking, #fd7e14) 85%, #000000);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: color-mix(in srgb, var(--lion-parking, #fd7e14) 75%, #000000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--lion-parking, #fd7e14) 75%, #000000);
+    --bs-btn-disabled-color: var(--lion-white);
+    --bs-btn-disabled-bg: var(--lion-parking, #fd7e14);
+    --bs-btn-disabled-border-color: var(--lion-parking, #fd7e14);
+}
+
+.btn-outline-lion-parking {
+    --bs-btn-color: var(--lion-parking, #fd7e14);
+    --bs-btn-border-color: var(--lion-parking, #fd7e14);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: var(--lion-parking, #fd7e14);
+    --bs-btn-hover-border-color: var(--lion-parking, #fd7e14);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: var(--lion-parking, #fd7e14);
+    --bs-btn-active-border-color: var(--lion-parking, #fd7e14);
+    --bs-btn-disabled-color: var(--lion-parking, #fd7e14);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--lion-parking, #fd7e14);
+}
+
+/* 3. Lion Tech Variant */
+.btn-lion-tech {
+    --bs-btn-color: var(--lion-white);
+    --bs-btn-bg: var(--lion-tech, #20c997);
+    --bs-btn-border-color: var(--lion-tech, #20c997);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--lion-tech, #20c997) 85%, #000000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--lion-tech, #20c997) 85%, #000000);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: color-mix(in srgb, var(--lion-tech, #20c997) 75%, #000000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--lion-tech, #20c997) 75%, #000000);
+    --bs-btn-disabled-color: var(--lion-white);
+    --bs-btn-disabled-bg: var(--lion-tech, #20c997);
+    --bs-btn-disabled-border-color: var(--lion-tech, #20c997);
+}
+
+.btn-outline-lion-tech {
+    --bs-btn-color: var(--lion-tech, #20c997);
+    --bs-btn-border-color: var(--lion-tech, #20c997);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: var(--lion-tech, #20c997);
+    --bs-btn-hover-border-color: var(--lion-tech, #20c997);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: var(--lion-tech, #20c997);
+    --bs-btn-active-border-color: var(--lion-tech, #20c997);
+    --bs-btn-disabled-color: var(--lion-tech, #20c997);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--lion-tech, #20c997);
+}
+
+/* 4. Lion Glam Variant */
+.btn-lion-glam {
+    --bs-btn-color: var(--lion-white);
+    --bs-btn-bg: var(--lion-glam, #e83e8c);
+    --bs-btn-border-color: var(--lion-glam, #e83e8c);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: color-mix(in srgb, var(--lion-glam, #e83e8c) 85%, #000000);
+    --bs-btn-hover-border-color: color-mix(in srgb, var(--lion-glam, #e83e8c) 85%, #000000);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: color-mix(in srgb, var(--lion-glam, #e83e8c) 75%, #000000);
+    --bs-btn-active-border-color: color-mix(in srgb, var(--lion-glam, #e83e8c) 75%, #000000);
+    --bs-btn-disabled-color: var(--lion-white);
+    --bs-btn-disabled-bg: var(--lion-glam, #e83e8c);
+    --bs-btn-disabled-border-color: var(--lion-glam, #e83e8c);
+}
+
+.btn-outline-lion-glam {
+    --bs-btn-color: var(--lion-glam, #e83e8c);
+    --bs-btn-border-color: var(--lion-glam, #e83e8c);
+    --bs-btn-hover-color: var(--lion-white);
+    --bs-btn-hover-bg: var(--lion-glam, #e83e8c);
+    --bs-btn-hover-border-color: var(--lion-glam, #e83e8c);
+    --bs-btn-active-color: var(--lion-white);
+    --bs-btn-active-bg: var(--lion-glam, #e83e8c);
+    --bs-btn-active-border-color: var(--lion-glam, #e83e8c);
+    --bs-btn-disabled-color: var(--lion-glam, #e83e8c);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--lion-glam, #e83e8c);
+}
