@@ -1,13 +1,13 @@
-import type { TargetPlatform } from "../../../types/Types.tsx";
-import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import type {TargetPlatform} from "../../../types/Types.tsx";
+import {PlatformTypes} from "../../../types/PlatformTypes.tsx";
 import VariantList from "../../VariantList.tsx";
-import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
-import { AndroidStyleTypes } from "../../../types/Android/AndroidStyleTypes.tsx";
-import { IOSStyleTypes } from "../../../types/IOS/IOSStyleTypes.tsx";
-import { BootstrapStyleTypes } from "../../../types/Web/BootstrapStyleTypes.tsx";
-import { AndroidShapeTypes } from "../../../types/Android/AndroidShapeTypes.tsx";
-import { IOSShapeTypes } from "../../../types/IOS/IOSShapeTypes.tsx";
-import { BootstrapShapeTypes } from "../../../types/Web/BootstrapShapeTypes.tsx";
+import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
+import {AndroidStyleTypes} from "../../../types/Android/AndroidStyleTypes.tsx";
+import {IOSStyleTypes} from "../../../types/IOS/IOSStyleTypes.tsx";
+import {BootstrapStyleTypes} from "../../../types/Web/BootstrapStyleTypes.tsx";
+import {AndroidShapeTypes} from "../../../types/Android/AndroidShapeTypes.tsx";
+import {IOSShapeTypes} from "../../../types/IOS/IOSShapeTypes.tsx";
+import {BootstrapShapeTypes} from "../../../types/Web/BootstrapShapeTypes.tsx";
 
 import { Fragment, useState } from "react";
 import { LionButton } from "../../../components/buttons/LionButton.tsx";
@@ -62,12 +62,10 @@ export default function ButtonsCustomSection() {
         <Fragment>
             <h2>Buttons (Custom Cross-Platform Test)</h2>
 
-            {/* Panel de Controles de Simulación */}
             <div className="card p-3 mb-4 bg-light">
                 <div className="row g-3">
-                    {/* Selector de Plataforma */}
                     <div className="col-md-4">
-                        <label className="form-label fw-bold">Plataforma:</label>
+                        <label className="form-label fw-bold">Platform:</label>
                         <div className="btn-group w-100" role="group">
                             <button
                                 type="button"
@@ -93,9 +91,9 @@ export default function ButtonsCustomSection() {
                         </div>
                     </div>
 
-                    {/* Selector de Forma (Shape) según Plataforma Activa */}
                     <div className="col-md-4">
-                        <label className="form-label fw-bold">Forma (Shape):</label>
+                        <label className="form-label fw-bold">Shape:</label>
+
                         {selectedPlatform === PlatformTypes.ANDROID && (
                             <select
                                 className="form-select"
@@ -107,6 +105,7 @@ export default function ButtonsCustomSection() {
                                 ))}
                             </select>
                         )}
+
                         {selectedPlatform === PlatformTypes.IOS && (
                             <select
                                 className="form-select"
@@ -118,6 +117,7 @@ export default function ButtonsCustomSection() {
                                 ))}
                             </select>
                         )}
+
                         {selectedPlatform === PlatformTypes.WEB && (
                             <select
                                 className="form-select"
@@ -131,9 +131,8 @@ export default function ButtonsCustomSection() {
                         )}
                     </div>
 
-                    {/* Selector de Estilo (StyleType) según Plataforma Activa */}
                     <div className="col-md-4">
-                        <label className="form-label fw-bold">Estilo (StyleType):</label>
+                        <label className="form-label fw-bold">StyleType:</label>
                         {selectedPlatform === PlatformTypes.ANDROID && (
                             <select
                                 className="form-select"
@@ -145,6 +144,7 @@ export default function ButtonsCustomSection() {
                                 ))}
                             </select>
                         )}
+
                         {selectedPlatform === PlatformTypes.IOS && (
                             <select
                                 className="form-select"
@@ -156,6 +156,7 @@ export default function ButtonsCustomSection() {
                                 ))}
                             </select>
                         )}
+
                         {selectedPlatform === PlatformTypes.WEB && (
                             <select
                                 className="form-select"
@@ -172,10 +173,6 @@ export default function ButtonsCustomSection() {
             </div>
 
             <div className="my-4">
-                <h4 className="text-primary mb-3">
-                    Multiplatform Mapping (Plataforma activa: <span className="text-uppercase">{selectedPlatform}</span>)
-                </h4>
-
                 <div className="ms-3 mb-4">
                     {/* Enabled State */}
                     <div className="mb-3">
