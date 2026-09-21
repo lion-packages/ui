@@ -17,6 +17,12 @@ export default function Header() {
                         {/* <Nav.Link href="#home">Home</Nav.Link> */}
 
                         <NavDropdown title="Buttons" id="buttons-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/buttons/custom"} href={"#"}>
+                                Custom
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Divider />
+
                             <NavDropdown.Item as={Link} to={"/buttons/android"} href={"#"}>
                                 Android
                             </NavDropdown.Item>
