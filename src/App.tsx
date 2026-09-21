@@ -7,12 +7,13 @@ import "./assets/buttons/buttons-web.css";
 import {Fragment} from "react";
 import {Container} from "react-bootstrap";
 import {Routes, Route} from 'react-router-dom';
+import {LionUIComponentsProvider} from "./context/LionUIComponentsContext.tsx";
 import Header from "./features/Header.tsx";
 import ButtonsSection from "./features/buttons/ButtonsSection.tsx";
 import ButtonsAndroidSection from "./features/buttons/components/ButtonsAndroidSection.tsx";
 import ButtonsIOSSection from "./features/buttons/components/ButtonsIOSSection.tsx";
 import ButtonsBootstrapSection from "./features/buttons/components/ButtonsBootstrapSection.tsx";
-import {LionUIComponentsProvider} from "./context/LionUIComponentsContext.tsx";
+import ButtonsCustomSection from "./features/buttons/components/ButtonsCustomSection.tsx";
 
 export default function App() {
     return (
@@ -25,6 +26,8 @@ export default function App() {
                         <Route path={"/"} element={<h1>Explore the page.</h1>} />
 
                         <Route path={"buttons"} element={<ButtonsSection />}>
+                            <Route path={"custom"} element={<ButtonsCustomSection />} />
+
                             <Route path={"android"} element={<ButtonsAndroidSection />} />
 
                             <Route path={"ios"} element={<ButtonsIOSSection />} />
