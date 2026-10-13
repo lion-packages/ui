@@ -6,6 +6,7 @@ import "./assets/buttons/buttons-ios.css";
 import "./assets/buttons/buttons-web.css";
 
 import "./assets/inputs/inputs-android.css";
+import "./assets/inputs/inputs-ios.css";
 
 import {Fragment} from "react";
 import {Container} from "react-bootstrap";
@@ -19,6 +20,7 @@ import ButtonsBootstrapSection from "./features/buttons/components/ButtonsBootst
 import ButtonsCustomSection from "./features/buttons/components/ButtonsCustomSection.tsx";
 import InputsSection from "./features/inputs/InputsSection.tsx";
 import InputsAndroidSection from "./features/inputs/components/InputsAndroidSection.tsx";
+import InputsIOSSection from "./features/inputs/components/InputsIOSSection.tsx";
 
 export default function App() {
     return (
@@ -45,7 +47,7 @@ export default function App() {
 
                             <Route path={"android"} element={<InputsAndroidSection />} />
 
-                            <Route path={"ios"} element={<InputsAndroidSection />} />
+                            <Route path={"ios"} element={<InputsIOSSection />} />
 
                             <Route path={"web"} element={<InputsAndroidSection />} />
                         </Route>

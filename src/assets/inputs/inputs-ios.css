@@ -1,0 +1,195 @@
+/* ==========================================================================
+   LION UI LIBRARY - iOS INPUT SYSTEM (CORRECTED SHAPES)
+   ========================================================================== */
+
+.ios-input-container {
+    --ios-input-bg: var(--bs-body-bg, #ffffff);
+    --ios-input-color: var(--bs-body-color, #212529);
+    --ios-input-border-color: var(--bs-border-color, #dee2e6);
+    --ios-input-placeholder-color: var(--bs-secondary-color, #6c757d);
+    --ios-input-focus-color: var(--bs-primary, #0d6efd);
+    --ios-input-error-color: var(--bs-danger, #dc3545);
+    --ios-input-disabled-bg: var(--bs-tertiary-bg, #f8f9fa);
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.ios-input-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ios-input-color);
+    margin-left: 4px;
+    letter-spacing: -0.08px;
+}
+
+/* Wrapper Base */
+.ios-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--ios-input-bg);
+    color: var(--ios-input-color);
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden; /* Asegura que el contenido respete los bordes redondeados */
+}
+
+/* --- Sizes --- */
+.ios-input-wrapper.size-sx { min-height: 30px; font-size: 12px; padding: 0 8px; }
+.ios-input-wrapper.size-sm { min-height: 36px; font-size: 14px; padding: 0 10px; }
+.ios-input-wrapper.size-md { min-height: 44px; font-size: 16px; padding: 0 14px; }
+.ios-input-wrapper.size-lg { min-height: 52px; font-size: 18px; padding: 0 16px; }
+
+/* --- Shapes (Prioridad de geometría explícita) --- */
+.ios-input-wrapper.shape-rounded {
+    border-radius: 12px !important;
+}
+
+.ios-input-wrapper.shape-pill {
+    border-radius: 9999px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+
+.ios-input-wrapper.shape-square {
+    border-radius: 4px !important;
+}
+
+/* --- Style Types --- */
+
+/* 1. Rounded Border / Outlined / General */
+.ios-input-wrapper.style-rounded-border,
+.ios-input-wrapper.style-outlined {
+    border: 1.5px solid var(--ios-input-border-color);
+    background-color: transparent;
+}
+
+.ios-input-wrapper.style-rounded-border.is-focused,
+.ios-input-wrapper.style-outlined.is-focused {
+    border-color: var(--active-variant-color, var(--ios-input-focus-color));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--active-variant-color, var(--ios-input-focus-color)) 20%, transparent);
+}
+
+/* 2. Form Style (Estilo celda de ajustes iOS) */
+.ios-input-wrapper.style-form {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--ios-input-border-color);
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.ios-input-wrapper.style-form.is-focused {
+    border-bottom-color: var(--active-variant-color, var(--ios-input-focus-color));
+    box-shadow: none;
+}
+
+/* 3. Filled Style */
+.ios-input-wrapper.style-filled {
+    background-color: var(--bs-tertiary-bg, #f1f3f5);
+    border: 1px solid transparent;
+}
+.ios-input-wrapper.style-filled.is-focused {
+    background-color: var(--ios-input-bg);
+    border-color: var(--active-variant-color, var(--ios-input-focus-color));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--active-variant-color, var(--ios-input-focus-color)) 20%, transparent);
+}
+
+/* 4. Plain Style */
+.ios-input-wrapper.style-plain {
+    background-color: transparent;
+    border: none;
+    padding: 0 !important;
+}
+
+/* --- Variants Mapping --- */
+.ios-input-wrapper.variant-primary { --active-variant-color: var(--bs-primary, #0d6efd); }
+.ios-input-wrapper.variant-secondary { --active-variant-color: var(--bs-secondary, #6c757d); }
+.ios-input-wrapper.variant-success { --active-variant-color: var(--bs-success, #198754); }
+.ios-input-wrapper.variant-danger { --active-variant-color: var(--bs-danger, #dc3545); }
+.ios-input-wrapper.variant-warning { --active-variant-color: var(--bs-warning, #ffc107); }
+.ios-input-wrapper.variant-info { --active-variant-color: var(--bs-info, #0dcaf0); }
+.ios-input-wrapper.variant-dark { --active-variant-color: var(--bs-dark, #212529); }
+
+.ios-input-wrapper.variant-lion-packages { --active-variant-color: var(--lion-packages, #6f42c1); }
+.ios-input-wrapper.variant-lion-parking { --active-variant-color: var(--lion-parking, #20c997); }
+.ios-input-wrapper.variant-lion-tech { --active-variant-color: var(--lion-tech, #fd7e14); }
+.ios-input-wrapper.variant-lion-glam { --active-variant-color: var(--lion-glam, #e83e8c); }
+
+/* --- States --- */
+.ios-input-wrapper.has-error {
+    border-color: var(--ios-input-error-color) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ios-input-error-color) 20%, transparent) !important;
+}
+
+.ios-input-wrapper.is-disabled {
+    background-color: var(--ios-input-disabled-bg);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ios-input-wrapper.is-readonly {
+    background-color: var(--ios-input-disabled-bg);
+}
+
+/* --- Internal Elements --- */
+.ios-input-element {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    padding: 6px 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.ios-input-element::placeholder {
+    color: var(--ios-input-placeholder-color);
+    opacity: 1;
+}
+
+.ios-input-icon-left, .ios-input-icon-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ios-input-placeholder-color);
+    flex-shrink: 0;
+}
+
+.ios-input-icon-left { margin-right: 8px; }
+.ios-input-icon-right { margin-left: 8px; }
+
+.input-prefix { margin-right: 6px; color: var(--ios-input-placeholder-color); }
+.input-suffix { margin-left: 6px; color: var(--ios-input-placeholder-color); }
+
+.ios-clear-button {
+    border: none;
+    background: var(--bs-secondary-bg, #e9ecef);
+    color: var(--ios-input-color);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 6px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+.ios-clear-button:hover {
+    background: var(--bs-secondary, #6c757d);
+    color: #fff;
+}
+
+.ios-input-helper-text { font-size: 12px; color: var(--ios-input-placeholder-color); margin-left: 4px; }
+.ios-input-error-text { font-size: 12px; color: var(--ios-input-error-color); margin-left: 4px; font-weight: 500; }

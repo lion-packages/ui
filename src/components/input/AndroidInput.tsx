@@ -1,7 +1,7 @@
 import React, {useId} from "react";
 import {InputTypes} from "../../types/InputTypes";
-import type {AndroidInputStyleTypes} from "../../types/Android/AndroidInputStyleTypes.tsx";
-import type {AndroidInputShapeTypes} from "../../types/Android/AndroidInputShapeTypes.tsx";
+import {AndroidInputStyleTypes} from "../../types/Android/AndroidInputStyleTypes.tsx";
+import {AndroidInputShapeTypes} from "../../types/Android/AndroidInputShapeTypes.tsx";
 
 export interface AndroidInputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
