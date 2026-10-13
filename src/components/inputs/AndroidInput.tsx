@@ -1,7 +1,7 @@
-import React, {useId} from "react";
-import {InputTypes} from "../../types/InputTypes";
-import {AndroidInputStyleTypes} from "../../types/Android/AndroidInputStyleTypes.tsx";
-import {AndroidInputShapeTypes} from "../../types/Android/AndroidInputShapeTypes.tsx";
+import React, { useId, useState } from "react";
+import { InputTypes } from "../../types/InputTypes";
+import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
+import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 
 export interface AndroidInputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
@@ -26,7 +26,7 @@ export const AndroidInput: React.FC<AndroidInputProps> = ({
                                                               shape = AndroidInputShapeTypes.NORMAL,
                                                               variant = "primary",
                                                               label,
-                                                              required = true,
+                                                              required = false,
                                                               helperText,
                                                               error,
                                                               startIcon,
@@ -39,6 +39,8 @@ export const AndroidInput: React.FC<AndroidInputProps> = ({
                                                               value,
                                                               defaultValue,
                                                               onChange,
+                                                              onFocus,
+                                                              onBlur,
                                                               id,
                                                               className = "",
                                                               maxLength,
@@ -48,65 +50,98 @@ export const AndroidInput: React.FC<AndroidInputProps> = ({
     const generatedId = useId();
     const inputId = id || generatedId;
 
+    const [isFocused, setIsFocused] = useState(false);
+    const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
+
     const hasError = Boolean(error);
     const errorMessage = typeof error === "string" ? error : undefined;
 
+    const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
+    const normalizedShape = String(shape).toLowerCase();
+
     const containerClasses = [
-        "android-input",
-        `android-input-${styleType}`,
-        `android-input-shape-${shape}`,
-        `input-${variant}`,
-        startIcon ? "has-start-icon" : "",
-        endIcon ? "has-end-icon" : "",
+        "android-input-container",
+        `android-variant-${variant}`,
         className,
     ].filter(Boolean).join(" ");
 
+    const wrapperClasses = [
+        "android-input-field-wrapper",
+        `android-style-${normalizedStyle}`,
+        `android-size-${normalizedShape}`,
+        isFocused ? "is-focused" : "",
+        hasError ? "has-error" : "",
+        disabled ? "is-disabled" : "",
+        readOnly ? "is-readonly" : "",
+    ].filter(Boolean).join(" ");
+
     const inputClasses = [
-        "form-control",
+        "android-input-element",
         hasError ? "is-invalid" : "",
     ].filter(Boolean).join(" ");
 
-    const currentLength = String(value || defaultValue || "").length;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInternalValue(e.target.value);
+        if (onChange) onChange(e);
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+        setIsFocused(true);
+        if (onFocus) onFocus(e);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        setIsFocused(false);
+        if (onBlur) onBlur(e);
+    };
+
+    const currentValue = value !== undefined ? value : internalValue;
+    const currentLength = String(currentValue || "").length;
     const maxLen = typeof counter === "number" ? counter : maxLength;
 
     return (
         <div className={containerClasses}>
-            <div className="input-field-wrapper">
-                {startIcon && <div className="input-start-icon">{startIcon}</div>}
-
-                {prefixText && <span className="input-prefix">{prefixText}</span>}
+            <div className={wrapperClasses}>
+                {startIcon && <div className="android-input-start-icon">{startIcon}</div>}
+                {prefixText && <span className="android-input-prefix">{prefixText}</span>}
 
                 <input
                     id={inputId}
                     type={type}
-                    value={value}
+                    value={currentValue}
                     required={required}
                     disabled={disabled}
                     readOnly={readOnly}
                     maxLength={maxLen}
-                    placeholder={placeholder && placeholder.trim() !== "" ? placeholder : " "}
-                    onChange={onChange}
+                    placeholder={placeholder}
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     className={inputClasses}
                     {...rest}
                 />
 
-                {label && <label htmlFor={inputId}>{required ? `${label}*` : label}</label>}
+                {label && (
+                    <label htmlFor={inputId} className="android-input-label">
+                        {label}
+                        {required && <span className="text-danger ms-1">*</span>}
+                    </label>
+                )}
 
-                {suffixText && <span className="input-suffix">{suffixText}</span>}
-
-                {endIcon && <div className="input-end-icon">{endIcon}</div>}
+                {suffixText && <span className="android-input-suffix">{suffixText}</span>}
+                {endIcon && <div className="android-input-end-icon">{endIcon}</div>}
             </div>
 
             {(helperText || errorMessage || counter) && (
-                <div className="subtext-container">
+                <div className="android-input-subtext-container">
                     {hasError ? (
-                        <div className="invalid-feedback d-block">{errorMessage}</div>
+                        <div className="android-input-error-text">{errorMessage}</div>
                     ) : helperText ? (
-                        <div className="form-text text-muted">{helperText}</div>
+                        <div className="android-input-helper-text">{helperText}</div>
                     ) : <div />}
 
                     {counter && (
-                        <span className="input-counter">
+                        <span className="android-input-counter">
                             {currentLength}{maxLen ? `/${maxLen}` : ""}
                         </span>
                     )}

@@ -4,7 +4,7 @@ import {InputTypes} from "../../../types/InputTypes.tsx";
 import VariantList from "../../VariantList.tsx";
 
 import {Fragment} from "react";
-import AndroidInput from "../../../components/input/AndroidInput.tsx";
+import AndroidInput from "../../../components/inputs/AndroidInput.tsx";
 
 const StyleTypeList: Array<{ label: string; styleType: AndroidInputStyleTypes }> = [
     { label: "Outlined", styleType: AndroidInputStyleTypes.OUTLINED },

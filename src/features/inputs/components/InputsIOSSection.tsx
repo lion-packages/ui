@@ -1,7 +1,7 @@
 import VariantList from "../../VariantList.tsx";
 import { iOSInputStyleTypes } from "../../../types/IOS/iOSInputStyleTypes.tsx";
 import { iOSInputShapeTypes } from "../../../types/IOS/iOSInputShapeTypes.tsx";
-import { IOSInput } from "../../../components/input/IOSInput.tsx";
+import { IOSInput } from "../../../components/inputs/IOSInput.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
 
 import React, { Fragment, useState } from "react";

@@ -61,17 +61,23 @@ export function IOSInput({
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
 
+    const containerClasses = [
+        "ios-input-container",
+        `ios-variant-${variant}`,
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
+
     const wrapperClasses = [
         "ios-input-wrapper",
-        `style-${normalizedStyle}`,
-        `shape-${normalizedShape}`,
-        `variant-${variant}`,
-        `size-${sizeType}`,
+        `ios-style-${normalizedStyle}`,
+        `ios-shape-${normalizedShape}`,
+        `ios-size-${sizeType}`,
         isFocused ? "is-focused" : "",
         hasError ? "has-error" : "",
         disabled ? "is-disabled" : "",
         readOnly ? "is-readonly" : "",
-        className,
     ]
         .filter(Boolean)
         .join(" ");
@@ -104,7 +110,7 @@ export function IOSInput({
     const currentValue = value !== undefined ? value : internalValue;
 
     return (
-        <div className="ios-input-container">
+        <div className={containerClasses}>
             {label && (
                 <label htmlFor={inputId} className="ios-input-label">
                     {label}
