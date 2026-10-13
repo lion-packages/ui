@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LION UI LIBRARY - iOS INPUT SYSTEM (CORRECTED SHAPES)
+   LION UI LIBRARY - IOS INPUT SYSTEM (STANDARDIZED & ISOLATED)
    ========================================================================== */
 
 .ios-input-container {
@@ -37,47 +37,64 @@
     transition: all 0.2s ease-in-out;
     box-sizing: border-box;
     width: 100%;
-    overflow: hidden; /* Asegura que el contenido respete los bordes redondeados */
+    overflow: hidden;
 }
 
-/* --- Sizes --- */
-.ios-input-wrapper.size-sx { min-height: 30px; font-size: 12px; padding: 0 8px; }
-.ios-input-wrapper.size-sm { min-height: 36px; font-size: 14px; padding: 0 10px; }
-.ios-input-wrapper.size-md { min-height: 44px; font-size: 16px; padding: 0 14px; }
-.ios-input-wrapper.size-lg { min-height: 52px; font-size: 18px; padding: 0 16px; }
+/* --- Sizes (Scoped with ios-size-) --- */
+.ios-input-wrapper.ios-size-sx {
+    min-height: 30px;
+    font-size: 12px;
+    padding: 0 8px;
+}
 
-/* --- Shapes (Prioridad de geometría explícita) --- */
-.ios-input-wrapper.shape-rounded {
+.ios-input-wrapper.ios-size-sm {
+    min-height: 36px;
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+.ios-input-wrapper.ios-size-md {
+    min-height: 44px;
+    font-size: 16px;
+    padding: 0 14px;
+}
+
+.ios-input-wrapper.ios-size-lg {
+    min-height: 52px;
+    font-size: 18px;
+    padding: 0 16px;
+}
+
+/* --- Shapes (Scoped with ios-shape-) --- */
+.ios-input-wrapper.ios-shape-rounded {
     border-radius: 12px !important;
 }
 
-.ios-input-wrapper.shape-pill {
+.ios-input-wrapper.ios-shape-pill {
     border-radius: 9999px !important;
     padding-left: 18px !important;
     padding-right: 18px !important;
 }
 
-.ios-input-wrapper.shape-square {
+.ios-input-wrapper.ios-shape-square {
     border-radius: 4px !important;
 }
 
-/* --- Style Types --- */
+/* --- Style Types (Scoped with ios-style-) --- */
 
-/* 1. Rounded Border / Outlined / General */
-.ios-input-wrapper.style-rounded-border,
-.ios-input-wrapper.style-outlined {
+.ios-input-wrapper.ios-style-rounded-border,
+.ios-input-wrapper.ios-style-outlined {
     border: 1.5px solid var(--ios-input-border-color);
     background-color: transparent;
 }
 
-.ios-input-wrapper.style-rounded-border.is-focused,
-.ios-input-wrapper.style-outlined.is-focused {
-    border-color: var(--active-variant-color, var(--ios-input-focus-color));
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--active-variant-color, var(--ios-input-focus-color)) 20%, transparent);
+.ios-input-wrapper.ios-style-rounded-border.is-focused,
+.ios-input-wrapper.ios-style-outlined.is-focused {
+    border-color: var(--ios-active-color, var(--ios-input-focus-color));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ios-active-color, var(--ios-input-focus-color)) 20%, transparent);
 }
 
-/* 2. Form Style (Estilo celda de ajustes iOS) */
-.ios-input-wrapper.style-form {
+.ios-input-wrapper.ios-style-form {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid var(--ios-input-border-color);
@@ -85,42 +102,74 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
-.ios-input-wrapper.style-form.is-focused {
-    border-bottom-color: var(--active-variant-color, var(--ios-input-focus-color));
+
+.ios-input-wrapper.ios-style-form.is-focused {
+    border-bottom-color: var(--ios-active-color, var(--ios-input-focus-color));
     box-shadow: none;
 }
 
-/* 3. Filled Style */
-.ios-input-wrapper.style-filled {
+.ios-input-wrapper.ios-style-filled {
     background-color: var(--bs-tertiary-bg, #f1f3f5);
     border: 1px solid transparent;
 }
-.ios-input-wrapper.style-filled.is-focused {
+
+.ios-input-wrapper.ios-style-filled.is-focused {
     background-color: var(--ios-input-bg);
-    border-color: var(--active-variant-color, var(--ios-input-focus-color));
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--active-variant-color, var(--ios-input-focus-color)) 20%, transparent);
+    border-color: var(--ios-active-color, var(--ios-input-focus-color));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ios-active-color, var(--ios-input-focus-color)) 20%, transparent);
 }
 
-/* 4. Plain Style */
-.ios-input-wrapper.style-plain {
+.ios-input-wrapper.ios-style-plain {
     background-color: transparent;
     border: none;
     padding: 0 !important;
 }
 
-/* --- Variants Mapping --- */
-.ios-input-wrapper.variant-primary { --active-variant-color: var(--bs-primary, #0d6efd); }
-.ios-input-wrapper.variant-secondary { --active-variant-color: var(--bs-secondary, #6c757d); }
-.ios-input-wrapper.variant-success { --active-variant-color: var(--bs-success, #198754); }
-.ios-input-wrapper.variant-danger { --active-variant-color: var(--bs-danger, #dc3545); }
-.ios-input-wrapper.variant-warning { --active-variant-color: var(--bs-warning, #ffc107); }
-.ios-input-wrapper.variant-info { --active-variant-color: var(--bs-info, #0dcaf0); }
-.ios-input-wrapper.variant-dark { --active-variant-color: var(--bs-dark, #212529); }
+/* --- Variants Mapping (Scoped with ios-variant-) --- */
+.ios-input-container.ios-variant-primary {
+    --ios-active-color: var(--bs-primary, #0d6efd);
+}
 
-.ios-input-wrapper.variant-lion-packages { --active-variant-color: var(--lion-packages, #6f42c1); }
-.ios-input-wrapper.variant-lion-parking { --active-variant-color: var(--lion-parking, #20c997); }
-.ios-input-wrapper.variant-lion-tech { --active-variant-color: var(--lion-tech, #fd7e14); }
-.ios-input-wrapper.variant-lion-glam { --active-variant-color: var(--lion-glam, #e83e8c); }
+.ios-input-container.ios-variant-secondary {
+    --ios-active-color: var(--bs-secondary, #6c757d);
+}
+
+.ios-input-container.ios-variant-success {
+    --ios-active-color: var(--bs-success, #198754);
+}
+
+.ios-input-container.ios-variant-danger {
+    --ios-active-color: var(--bs-danger, #dc3545);
+}
+
+.ios-input-container.ios-variant-warning {
+    --ios-active-color: var(--bs-warning, #ffc107);
+}
+
+.ios-input-container.ios-variant-info {
+    --ios-active-color: var(--bs-info, #0dcaf0);
+}
+
+.ios-input-container.ios-variant-dark {
+    --ios-active-color: var(--bs-dark, #212529);
+}
+
+/* Custom Lion Variants */
+.ios-input-container.ios-variant-lion-packages {
+    --ios-active-color: var(--lion-packages, #6f42c1);
+}
+
+.ios-input-container.ios-variant-lion-parking {
+    --ios-active-color: var(--lion-parking, #20c997);
+}
+
+.ios-input-container.ios-variant-lion-tech {
+    --ios-active-color: var(--lion-tech, #fd7e14);
+}
+
+.ios-input-container.ios-variant-lion-glam {
+    --ios-active-color: var(--lion-glam, #e83e8c);
+}
 
 /* --- States --- */
 .ios-input-wrapper.has-error {
@@ -155,7 +204,8 @@
     opacity: 1;
 }
 
-.ios-input-icon-left, .ios-input-icon-right {
+.ios-input-icon-left,
+.ios-input-icon-right {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,11 +213,23 @@
     flex-shrink: 0;
 }
 
-.ios-input-icon-left { margin-right: 8px; }
-.ios-input-icon-right { margin-left: 8px; }
+.ios-input-icon-left {
+    margin-right: 8px;
+}
 
-.input-prefix { margin-right: 6px; color: var(--ios-input-placeholder-color); }
-.input-suffix { margin-left: 6px; color: var(--ios-input-placeholder-color); }
+.ios-input-icon-right {
+    margin-left: 8px;
+}
+
+.input-prefix {
+    margin-right: 6px;
+    color: var(--ios-input-placeholder-color);
+}
+
+.input-suffix {
+    margin-left: 6px;
+    color: var(--ios-input-placeholder-color);
+}
 
 .ios-clear-button {
     border: none;
@@ -186,10 +248,21 @@
     flex-shrink: 0;
     transition: background 0.2s;
 }
+
 .ios-clear-button:hover {
     background: var(--bs-secondary, #6c757d);
     color: #fff;
 }
 
-.ios-input-helper-text { font-size: 12px; color: var(--ios-input-placeholder-color); margin-left: 4px; }
-.ios-input-error-text { font-size: 12px; color: var(--ios-input-error-color); margin-left: 4px; font-weight: 500; }
+.ios-input-helper-text {
+    font-size: 12px;
+    color: var(--ios-input-placeholder-color);
+    margin-left: 4px;
+}
+
+.ios-input-error-text {
+    font-size: 12px;
+    color: var(--ios-input-error-color);
+    margin-left: 4px;
+    font-weight: 500;
+}

@@ -43,8 +43,6 @@ export default function App() {
                         </Route>
 
                         <Route path={"inputs"} element={<InputsSection />}>
-                            <Route path={"custom"} element={<InputsAndroidSection />} />
-
                             <Route path={"android"} element={<InputsAndroidSection />} />
 
                             <Route path={"ios"} element={<InputsIOSSection />} />
