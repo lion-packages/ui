@@ -1,0 +1,362 @@
+/* ==========================================================================
+   Android Material Design 3 - Base Input Configuration
+   ========================================================================== */
+
+/* 1. Main container: Required for relative positioning of the label */
+.android-input {
+    --input-color: var(--bs-primary, #0d6efd);
+    --input-label-bg: var(--bs-body-bg, #ffffff);
+    --input-filled-bg: color-mix(in srgb, var(--input-color) 8%, var(--bs-light, #f8f9fa));
+    --input-filled-disabled-bg: var(--bs-secondary-bg, rgba(239, 239, 239, 0.5));
+    --input-border-color: var(--bs-border-color, #ccc);
+    --input-error-color: var(--bs-danger, #dc3545);
+
+    position: relative;
+    padding-top: 8px;
+    width: 100%;
+    font-family: var(--bs-body-font-family, Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    transition: opacity 0.2s ease;
+}
+
+/* ==========================================================================
+   2. Text Input Field (.form-control) - Default Normal Size
+   ========================================================================== */
+
+.android-input .form-control {
+    background-color: transparent; /* Transparent by default (Outlined) */
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--bs-border-radius-sm, 4px);
+    padding: 14.5px 14px;
+    height: auto;
+    line-height: 1.4375em;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s, padding 0.2s, font-size 0.2s;
+    box-shadow: none;
+    font: inherit;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.00938em;
+    color: var(--bs-body-color, #212529);
+}
+
+/* Outlined Focus State */
+.android-input-outlined .form-control:focus {
+    border-color: var(--input-color);
+    box-shadow: 0 0 0 1px var(--input-color);
+}
+
+/* ==========================================================================
+   3. Filled Style - Default Normal Size
+   ========================================================================== */
+
+.android-input-filled {
+    padding-top: 0; /* Does not require top outer padding like Outlined */
+}
+
+.android-input-filled .form-control {
+    background-color: var(--input-filled-bg);
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 4px 4px 0 0 !important;
+    padding: 22px 14px 6px 14px; /* Top padding reserved for floating label */
+}
+
+.android-input-filled .form-control:focus {
+    border-bottom: 2px solid var(--input-color);
+    box-shadow: none;
+    background-color: color-mix(in srgb, var(--input-color) 12%, var(--bs-light, #f8f9fa));
+}
+
+/* ==========================================================================
+   4. Size Variants (Normal vs Small)
+   ========================================================================== */
+
+/* --- Normal Size (Default Base Rules) --- */
+.android-input-shape-normal .form-control,
+.android-input:not([class*="android-input-shape-"]) .form-control {
+    padding: 14.5px 14px;
+    font-size: 1rem;
+}
+
+/* --- Small Size --- */
+.android-input-shape-small .form-control {
+    padding: 8.5px 12px;
+    font-size: 0.875rem;
+}
+
+/* Filled Style Specific Overrides per Size */
+.android-input-filled.android-input-shape-normal .form-control,
+.android-input-filled:not([class*="android-input-shape-"]) .form-control {
+    padding: 22px 14px 6px 14px;
+}
+
+.android-input-filled.android-input-shape-small .form-control {
+    padding: 16px 12px 4px 12px;
+}
+
+/* ==========================================================================
+   5. The Label: Initial and Floating Effect
+   ========================================================================== */
+
+.android-input label {
+    position: absolute;
+    left: 0.75rem;
+    padding: 0 0.25rem;
+    pointer-events: none;
+    color: var(--bs-secondary-color, #777);
+    transition: all 0.2s ease-out;
+    z-index: 1;
+    font-weight: 400;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: calc(100% - 1.5rem);
+}
+
+/* --- Resting Positions (Outlined) --- */
+.android-input-outlined.android-input-shape-normal label,
+.android-input-outlined:not([class*="android-input-shape-"]) label {
+    top: 1.45rem;
+    font-size: 1rem;
+}
+
+.android-input-outlined.android-input-shape-small label {
+    top: 1.05rem;
+    font-size: 0.875rem;
+}
+
+/* --- Outlined Floating Effect --- */
+.android-input-outlined input:focus ~ label,
+.android-input-outlined input:not(:placeholder-shown) ~ label {
+    top: -2px !important;
+    left: 0.7rem;
+    font-size: 0.75rem !important;
+    color: var(--input-color);
+    background-color: var(--input-label-bg);
+    z-index: 2;
+}
+
+/* --- Resting Positions (Filled) --- */
+.android-input-filled.android-input-shape-normal label,
+.android-input-filled:not([class*="android-input-shape-"]) label {
+    top: 1rem;
+    font-size: 1rem;
+}
+
+.android-input-filled.android-input-shape-small label {
+    top: 0.6rem;
+    font-size: 0.875rem;
+}
+
+/* --- Filled Floating Effect --- */
+.android-input-filled.android-input-shape-normal input:focus ~ label,
+.android-input-filled.android-input-shape-normal input:not(:placeholder-shown) ~ label,
+.android-input-filled:not([class*="android-input-shape-"]) input:focus ~ label,
+.android-input-filled:not([class*="android-input-shape-"]) input:not(:placeholder-shown) ~ label {
+    top: 4px !important;
+    left: 0.75rem;
+    font-size: 0.75rem !important;
+    color: var(--input-color);
+    background-color: transparent;
+    z-index: 2;
+}
+
+.android-input-filled.android-input-shape-small input:focus ~ label,
+.android-input-filled.android-input-shape-small input:not(:placeholder-shown) ~ label {
+    top: 2px !important;
+    left: 0.75rem;
+    font-size: 0.68rem !important;
+    color: var(--input-color);
+    background-color: transparent;
+    z-index: 2;
+}
+
+/* Color restoration when blurred but filled */
+.android-input input:not(:placeholder-shown):not(:focus) ~ label {
+    color: var(--bs-secondary-color, #777);
+}
+
+/* ==========================================================================
+   Manejo de Placeholder para evitar superposición con el Label flotante
+   ========================================================================== */
+
+/* 1. Ocultar el texto del placeholder cuando el input NO tiene el foco */
+.android-input input:not(:focus)::placeholder {
+    color: transparent !important;
+    opacity: 0 !important;
+}
+
+/* 2. Mostrar el placeholder suavemente SOLO cuando el usuario hace clic/foco */
+.android-input input:focus::placeholder {
+    color: var(--bs-secondary-color, #aaa);
+    opacity: 0.7;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* ==========================================================================
+   6. Icons, Prefixes, and Suffixes Support
+   ========================================================================== */
+
+.android-input .input-start-icon,
+.android-input .input-end-icon {
+    position: absolute;
+    top: calc(50% + 4px);
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    color: var(--bs-secondary-color, #777);
+    z-index: 3;
+}
+
+.android-input-filled .input-start-icon,
+.android-input-filled .input-end-icon {
+    top: 50%;
+}
+
+.android-input .input-start-icon { left: 14px; }
+.android-input .input-end-icon { right: 14px; }
+
+.android-input.has-start-icon .form-control { padding-left: 40px; }
+.android-input.has-end-icon .form-control { padding-right: 40px; }
+
+.android-input.has-start-icon label { left: 2.25rem; }
+
+.android-input-outlined.has-start-icon input:focus ~ label,
+.android-input-outlined.has-start-icon input:not(:placeholder-shown) ~ label {
+    left: 0.7rem;
+}
+
+.android-input-filled.has-start-icon input:focus ~ label,
+.android-input-filled.has-start-icon input:not(:placeholder-shown) ~ label {
+    left: 2.25rem;
+}
+
+.android-input .input-prefix,
+.android-input .input-suffix {
+    position: absolute;
+    top: calc(50% + 4px);
+    transform: translateY(-50%);
+    color: var(--bs-secondary-color, #777);
+    font-size: 1rem;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.android-input-filled .input-prefix,
+.android-input-filled .input-suffix {
+    top: 50%;
+}
+
+.android-input .input-prefix { left: 14px; }
+.android-input .input-suffix { right: 14px; }
+.android-input.has-start-icon .input-prefix { left: 40px; }
+.android-input.has-end-icon .input-suffix { right: 40px; }
+
+/* ==========================================================================
+   7. Error Handling (is-invalid)
+   ========================================================================== */
+
+.android-input .form-control.is-invalid {
+    border-color: var(--input-error-color) !important;
+    box-shadow: 0 0 0 1px var(--input-error-color);
+    background-image: none !important;
+}
+
+.android-input-filled .form-control.is-invalid {
+    box-shadow: none;
+    border-bottom: 2px solid var(--input-error-color) !important;
+}
+
+.android-input input.is-invalid:focus ~ label,
+.android-input input.is-invalid:not(:placeholder-shown) ~ label {
+    color: var(--input-error-color) !important;
+}
+
+/* ==========================================================================
+   8. Disabled & Readonly States (MD3 Opacity Standard)
+   ========================================================================== */
+
+.android-input:has(.form-control:disabled) {
+    cursor: not-allowed;
+    opacity: 0.50;
+}
+
+.android-input-outlined .form-control:disabled {
+    background-color: transparent !important;
+    border-color: var(--input-border-color);
+    cursor: not-allowed;
+    -webkit-text-fill-color: inherit;
+}
+
+.android-input-filled .form-control:disabled {
+    background-color: var(--input-filled-disabled-bg) !important;
+    border-bottom: 1px solid var(--input-border-color);
+    cursor: not-allowed;
+    -webkit-text-fill-color: inherit;
+}
+
+.android-input input:disabled ~ label {
+    cursor: not-allowed;
+}
+
+.android-input .form-control:read-only:not(:disabled) {
+    color: rgba(0, 0, 0, 0.60);
+    border-color: var(--input-border-color);
+    cursor: default;
+}
+
+.android-input input:read-only:not(:disabled) ~ label {
+    color: rgba(0, 0, 0, 0.60);
+}
+
+.android-input .form-control:read-only:focus {
+    border-color: var(--input-border-color);
+    box-shadow: none;
+}
+
+.android-input input:read-only:focus ~ label {
+    color: rgba(0, 0, 0, 0.60);
+}
+
+/* ==========================================================================
+   9. Subtext / Error / Counter Styles
+   ========================================================================== */
+
+.android-input .subtext-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.25rem 0.25rem 0 0.25rem;
+}
+
+.android-input .invalid-feedback,
+.android-input .form-text.text-muted {
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+}
+
+.android-input .input-counter {
+    margin-left: auto;
+    margin-top: 0.25rem;
+    color: var(--bs-secondary-color, #777);
+    font-size: 0.78rem;
+}
+
+/* ==========================================================================
+   10. Color Variants Mapping
+   ========================================================================== */
+
+.android-input.input-primary { --input-color: var(--bs-primary); }
+.android-input.input-secondary { --input-color: var(--bs-secondary); }
+.android-input.input-success { --input-color: var(--bs-success); }
+.android-input.input-danger { --input-color: var(--bs-danger); }
+.android-input.input-warning { --input-color: var(--bs-warning); }
+.android-input.input-info { --input-color: var(--bs-info); }
+.android-input.input-light { --input-color: var(--bs-secondary-color); }
+.android-input.input-dark { --input-color: var(--bs-dark); }
+
+/* Custom Lion Variants */
+.android-input.input-lion-packages { --input-color: var(--lion-packages, var(--bs-indigo, #6610f2)); }
+.android-input.input-lion-parking { --input-color: var(--lion-parking, var(--bs-orange, #fd7e14)); }
+.android-input.input-lion-tech { --input-color: var(--lion-tech, var(--bs-teal, #20c997)); }
+.android-input.input-lion-glam { --input-color: var(--lion-glam, var(--bs-pink, #d63384)); }
