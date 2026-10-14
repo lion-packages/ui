@@ -1,0 +1,60 @@
+:root {
+    --lion-packages: #ff8731;
+    --lion-parking: #ff8731;
+    --lion-tech: #B11226;
+    --lion-glam: #FF69b4;
+    --lion-black: #111111;
+    --lion-white: #FFFFFF;
+}
+
+/** Background Colors */
+
+.bg-lion-black {
+    background-color: var(--lion-black);
+}
+
+.bg-lion-white {
+    background-color: var(--lion-white);
+}
+
+.bg-lion-packages {
+    background-color: var(--lion-packages);
+}
+
+.bg-lion-parking {
+    background-color: var(--lion-parking);
+}
+
+.bg-lion-tech {
+    background-color: var(--lion-tech);
+}
+
+.bg-lion-glam {
+    background-color: var(--lion-glam);
+}
+
+/** Text Colors */
+
+.text-lion-black {
+    color: var(--lion-black);
+}
+
+.text-lion-white {
+    color: var(--lion-white);
+}
+
+.text-lion-packages {
+    color: var(--lion-packages);
+}
+
+.text-lion-parking {
+    color: var(--lion-parking);
+}
+
+.text-lion-glam {
+    color: var(--lion-glam);
+}
+
+.text-lion-tech {
+    color: var(--lion-tech);
+}

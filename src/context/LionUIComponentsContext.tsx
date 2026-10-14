@@ -1,30 +1,54 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, type FC, useContext, useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
-import type {LionUIContextProps, LionUIComponentsProviderProps, TargetPlatform} from '../types/Types';
+import { PlatformTypes } from "../types/PlatformTypes.tsx";
+import type { LionUIContextProps } from "../interfaces/LionUIContextProps.tsx";
+import type { LionUIComponentsProviderProps } from "../interfaces/LionUIComponentsProviderProps.tsx";
+import type { LionUIState } from "../interfaces/LionUIState.tsx";
 
 const LionUIComponentsContext = createContext<LionUIContextProps | undefined>(undefined);
 
-export const LionUIComponentsProvider: React.FC<LionUIComponentsProviderProps> = ({
+export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
                                                                                       children,
                                                                                       defaultPlatform,
                                                                                   }) => {
-    const [platform, setPlatform] = useState<TargetPlatform>(() => {
-        if (defaultPlatform) return defaultPlatform;
-        const capPlatform = Capacitor.getPlatform() as TargetPlatform;
-        return capPlatform === 'ios' || capPlatform === 'android' ? capPlatform : 'web';
+    const [state, setState] = useState<LionUIState>(() => {
+        let initialPlatform: PlatformTypes = PlatformTypes.WEB;
+
+        if (defaultPlatform) {
+            initialPlatform = defaultPlatform;
+        } else {
+            const capPlatform = Capacitor.getPlatform();
+            if (capPlatform === 'ios' || capPlatform === 'android') {
+                initialPlatform = capPlatform as PlatformTypes;
+            }
+        }
+
+        return {
+            platform: initialPlatform,
+            loading: false,
+            reload: false,
+            modal: null,
+        };
     });
+
+    const updateState = (partial: Partial<LionUIState>) => {
+        setState((prev) => ({ ...prev, ...partial }));
+    };
 
     useEffect(() => {
         if (!defaultPlatform) {
-            const capPlatform = Capacitor.getPlatform() as TargetPlatform;
-            const detected: TargetPlatform =
-                capPlatform === 'ios' || capPlatform === 'android' ? capPlatform : 'web';
-            setPlatform(detected);
+            const capPlatform = Capacitor.getPlatform();
+
+            const detected: PlatformTypes = capPlatform === 'ios' || capPlatform === 'android' ? (capPlatform as PlatformTypes) : PlatformTypes.WEB;
+
+            if (detected !== state.platform) {
+                setState((prev) => ({ ...prev, platform: detected }));
+            }
         }
-    }, [defaultPlatform]);
+    }, [defaultPlatform, state.platform]);
 
     return (
-        <LionUIComponentsContext.Provider value={{ platform, setPlatform }}>
+        <LionUIComponentsContext.Provider value={{ state, updateState }}>
             {children}
         </LionUIComponentsContext.Provider>
     );
@@ -32,8 +56,10 @@ export const LionUIComponentsProvider: React.FC<LionUIComponentsProviderProps> =
 
 export const useLionUI = (): LionUIContextProps => {
     const context = useContext(LionUIComponentsContext);
+
     if (!context) {
         throw new Error('useLionUI debe ser utilizado dentro de un LionUIComponentsProvider');
     }
+
     return context;
 };

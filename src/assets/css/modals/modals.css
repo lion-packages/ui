@@ -1,0 +1,236 @@
+/* ==========================================
+   GLOBAL BACKDROP ADJUSTMENT (Exclusive for modals)
+   ========================================== */
+.modal-backdrop.web-modal-backdrop,
+.modal-backdrop.ios-modal-backdrop,
+.modal-backdrop.android-modal-backdrop,
+.web-modal ~ .modal-backdrop,
+.ios-modal ~ .modal-backdrop,
+.android-modal ~ .modal-backdrop {
+    opacity: 0.45;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+
+/* ==========================================
+   1. WEB & BASE MODAL STYLES (.web-modal)
+   ========================================== */
+
+.web-modal .modal-content {
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden;
+}
+
+.web-modal .custom-modal-title {
+    font-size: 1.15rem;
+    color: #212529;
+}
+
+.web-modal .custom-btn-group .btn-modal {
+    width: auto;
+    flex: 1 1 0;
+    text-align: center;
+}
+
+.web-modal .custom-btn-group .btn-modal:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 1px;
+    height: auto;
+    background-color: var(--bs-modal-footer-border-color);
+}
+
+/* Specific and encapsulated base button for Web Modal */
+.web-modal .btn-modal {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: inherit !important;
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 16px;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.15);
+}
+
+.web-modal .btn-modal:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.web-modal .btn-modal:active {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.web-modal .btn-modal:focus,
+.web-modal .btn-modal:focus-visible,
+.web-modal .btn-modal:focus-within {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+
+/* ==========================================
+   2. iOS STYLE DESIGN (.ios-modal)
+   ========================================== */
+
+.ios-modal .modal-content {
+    border: none !important;
+    border-radius: 22px !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18), 0 0 1px rgba(0, 0, 0, 0.2) !important;
+    overflow: hidden;
+}
+
+.ios-modal .custom-modal-header {
+    border-bottom: 1px solid rgba(60, 60, 67, 0.12) !important;
+    position: relative;
+}
+
+.ios-modal .custom-modal-title {
+    font-size: 1.1rem;
+    letter-spacing: -0.2px;
+    color: var(--lion-black, #000);
+}
+
+.ios-modal .custom-modal-header .btn-close {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%) !important;
+    margin: 0 !important;
+    padding: 8px !important;
+    background-size: 10px;
+    border-radius: 50%;
+    opacity: 0.8 !important;
+}
+
+.ios-modal .custom-modal-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.ios-modal .custom-modal-footer {
+    border-top: 1px solid rgba(60, 60, 67, 0.12) !important;
+    background-color: transparent !important;
+}
+
+.ios-modal .custom-btn-group .btn-modal {
+    flex: 1 1 0;
+    padding: 14px 10px;
+    font-size: 1rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.ios-modal .btn-modal-cancel {
+    font-weight: 600;
+}
+
+.ios-modal .custom-btn-group .btn-modal:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background-color: rgba(60, 60, 67, 0.12);
+}
+
+.ios-modal .btn-modal {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.ios-modal .btn-modal:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+.ios-modal .btn-modal:active {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+
+/* ==========================================
+   3. ANDROID / MATERIAL DESIGN STYLE (.android-modal)
+   ========================================== */
+
+.android-modal .modal-content {
+    border: none !important;
+    border-radius: 28px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    overflow: hidden;
+}
+
+.android-modal .custom-modal-header {
+    border-bottom: none !important;
+    padding-top: 24px;
+    padding-bottom: 8px;
+}
+
+.android-modal .custom-modal-title {
+    font-size: 1.35rem;
+    color: #1d1b20;
+    font-weight: 500 !important;
+}
+
+.android-modal .custom-modal-body {
+    font-size: 0.95rem;
+}
+
+.android-modal .custom-modal-footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 0 !important;
+}
+
+.android-modal .custom-btn-group .btn-modal {
+    flex: 1 1 0;
+    padding: 14px 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.android-modal .custom-btn-group .btn-modal:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -1px;
+    width: 1px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.android-modal .btn-modal {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.android-modal .btn-modal:hover {
+    background-color: rgba(103, 80, 164, 0.08) !important;
+    color: var(--lion-black);
+}
+
+.android-modal .btn-modal:active {
+    background-color: rgba(103, 80, 164, 0.12) !important;
+    color: var(--lion-black);
+}

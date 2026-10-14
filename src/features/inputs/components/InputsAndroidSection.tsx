@@ -1,9 +1,9 @@
-import {AndroidInputStyleTypes} from "../../../types/Android/AndroidInputStyleTypes.tsx";
-import {AndroidInputShapeTypes} from "../../../types/Android/AndroidInputShapeTypes.tsx";
-import {InputTypes} from "../../../types/InputTypes.tsx";
+import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyleTypes.tsx";
+import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
+import { InputTypes } from "../../../types/InputTypes.tsx";
 import VariantList from "../../VariantList.tsx";
 
-import {Fragment} from "react";
+import { Fragment, useState } from "react";
 import AndroidInput from "../../../components/inputs/AndroidInput.tsx";
 
 const StyleTypeList: Array<{ label: string; styleType: AndroidInputStyleTypes }> = [
@@ -17,6 +17,12 @@ const ShapeList: Array<{ label: string; shape: AndroidInputShapeTypes }> = [
 ];
 
 export default function InputsAndroidSection() {
+    const [inputValue, setInputValue] = useState<string>("");
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+    };
+
     return (
         <Fragment>
             <h2>Inputs (Android MD3)</h2>
@@ -26,8 +32,10 @@ export default function InputsAndroidSection() {
                     <h4 className="text-primary mb-3">{styleLabel} Inputs</h4>
 
                     {ShapeList.map(({ label: shapeLabel, shape }) => (
-                        <div key={`${styleType}-${shape}`} className="ms-3 mb-5">
-                            <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                        <div key={`${styleType}-${shape}`} className="mb-5">
+                            <div className={"ms-3"}>
+                                <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                            </div>
 
                             {/* Enabled State */}
                             <div className="mb-4">
@@ -41,10 +49,11 @@ export default function InputsAndroidSection() {
                                                 shape={shape}
                                                 variant={variant}
                                                 label={`Label (${variant})`}
-                                                helperText="Texto de ayuda opcional"
-                                                className={`input-${variant}`}
+                                                helperText="Optional helper text"
                                                 required={true}
-                                                placeholder={"Custom Placeholder..."}
+                                                placeholder="Custom Placeholder..."
+                                                value={inputValue}
+                                                onChange={handleChange}
                                             />
                                         </div>
                                     ))}
@@ -62,13 +71,11 @@ export default function InputsAndroidSection() {
                                                 styleType={styleType}
                                                 shape={shape}
                                                 variant={variant}
-                                                label="Usuario"
-                                                value="Usuario"
+                                                label="Username"
                                                 defaultValue="lion.developer"
-                                                helperText="Campo completado"
-                                                className={`input-${variant}`}
-                                                placeholder={"Custom Placeholder..."}
-                                                autoComplete={"off"}
+                                                helperText="Completed field"
+                                                placeholder="Custom Placeholder..."
+                                                autoComplete="off"
                                             />
                                         </div>
                                     ))}
@@ -86,11 +93,10 @@ export default function InputsAndroidSection() {
                                                 styleType={styleType}
                                                 shape={shape}
                                                 variant={variant}
-                                                label="Correo electrónico"
-                                                defaultValue="correo-invalido"
-                                                error="El formato del correo no es válido"
-                                                className={`input-${variant}`}
-                                                placeholder={"Custom Placeholder..."}
+                                                label="Email Address"
+                                                defaultValue="invalid-email"
+                                                error="The email format is invalid"
+                                                placeholder="Custom Placeholder..."
                                             />
                                         </div>
                                     ))}
@@ -108,13 +114,11 @@ export default function InputsAndroidSection() {
                                                 styleType={styleType}
                                                 shape={shape}
                                                 variant={variant}
-                                                value={"value"}
-                                                label="Deshabilitado"
-                                                defaultValue="Valor bloqueado"
+                                                label="Disabled"
+                                                defaultValue="Locked value"
                                                 disabled={true}
-                                                helperText="No editable"
-                                                className={`input-${variant}`}
-                                                placeholder={"Custom Placeholder..."}
+                                                helperText="Non-editable"
+                                                placeholder="Custom Placeholder..."
                                             />
                                         </div>
                                     ))}
@@ -126,19 +130,17 @@ export default function InputsAndroidSection() {
                                 <span className="text-muted d-block mb-2 small font-monospace">ReadOnly</span>
                                 <div className="row g-3">
                                     {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-disabled`} className="col-12 col-md-6 col-lg-4">
+                                        <div key={`${styleType}-${shape}-${variant}-readonly`} className="col-12 col-md-6 col-lg-4">
                                             <AndroidInput
                                                 type={InputTypes.TEXT}
                                                 styleType={styleType}
                                                 shape={shape}
                                                 variant={variant}
-                                                value={"value"}
                                                 label="ReadOnly"
-                                                defaultValue="Valor bloqueado"
+                                                defaultValue="Locked value"
                                                 readOnly={true}
-                                                helperText="No editable"
-                                                className={`input-${variant}`}
-                                                placeholder={"Custom Placeholder..."}
+                                                helperText="Non-editable"
+                                                placeholder="Custom Placeholder..."
                                             />
                                         </div>
                                     ))}

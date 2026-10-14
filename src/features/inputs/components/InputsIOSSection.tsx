@@ -1,10 +1,10 @@
 import VariantList from "../../VariantList.tsx";
 import { iOSInputStyleTypes } from "../../../types/IOS/iOSInputStyleTypes.tsx";
 import { iOSInputShapeTypes } from "../../../types/IOS/iOSInputShapeTypes.tsx";
-import { IOSInput } from "../../../components/inputs/IOSInput.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
 
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
+import IOSInput from "../../../components/inputs/IOSInput.tsx";
 
 const StyleTypeList: Array<{ label: string; styleType: iOSInputStyleTypes }> = [
     { label: "Form", styleType: iOSInputStyleTypes.FORM },
@@ -33,8 +33,10 @@ export default function InputsIOSSection() {
                     <h4 className="text-primary mb-3">{styleLabel} Inputs</h4>
 
                     {ShapeList.map(({ label: shapeLabel, shape }) => (
-                        <div key={`${styleType}-${shape}`} className="ms-3 mb-5">
-                            <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                        <div key={`${styleType}-${shape}`} className="mb-5">
+                            <div className={"ms-3"}>
+                                <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                            </div>
 
                             {/* Enabled State */}
                             <div className="mb-4">

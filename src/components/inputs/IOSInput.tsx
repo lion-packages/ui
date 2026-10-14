@@ -21,7 +21,7 @@ export interface IOSInputProps
     clearable?: boolean;
 }
 
-export function IOSInput({
+export default function IOSInput({
                              type = InputTypes.TEXT,
                              styleType = iOSInputStyleTypes.ROUNDED_BORDER,
                              shape = iOSInputShapeTypes.ROUNDED,
@@ -161,5 +161,3 @@ export function IOSInput({
         </div>
     );
 }
-
-export default IOSInput;

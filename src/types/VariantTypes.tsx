@@ -8,6 +8,7 @@
         LIGHT: "light",
         LINK: "link",
         DARK: "dark",
+        MODAL: "modal",
         LION_PACKAGES: "lion-packages",
         LION_PARKING: "lion-parking",
         LION_TECH: "lion-tech",
