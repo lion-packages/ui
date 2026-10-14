@@ -1,10 +1,10 @@
-import React, { useId } from "react";
+import { InputHTMLAttributes, useId} from "react";
 import { InputTypes } from "../../types/InputTypes";
 import {BootstrapInputShapeTypes} from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import {BootstrapInputStyleTypes} from "../../types/Web/BootstrapInputStyleTypes.tsx";
 
 export interface BootstrapInputProps
-    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
     type?: InputTypes;
     styleType?: BootstrapInputStyleTypes;
     shape?: BootstrapInputShapeTypes;
@@ -16,7 +16,7 @@ export interface BootstrapInputProps
     error?: boolean | string;
 }
 
-export function BootstrapInput({
+export default function BootstrapInput({
                                    type = InputTypes.TEXT,
                                    styleType = BootstrapInputStyleTypes.FLOATING,
                                    shape = BootstrapInputShapeTypes.ROUNDED,
@@ -104,5 +104,3 @@ export function BootstrapInput({
         </div>
     );
 }
-
-export default BootstrapInput;

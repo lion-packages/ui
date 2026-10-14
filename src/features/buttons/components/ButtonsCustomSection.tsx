@@ -1,16 +1,15 @@
-import type {TargetPlatform} from "../../../types/Types.tsx";
-import {PlatformTypes} from "../../../types/PlatformTypes.tsx";
 import VariantList from "../../VariantList.tsx";
-import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
-import {AndroidStyleTypes} from "../../../types/Android/AndroidStyleTypes.tsx";
-import {IOSStyleTypes} from "../../../types/IOS/IOSStyleTypes.tsx";
-import {BootstrapStyleTypes} from "../../../types/Web/BootstrapStyleTypes.tsx";
-import {AndroidShapeTypes} from "../../../types/Android/AndroidShapeTypes.tsx";
-import {IOSShapeTypes} from "../../../types/IOS/IOSShapeTypes.tsx";
-import {BootstrapShapeTypes} from "../../../types/Web/BootstrapShapeTypes.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { AndroidStyleTypes } from "../../../types/Android/AndroidStyleTypes.tsx";
+import { IOSStyleTypes } from "../../../types/IOS/IOSStyleTypes.tsx";
+import { BootstrapStyleTypes } from "../../../types/Web/BootstrapStyleTypes.tsx";
+import { AndroidShapeTypes } from "../../../types/Android/AndroidShapeTypes.tsx";
+import { IOSShapeTypes } from "../../../types/IOS/IOSShapeTypes.tsx";
+import { BootstrapShapeTypes } from "../../../types/Web/BootstrapShapeTypes.tsx";
 
 import { Fragment, useState } from "react";
-import { LionButton } from "../../../components/buttons/LionButton.tsx";
+import LionButton from "../../../components/buttons/LionButton.tsx";
 
 const shapesByPlatform = {
     [PlatformTypes.ANDROID]: [
@@ -49,7 +48,7 @@ const stylesByPlatform = {
 };
 
 export default function ButtonsCustomSection() {
-    const [selectedPlatform, setSelectedPlatform] = useState<TargetPlatform>(PlatformTypes.ANDROID);
+    const [selectedPlatform, setSelectedPlatform] = useState<PlatformTypes>(PlatformTypes.ANDROID);
     const [selectedAndroidShape, setSelectedAndroidShape] = useState<AndroidShapeTypes>(AndroidShapeTypes.PILL);
     const [selectedIOSShape, setSelectedIOSShape] = useState<IOSShapeTypes>(IOSShapeTypes.CAPSULE);
     const [selectedWebShape, setSelectedWebShape] = useState<BootstrapShapeTypes>(BootstrapShapeTypes.DEFAULT);

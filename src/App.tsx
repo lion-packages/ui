@@ -1,18 +1,20 @@
-import "./assets/index.css";
-import "./assets/custom.css";
+import "./assets/css/index.css";
+import "./assets/css/custom.css";
 
-import "./assets/buttons/buttons-android.css";
-import "./assets/buttons/buttons-ios.css";
-import "./assets/buttons/buttons-web.css";
+import "./assets/css/buttons/buttons-android.css";
+import "./assets/css/buttons/buttons-ios.css";
+import "./assets/css/buttons/buttons-web.css";
 
-import "./assets/inputs/inputs-android.css";
-import "./assets/inputs/inputs-ios.css";
-import "./assets/inputs/inputs-bootstrap.css";
+import "./assets/css/inputs/inputs-android.css";
+import "./assets/css/inputs/inputs-ios.css";
+import "./assets/css/inputs/inputs-bootstrap.css";
 
-import {Fragment} from "react";
-import {Container} from "react-bootstrap";
-import {Routes, Route} from 'react-router-dom';
-import {LionUIComponentsProvider} from "./context/LionUIComponentsContext.tsx";
+import "./assets/css/modals/modals.css";
+
+import { Fragment } from "react";
+import { Container } from "react-bootstrap";
+import { Routes, Route } from 'react-router-dom';
+import { LionUIComponentsProvider } from "./context/LionUIComponentsContext.tsx";
 import Header from "./features/Header.tsx";
 import ButtonsSection from "./features/buttons/ButtonsSection.tsx";
 import ButtonsAndroidSection from "./features/buttons/components/ButtonsAndroidSection.tsx";
@@ -23,6 +25,8 @@ import InputsSection from "./features/inputs/InputsSection.tsx";
 import InputsAndroidSection from "./features/inputs/components/InputsAndroidSection.tsx";
 import InputsIOSSection from "./features/inputs/components/InputsIOSSection.tsx";
 import InputsBootstrapSection from "./features/inputs/components/InputsBootstrapSection.tsx";
+import ModalsSection from "./features/modals/ModalsSection.tsx";
+import ModalsAndroidSection from "./features/modals/components/ModalsAndroidSection.tsx";
 
 export default function App() {
     return (
@@ -50,6 +54,10 @@ export default function App() {
                             <Route path={"ios"} element={<InputsIOSSection />} />
 
                             <Route path={"web"} element={<InputsBootstrapSection />} />
+                        </Route>
+
+                        <Route path={"modals"} element={<ModalsSection />}>
+                            <Route path={"android"} element={<ModalsAndroidSection />} />
                         </Route>
                     </Routes>
                 </LionUIComponentsProvider>

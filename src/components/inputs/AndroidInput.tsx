@@ -1,10 +1,10 @@
-import React, { useId, useState } from "react";
+import {ChangeEvent, InputHTMLAttributes, ReactNode, useId, useState} from "react";
 import { InputTypes } from "../../types/InputTypes";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 
 export interface AndroidInputProps
-    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
     type?: InputTypes;
     styleType?: AndroidInputStyleTypes;
     shape?: AndroidInputShapeTypes;
@@ -13,40 +13,40 @@ export interface AndroidInputProps
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
+    startIcon?: ReactNode;
+    endIcon?: ReactNode;
     prefixText?: string;
     suffixText?: string;
     counter?: boolean | number;
 }
 
-export const AndroidInput: React.FC<AndroidInputProps> = ({
-                                                              type = InputTypes.TEXT,
-                                                              styleType = AndroidInputStyleTypes.OUTLINED,
-                                                              shape = AndroidInputShapeTypes.NORMAL,
-                                                              variant = "primary",
-                                                              label,
-                                                              required = false,
-                                                              helperText,
-                                                              error,
-                                                              startIcon,
-                                                              endIcon,
-                                                              prefixText,
-                                                              suffixText,
-                                                              counter,
-                                                              disabled = false,
-                                                              readOnly = false,
-                                                              value,
-                                                              defaultValue,
-                                                              onChange,
-                                                              onFocus,
-                                                              onBlur,
-                                                              id,
-                                                              className = "",
-                                                              maxLength,
-                                                              placeholder = " ",
-                                                              ...rest
-                                                          }) => {
+export default function AndroidInput({
+                                         type = InputTypes.TEXT,
+                                         styleType = AndroidInputStyleTypes.OUTLINED,
+                                         shape = AndroidInputShapeTypes.NORMAL,
+                                         variant = "primary",
+                                         label,
+                                         required = false,
+                                         helperText,
+                                         error,
+                                         startIcon,
+                                         endIcon,
+                                         prefixText,
+                                         suffixText,
+                                         counter,
+                                         disabled = false,
+                                         readOnly = false,
+                                         value,
+                                         defaultValue,
+                                         onChange,
+                                         onFocus,
+                                         onBlur,
+                                         id,
+                                         className = "",
+                                         maxLength,
+                                         placeholder = " ",
+                                         ...rest
+                                     }: AndroidInputProps) {
     const generatedId = useId();
     const inputId = id || generatedId;
 
@@ -80,17 +80,17 @@ export const AndroidInput: React.FC<AndroidInputProps> = ({
         hasError ? "is-invalid" : "",
     ].filter(Boolean).join(" ");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInternalValue(e.target.value);
         if (onChange) onChange(e);
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
         setIsFocused(true);
         if (onFocus) onFocus(e);
     };
 
-    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
         setIsFocused(false);
         if (onBlur) onBlur(e);
     };
@@ -149,6 +149,4 @@ export const AndroidInput: React.FC<AndroidInputProps> = ({
             )}
         </div>
     );
-};
-
-export default AndroidInput;
+}

@@ -32,8 +32,10 @@ export default function InputsBootstrapSection() {
                     <h4 className="text-primary mb-3">{styleLabel}</h4>
 
                     {ShapeList.map(({ label: shapeLabel, shape }) => (
-                        <div key={`${styleType}-${shape}`} className="ms-3 mb-5">
-                            <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                        <div key={`${styleType}-${shape}`} className="mb-5">
+                            <div className={"ms-3"}>
+                                <h6 className="text-secondary mb-3">{shapeLabel}</h6>
+                            </div>
 
                             {/* Enabled State */}
                             <div className="mb-4">
