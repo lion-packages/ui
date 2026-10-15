@@ -145,7 +145,7 @@ export default function IOSInput({
                         onClick={handleClear}
                         tabIndex={-1}
                     >
-                        ✕
+                        <i className="bi bi-x"></i>
                     </button>
                 )}
 
