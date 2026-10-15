@@ -1,20 +1,20 @@
 import VariantList from "../../VariantList.tsx";
-import { iOSInputStyleTypes } from "../../../types/IOS/iOSInputStyleTypes.tsx";
-import { iOSInputShapeTypes } from "../../../types/IOS/iOSInputShapeTypes.tsx";
+import { IOSInputStyleTypes } from "../../../types/IOS/IOSInputStyleTypes.tsx";
+import { IOSInputShapeTypes } from "../../../types/IOS/IOSInputShapeTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
 
 import { Fragment, useState } from "react";
 import IOSInput from "../../../components/inputs/IOSInput.tsx";
 
-const StyleTypeList: Array<{ label: string; styleType: iOSInputStyleTypes }> = [
-    { label: "Form", styleType: iOSInputStyleTypes.FORM },
-    { label: "Rounded Border", styleType: iOSInputStyleTypes.ROUNDED_BORDER },
+const StyleTypeList: Array<{ label: string; styleType: IOSInputStyleTypes }> = [
+    { label: "Form", styleType: IOSInputStyleTypes.FORM },
+    { label: "Rounded Border", styleType: IOSInputStyleTypes.ROUNDED_BORDER },
 ];
 
-const ShapeList: Array<{ label: string; shape: iOSInputShapeTypes }> = [
-    { label: "Rounded Shape", shape: iOSInputShapeTypes.ROUNDED },
-    { label: "Pill Shape", shape: iOSInputShapeTypes.PILL },
-    { label: "Square Shape", shape: iOSInputShapeTypes.SQUARE },
+const ShapeList: Array<{ label: string; shape: IOSInputShapeTypes }> = [
+    { label: "Rounded Shape", shape: IOSInputShapeTypes.ROUNDED },
+    { label: "Pill Shape", shape: IOSInputShapeTypes.PILL },
+    { label: "Square Shape", shape: IOSInputShapeTypes.SQUARE },
 ];
 
 export default function InputsIOSSection() {

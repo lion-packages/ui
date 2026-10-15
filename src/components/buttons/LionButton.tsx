@@ -17,9 +17,6 @@ type PlatformMapping<T> = {
     [PlatformTypes.ANDROID]?: T;
     [PlatformTypes.IOS]?: T;
     [PlatformTypes.WEB]?: T;
-    android?: T;
-    ios?: T;
-    web?: T;
 };
 
 export type LionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
