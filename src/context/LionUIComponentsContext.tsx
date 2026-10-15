@@ -18,7 +18,7 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             initialPlatform = defaultPlatform;
         } else {
             const capPlatform = Capacitor.getPlatform();
-            if (capPlatform === 'ios' || capPlatform === 'android') {
+            if (capPlatform === PlatformTypes.IOS || capPlatform === PlatformTypes.ANDROID) {
                 initialPlatform = capPlatform as PlatformTypes;
             }
         }
@@ -27,7 +27,12 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             platform: initialPlatform,
             loading: false,
             reload: false,
+            booting: false,
+            sidebar: false,
+            version: null,
             modal: null,
+            logo: null,
+            background: null,
         };
     });
 
@@ -39,7 +44,10 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
         if (!defaultPlatform) {
             const capPlatform = Capacitor.getPlatform();
 
-            const detected: PlatformTypes = capPlatform === 'ios' || capPlatform === 'android' ? (capPlatform as PlatformTypes) : PlatformTypes.WEB;
+            const detected: PlatformTypes =
+                capPlatform === PlatformTypes.IOS || capPlatform === PlatformTypes.ANDROID
+                    ? (capPlatform as PlatformTypes)
+                    : PlatformTypes.WEB;
 
             if (detected !== state.platform) {
                 setState((prev) => ({ ...prev, platform: detected }));
