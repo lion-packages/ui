@@ -13,6 +13,7 @@ export interface LionModalProps {
     buttons?: ReactNode;
     backdrop: string;
     fullscreen?: true | "sm" | "md" | "lg" | "xl" | "xxl" | "sm-down" | "md-down" | "lg-down" | "xl-down" | "xxl-down";
+    // @ts-ignore
     size?: SizeTypes.SM | SizeTypes.LG | SizeTypes.XL;
     variant?: VariantTypes | string;
     platform?: string;
@@ -115,6 +116,7 @@ export default function LionModal({
 
     return (
         <Modal
+            // @ts-ignore
             backdrop={backdrop}
             id={modalId}
             show={modalId === state.modal}
