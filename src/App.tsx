@@ -11,6 +11,8 @@ import "./assets/css/inputs/inputs-bootstrap.css";
 
 import "./assets/css/modals/modals.css";
 
+import "./assets/css/loadings/loading-bar.css";
+
 import { Fragment } from "react";
 import { Container } from "react-bootstrap";
 import { Routes, Route } from 'react-router-dom';
@@ -29,6 +31,8 @@ import ModalsSection from "./features/modals/ModalsSection.tsx";
 import ModalsAndroidSection from "./features/modals/components/ModalsAndroidSection.tsx";
 import ModalsIOSSection from "./features/modals/components/ModalsIOSSection.tsx";
 import ModalsWebSection from "./features/modals/components/ModalsWebSection.tsx";
+import LoadingSection from "./features/loadings/LoadingSection.tsx";
+import LoadingBarSection from "./features/loadings/components/LoadingBarSection.tsx";
 
 export default function App() {
     return (
@@ -64,6 +68,10 @@ export default function App() {
                             <Route path={"ios"} element={<ModalsIOSSection />} />
 
                             <Route path={"web"} element={<ModalsWebSection />} />
+                        </Route>
+
+                        <Route path={"loadings"} element={<LoadingSection />}>
+                            <Route path={"bar"} element={<LoadingBarSection />} />
                         </Route>
                     </Routes>
                 </LionUIComponentsProvider>

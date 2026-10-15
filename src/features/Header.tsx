@@ -63,6 +63,12 @@ export default function Header() {
                                 Web
                             </NavDropdown.Item>
                         </NavDropdown>
+
+                        <NavDropdown title="Loadings" id="loadings-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/loadings/bar"} href={"#"}>
+                                Bar
+                            </NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
