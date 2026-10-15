@@ -11,12 +11,12 @@ export interface LionModalProps {
     title: string;
     body: ReactNode;
     buttons?: ReactNode;
-    backdrop: string;
+    backdrop?: string;
     fullscreen?: true | "sm" | "md" | "lg" | "xl" | "xxl" | "sm-down" | "md-down" | "lg-down" | "xl-down" | "xxl-down";
     // @ts-ignore
     size?: SizeTypes.SM | SizeTypes.LG | SizeTypes.XL;
     variant?: VariantTypes | string;
-    platform?: string;
+    platform?: PlatformTypes | string;
     cancelButtonIcon?: ReactNode;
     cancelButtonText?: string;
 }
@@ -139,8 +139,6 @@ export default function LionModal({
                     {title}
                 </Modal.Title>
             </Modal.Header>
-
-            {/* state.loading && <LoadingBar /> */}
 
             <Modal.Body className="custom-modal-body px-4 py-3">
                 {modalId === state.modal ? body : null}

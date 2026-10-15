@@ -3,7 +3,7 @@ export const ButtonTypes = {
     BUTTON: "button",
     RESET: "reset",
     UNDEFINED: undefined,
-};
+} as const;
 
 export type ButtonTypes =
     (typeof ButtonTypes)[keyof typeof ButtonTypes];

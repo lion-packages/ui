@@ -86,7 +86,12 @@ export default function ModalsAndroidSection() {
                     title={modal.title}
                     size={modal.size}
                     fullscreen={modal.fullscreen}
-                    body={<ModalsDefaultForm variant={modal.variant} />}
+                    body={(
+                        <ModalsDefaultForm
+                            platform={PlatformTypes.ANDROID}
+                            variant={modal.variant}
+                        />
+                    )}
                     buttons={(
                         <LionButton
                             variant={VariantTypes.MODAL}
