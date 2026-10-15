@@ -25,6 +25,7 @@ type PlatformMapping<T> = {
 export type LionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     children: ReactNode;
     variant?: string;
+    platform?: string;
     // @ts-ignore
     size?: SizeTypes.SM | SizeTypes.MD | SizeTypes.LG;
     shape?: BootstrapShapeTypes | AndroidShapeTypes | IOSShapeTypes | string | PlatformMapping<BootstrapShapeTypes | AndroidShapeTypes | IOSShapeTypes | string>;
@@ -35,6 +36,7 @@ export default function LionButton({
                                        children,
                                        shape,
                                        styleType,
+                                       // @ts-ignore
                                        platform = null,
                                        ...props
                                    }: LionButtonProps) {
