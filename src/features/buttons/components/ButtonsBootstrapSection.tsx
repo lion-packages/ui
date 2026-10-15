@@ -14,7 +14,7 @@ const StyleTypeList: Array<{ label: string; styleType: BootstrapStyleTypes }> = 
 
 // List of supported Bootstrap shapes
 const ShapeList: Array<{ label: string; shape: BootstrapShapeTypes }> = [
-    { label: "Default Shape", shape: BootstrapShapeTypes.DEFAULT },
+    { label: "Default Shape", shape: BootstrapShapeTypes.STANDARD },
     { label: "Pill Shape", shape: BootstrapShapeTypes.PILL },
     { label: "Square Shape", shape: BootstrapShapeTypes.SQUARE },
 ];

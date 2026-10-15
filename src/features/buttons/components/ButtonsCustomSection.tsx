@@ -51,7 +51,7 @@ export default function ButtonsCustomSection() {
     const [selectedPlatform, setSelectedPlatform] = useState<PlatformTypes>(PlatformTypes.ANDROID);
     const [selectedAndroidShape, setSelectedAndroidShape] = useState<AndroidShapeTypes>(AndroidShapeTypes.PILL);
     const [selectedIOSShape, setSelectedIOSShape] = useState<IOSShapeTypes>(IOSShapeTypes.CAPSULE);
-    const [selectedWebShape, setSelectedWebShape] = useState<BootstrapShapeTypes>(BootstrapShapeTypes.DEFAULT);
+    const [selectedWebShape, setSelectedWebShape] = useState<BootstrapShapeTypes>(BootstrapShapeTypes.STANDARD);
 
     const [selectedAndroidStyle, setSelectedAndroidStyle] = useState<AndroidStyleTypes>(AndroidStyleTypes.TONAL);
     const [selectedIOSStyle, setSelectedIOSStyle] = useState<IOSStyleTypes>(IOSStyleTypes.TINTED);

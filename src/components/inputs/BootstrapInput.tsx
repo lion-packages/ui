@@ -1,7 +1,7 @@
-import { InputHTMLAttributes, useId} from "react";
+import { type InputHTMLAttributes, useId } from "react";
 import { InputTypes } from "../../types/InputTypes";
-import {BootstrapInputShapeTypes} from "../../types/Web/BootstrapInputShapeTypes.tsx";
-import {BootstrapInputStyleTypes} from "../../types/Web/BootstrapInputStyleTypes.tsx";
+import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
+import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 
 export interface BootstrapInputProps
     extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
@@ -17,22 +17,22 @@ export interface BootstrapInputProps
 }
 
 export default function BootstrapInput({
-                                   type = InputTypes.TEXT,
-                                   styleType = BootstrapInputStyleTypes.FLOATING,
-                                   shape = BootstrapInputShapeTypes.ROUNDED,
-                                   variant = "primary",
-                                   sizeType = "md",
-                                   label,
-                                   required = false,
-                                   helperText,
-                                   error,
-                                   disabled = false,
-                                   readOnly = false,
-                                   id,
-                                   className = "",
-                                   placeholder = " ",
-                                   ...rest
-                               }: BootstrapInputProps) {
+                                           type = InputTypes.TEXT,
+                                           styleType = BootstrapInputStyleTypes.FLOATING,
+                                           shape = BootstrapInputShapeTypes.ROUNDED,
+                                           variant = "primary",
+                                           sizeType = "md",
+                                           label,
+                                           required = false,
+                                           helperText,
+                                           error,
+                                           disabled = false,
+                                           readOnly = false,
+                                           id,
+                                           className = "",
+                                           placeholder = " ",
+                                           ...rest
+                                       }: BootstrapInputProps) {
     const generatedId = useId();
     const inputId = id || generatedId;
 

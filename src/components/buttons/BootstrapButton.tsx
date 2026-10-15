@@ -19,7 +19,7 @@ export default function BootstrapButton({
                                             children,
                                             variant = "primary" as VariantTypes,
                                             styleType = BootstrapStyleTypes.FILLED,
-                                            shape = BootstrapShapeTypes.DEFAULT,
+                                            shape = BootstrapShapeTypes.STANDARD,
                                             size = "md" as SizeTypes,
                                             type = "button" as ButtonTypes,
                                             className = "",
