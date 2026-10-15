@@ -27,6 +27,7 @@ import InputsIOSSection from "./features/inputs/components/InputsIOSSection.tsx"
 import InputsBootstrapSection from "./features/inputs/components/InputsBootstrapSection.tsx";
 import ModalsSection from "./features/modals/ModalsSection.tsx";
 import ModalsAndroidSection from "./features/modals/components/ModalsAndroidSection.tsx";
+import ModalsIOSSection from "./features/modals/components/ModalsIOSSection.tsx";
 
 export default function App() {
     return (
@@ -58,6 +59,8 @@ export default function App() {
 
                         <Route path={"modals"} element={<ModalsSection />}>
                             <Route path={"android"} element={<ModalsAndroidSection />} />
+
+                            <Route path={"ios"} element={<ModalsIOSSection />} />
                         </Route>
                     </Routes>
                 </LionUIComponentsProvider>
