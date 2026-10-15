@@ -1,13 +1,13 @@
 import React, { useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
-import { iOSInputStyleTypes } from "../../types/IOS/iOSInputStyleTypes.tsx";
-import { iOSInputShapeTypes } from "../../types/IOS/iOSInputShapeTypes.tsx";
+import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
+import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
 
 export interface IOSInputProps
     extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
     type?: InputTypes;
-    styleType?: iOSInputStyleTypes;
-    shape?: iOSInputShapeTypes;
+    styleType?: IOSInputStyleTypes;
+    shape?: IOSInputShapeTypes;
     variant?: string;
     sizeType?: "sx" | "sm" | "md" | "lg";
     label?: string;
@@ -23,8 +23,8 @@ export interface IOSInputProps
 
 export default function IOSInput({
                              type = InputTypes.TEXT,
-                             styleType = iOSInputStyleTypes.ROUNDED_BORDER,
-                             shape = iOSInputShapeTypes.ROUNDED,
+                             styleType = IOSInputStyleTypes.ROUNDED_BORDER,
+                             shape = IOSInputShapeTypes.ROUNDED,
                              variant = "primary",
                              sizeType = "md",
                              label,

@@ -37,6 +37,12 @@ export default function Header() {
                         </NavDropdown>
 
                         <NavDropdown title="Inputs" id="inputs-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/inputs/custom"} href={"#"}>
+                                Custom
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Divider />
+
                             <NavDropdown.Item as={Link} to={"/inputs/android"} href={"#"}>
                                 Android
                             </NavDropdown.Item>

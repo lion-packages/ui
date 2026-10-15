@@ -21,7 +21,7 @@ const shapesByPlatform = {
         { label: "Rounded", value: IOSShapeTypes.ROUNDED },
     ],
     [PlatformTypes.WEB]: [
-        { label: "Default", value: BootstrapShapeTypes.DEFAULT },
+        { label: "Standard", value: BootstrapShapeTypes.STANDARD },
         { label: "Pill", value: BootstrapShapeTypes.PILL },
         { label: "Square", value: BootstrapShapeTypes.SQUARE },
     ],
