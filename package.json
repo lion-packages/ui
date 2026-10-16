@@ -1,11 +1,25 @@
+
 {
   "name": "@lion-npm/ui",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.build.json && vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -25,5 +39,9 @@
     "react-router-dom": "^7.18.4",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
