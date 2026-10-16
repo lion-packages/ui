@@ -7,8 +7,8 @@ import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionModal from "../../../components/modals/LionModal.tsx";
 import ModalsDefaultForm from "./ModalsDefaultForm.tsx";
 import LionButton from "../../../components/buttons/LionButton.tsx";
-import {IOSStyleTypes} from "../../../types/IOS/IOSStyleTypes.tsx";
-import {IOSShapeTypes} from "../../../types/IOS/IOSShapeTypes.tsx";
+import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
+import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
 
 const variantsList = [
     { type: VariantTypes.SUCCESS, name: "Success" },
@@ -64,8 +64,8 @@ export default function ModalsIOSSection() {
                                     key={modal.id}
                                     platform={PlatformTypes.IOS}
                                     variant={modal.variant}
-                                    styleType={IOSStyleTypes.TINTED}
-                                    shape={IOSShapeTypes.ROUNDED}
+                                    styleType={IOSButtonStyleTypes.TINTED}
+                                    shape={IOSButtonShapeTypes.ROUNDED}
                                     // @ts-ignore
                                     type={ButtonTypes.BUTTON}
                                     onClick={() => updateState({ modal: modal.id })}

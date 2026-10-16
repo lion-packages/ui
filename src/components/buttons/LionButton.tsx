@@ -3,12 +3,12 @@ import { useLionUI } from '../../context/LionUIComponentsContext.tsx';
 import { PlatformTypes } from "../../types/PlatformTypes.tsx";
 // @ts-ignore
 import { SizeTypes } from "../../types/SizeTypes.tsx";
-import type { AndroidStyleTypes } from "../../types/Android/AndroidStyleTypes.tsx";
-import type { AndroidShapeTypes } from "../../types/Android/AndroidShapeTypes.tsx";
-import type { BootstrapShapeTypes } from "../../types/Web/BootstrapShapeTypes.tsx";
-import type { BootstrapStyleTypes } from "../../types/Web/BootstrapStyleTypes.tsx";
-import type { IOSShapeTypes } from "../../types/IOS/IOSShapeTypes.tsx";
-import type { IOSStyleTypes } from "../../types/IOS/IOSStyleTypes.tsx";
+import type { AndroidButtonStyleTypes } from "../../types/Android/AndroidButtonStyleTypes.tsx";
+import type { AndroidButtonShapeTypes } from "../../types/Android/AndroidButtonShapeTypes.tsx";
+import type { BootstrapButtonShapeTypes } from "../../types/Web/BootstrapButtonShapeTypes.tsx";
+import type { BootstrapButtonStyleTypes } from "../../types/Web/BootstrapButtonStyleTypes.tsx";
+import type { IOSButtonShapeTypes } from "../../types/IOS/IOSButtonShapeTypes.tsx";
+import type { IOSButtonStyleTypes } from "../../types/IOS/IOSButtonStyleTypes.tsx";
 import AndroidButton from "./AndroidButton.tsx";
 import IOSButton from "./IOSButton.tsx";
 import BootstrapButton from "./BootstrapButton.tsx";
@@ -25,8 +25,8 @@ export type LionButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     platform?: string;
     // @ts-ignore
     size?: SizeTypes.SM | SizeTypes.MD | SizeTypes.LG;
-    shape?: BootstrapShapeTypes | AndroidShapeTypes | IOSShapeTypes | string | PlatformMapping<BootstrapShapeTypes | AndroidShapeTypes | IOSShapeTypes | string>;
-    styleType?: BootstrapStyleTypes | AndroidStyleTypes | IOSStyleTypes | string | PlatformMapping<BootstrapStyleTypes | AndroidStyleTypes | IOSStyleTypes | string>;
+    shape?: BootstrapButtonShapeTypes | AndroidButtonShapeTypes | IOSButtonShapeTypes | string | PlatformMapping<BootstrapButtonShapeTypes | AndroidButtonShapeTypes | IOSButtonShapeTypes | string>;
+    styleType?: BootstrapButtonStyleTypes | AndroidButtonStyleTypes | IOSButtonStyleTypes | string | PlatformMapping<BootstrapButtonStyleTypes | AndroidButtonStyleTypes | IOSButtonStyleTypes | string>;
 };
 
 export default function LionButton({
