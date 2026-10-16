@@ -29,7 +29,7 @@ export * from './types/PlatformTypes';
 export * from './types/SizeTypes';
 export * from './types/VariantTypes';
 
-export { LionUIComponentsProvider } from './context/LionUIComponentsContext';
+export { LionUIComponentsProvider, useLionUI } from './context/LionUIComponentsContext';
 export { default as AndroidButton } from './components/buttons/AndroidButton';
 export { default as BootstrapButton } from './components/buttons/BootstrapButton';
 export { default as IOSButton } from './components/buttons/IOSButton';
