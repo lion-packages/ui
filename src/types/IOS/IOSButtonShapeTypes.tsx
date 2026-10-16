@@ -1,7 +1,7 @@
 // iOS HIG Corner Styles
-export const IOSShapeTypes = {
+export const IOSButtonShapeTypes = {
     ROUNDED: "rounded", // Standard squircle (rounded rectangle)
     CAPSULE: "capsule", // Fully rounded pill shape
 } as const;
 
-export type IOSShapeTypes = (typeof IOSShapeTypes)[keyof typeof IOSShapeTypes];
+export type IOSButtonShapeTypes = (typeof IOSButtonShapeTypes)[keyof typeof IOSButtonShapeTypes];

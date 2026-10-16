@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
-import { AndroidShapeTypes } from "../../../types/Android/AndroidShapeTypes.tsx";
-import { AndroidStyleTypes } from "../../../types/Android/AndroidStyleTypes.tsx";
+import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
+import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { SizeTypes } from "../../../types/SizeTypes.tsx";
@@ -63,8 +63,8 @@ export default function ModalsAndroidSection() {
                                 <LionButton
                                     key={modal.id}
                                     platform={PlatformTypes.ANDROID}
-                                    shape={AndroidShapeTypes.ROUNDED}
-                                    styleType={AndroidStyleTypes.TONAL}
+                                    shape={AndroidButtonShapeTypes.ROUNDED}
+                                    styleType={AndroidButtonStyleTypes.TONAL}
                                     variant={modal.variant}
                                     type={ButtonTypes.BUTTON}
                                     onClick={() => updateState({ modal: modal.id })}

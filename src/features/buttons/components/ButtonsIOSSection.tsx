@@ -1,5 +1,5 @@
-import { IOSStyleTypes } from "../../../types/IOS/IOSStyleTypes.tsx";
-import { IOSShapeTypes } from "../../../types/IOS/IOSShapeTypes.tsx";
+import { IOSButtonStyleTypes } from "../../../types/IOS/IOSButtonStyleTypes.tsx";
+import { IOSButtonShapeTypes } from "../../../types/IOS/IOSButtonShapeTypes.tsx";
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
 import VariantList from "../../VariantList.tsx";
 
@@ -7,17 +7,17 @@ import { Fragment } from "react";
 import IOSButton from "../../../components/buttons/IOSButton.tsx";
 
 // List of iOS Human Interface Guidelines styles
-const StyleTypeList: Array<{ label: string; styleType: IOSStyleTypes }> = [
-    { label: "Filled", styleType: IOSStyleTypes.FILLED },
-    { label: "Tinted", styleType: IOSStyleTypes.TINTED },
-    { label: "Gray", styleType: IOSStyleTypes.GRAY },
-    { label: "Plain", styleType: IOSStyleTypes.PLAIN },
+const StyleTypeList: Array<{ label: string; styleType: IOSButtonStyleTypes }> = [
+    { label: "Filled", styleType: IOSButtonStyleTypes.FILLED },
+    { label: "Tinted", styleType: IOSButtonStyleTypes.TINTED },
+    { label: "Gray", styleType: IOSButtonStyleTypes.GRAY },
+    { label: "Plain", styleType: IOSButtonStyleTypes.PLAIN },
 ];
 
 // List of supported iOS button shapes
-const ShapeList: Array<{ label: string; shape: IOSShapeTypes }> = [
-    { label: "Rounded Shape", shape: IOSShapeTypes.ROUNDED },
-    { label: "Capsule Shape", shape: IOSShapeTypes.CAPSULE },
+const ShapeList: Array<{ label: string; shape: IOSButtonShapeTypes }> = [
+    { label: "Rounded Shape", shape: IOSButtonShapeTypes.ROUNDED },
+    { label: "Capsule Shape", shape: IOSButtonShapeTypes.CAPSULE },
 ];
 
 export default function ButtonsIOSSection() {

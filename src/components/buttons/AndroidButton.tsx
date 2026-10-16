@@ -3,14 +3,14 @@ import {type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { VariantTypes } from '../../types/VariantTypes';
 import { SizeTypes } from '../../types/SizeTypes';
 import { ButtonTypes } from '../../types/ButtonTypes';
-import { AndroidStyleTypes } from '../../types/Android/AndroidStyleTypes';
-import { AndroidShapeTypes } from '../../types/Android/AndroidShapeTypes';
+import { AndroidButtonStyleTypes } from '../../types/Android/AndroidButtonStyleTypes.tsx';
+import { AndroidButtonShapeTypes } from '../../types/Android/AndroidButtonShapeTypes.tsx';
 
 export interface AndroidButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'size'> {
     children?: ReactNode;
     variant?: VariantTypes;
-    styleType?: AndroidStyleTypes;
-    shape?: AndroidShapeTypes;
+    styleType?: AndroidButtonStyleTypes;
+    shape?: AndroidButtonShapeTypes;
     size?: SizeTypes;
     type?: ButtonTypes;
     className?: string;
@@ -19,8 +19,8 @@ export interface AndroidButtonProps extends Omit<ButtonHTMLAttributes<HTMLButton
 export default function AndroidButton({
                                           children,
                                           variant = VariantTypes.PRIMARY,
-                                          styleType = AndroidStyleTypes.FILLED,
-                                          shape = AndroidShapeTypes.PILL,
+                                          styleType = AndroidButtonStyleTypes.FILLED,
+                                          shape = AndroidButtonShapeTypes.PILL,
                                           size = SizeTypes.MD,
                                           type = ButtonTypes.BUTTON,
                                           className = "",

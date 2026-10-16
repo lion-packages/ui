@@ -1,22 +1,22 @@
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
 import VariantList from "../../VariantList.tsx";
-import { BootstrapStyleTypes } from "../../../types/Web/BootstrapStyleTypes.tsx";
-import { BootstrapShapeTypes } from "../../../types/Web/BootstrapShapeTypes.tsx";
+import { BootstrapButtonStyleTypes } from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
+import { BootstrapButtonShapeTypes } from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
 
 import { Fragment } from "react";
 import BootstrapButton from "../../../components/buttons/BootstrapButton.tsx";
 
 // List of Bootstrap styles
-const StyleTypeList: Array<{ label: string; styleType: BootstrapStyleTypes }> = [
-    { label: "Filled", styleType: BootstrapStyleTypes.FILLED },
-    { label: "Outlined", styleType: BootstrapStyleTypes.OUTLINED },
+const StyleTypeList: Array<{ label: string; styleType: BootstrapButtonStyleTypes }> = [
+    { label: "Filled", styleType: BootstrapButtonStyleTypes.FILLED },
+    { label: "Outlined", styleType: BootstrapButtonStyleTypes.OUTLINED },
 ];
 
 // List of supported Bootstrap shapes
-const ShapeList: Array<{ label: string; shape: BootstrapShapeTypes }> = [
-    { label: "Default Shape", shape: BootstrapShapeTypes.STANDARD },
-    { label: "Pill Shape", shape: BootstrapShapeTypes.PILL },
-    { label: "Square Shape", shape: BootstrapShapeTypes.SQUARE },
+const ShapeList: Array<{ label: string; shape: BootstrapButtonShapeTypes }> = [
+    { label: "Default Shape", shape: BootstrapButtonShapeTypes.STANDARD },
+    { label: "Pill Shape", shape: BootstrapButtonShapeTypes.PILL },
+    { label: "Square Shape", shape: BootstrapButtonShapeTypes.SQUARE },
 ];
 
 export default function ButtonsBootstrapSection() {

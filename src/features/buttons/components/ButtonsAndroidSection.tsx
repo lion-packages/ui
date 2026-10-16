@@ -1,5 +1,5 @@
-import { AndroidStyleTypes } from "../../../types/Android/AndroidStyleTypes.tsx";
-import { AndroidShapeTypes } from "../../../types/Android/AndroidShapeTypes.tsx";
+import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
+import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
 import VariantList from "../../VariantList.tsx";
 
@@ -7,18 +7,18 @@ import { Fragment } from "react";
 import AndroidButton from "../../../components/buttons/AndroidButton.tsx";
 
 // List of Material Design 3 styles
-const StyleTypeList: Array<{ label: string; styleType: AndroidStyleTypes }> = [
-    { label: "Filled", styleType: AndroidStyleTypes.FILLED },
-    { label: "Elevated", styleType: AndroidStyleTypes.ELEVATED },
-    { label: "Tonal", styleType: AndroidStyleTypes.TONAL },
-    { label: "Outlined", styleType: AndroidStyleTypes.OUTLINED },
-    { label: "Text", styleType: AndroidStyleTypes.TEXT },
+const StyleTypeList: Array<{ label: string; styleType: AndroidButtonStyleTypes }> = [
+    { label: "Filled", styleType: AndroidButtonStyleTypes.FILLED },
+    { label: "Elevated", styleType: AndroidButtonStyleTypes.ELEVATED },
+    { label: "Tonal", styleType: AndroidButtonStyleTypes.TONAL },
+    { label: "Outlined", styleType: AndroidButtonStyleTypes.OUTLINED },
+    { label: "Text", styleType: AndroidButtonStyleTypes.TEXT },
 ];
 
 // List of supported button shapes
-const ShapeList: Array<{ label: string; shape: AndroidShapeTypes }> = [
-    { label: "Pill Shape", shape: AndroidShapeTypes.PILL },
-    { label: "Rounded Shape", shape: AndroidShapeTypes.ROUNDED },
+const ShapeList: Array<{ label: string; shape: AndroidButtonShapeTypes }> = [
+    { label: "Pill Shape", shape: AndroidButtonShapeTypes.PILL },
+    { label: "Rounded Shape", shape: AndroidButtonShapeTypes.ROUNDED },
 ];
 
 export default function ButtonsAndroidSection() {

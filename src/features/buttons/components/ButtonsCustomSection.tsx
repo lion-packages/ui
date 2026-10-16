@@ -1,61 +1,61 @@
 import VariantList from "../../VariantList.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
-import { AndroidStyleTypes } from "../../../types/Android/AndroidStyleTypes.tsx";
-import { IOSStyleTypes } from "../../../types/IOS/IOSStyleTypes.tsx";
-import { BootstrapStyleTypes } from "../../../types/Web/BootstrapStyleTypes.tsx";
-import { AndroidShapeTypes } from "../../../types/Android/AndroidShapeTypes.tsx";
-import { IOSShapeTypes } from "../../../types/IOS/IOSShapeTypes.tsx";
-import { BootstrapShapeTypes } from "../../../types/Web/BootstrapShapeTypes.tsx";
+import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
+import { IOSButtonStyleTypes } from "../../../types/IOS/IOSButtonStyleTypes.tsx";
+import { BootstrapButtonStyleTypes } from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
+import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
+import { IOSButtonShapeTypes } from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import { BootstrapButtonShapeTypes } from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
 
 import { Fragment, useState } from "react";
 import LionButton from "../../../components/buttons/LionButton.tsx";
 
 const shapesByPlatform = {
     [PlatformTypes.ANDROID]: [
-        { label: "Pill", value: AndroidShapeTypes.PILL },
-        { label: "Rounded", value: AndroidShapeTypes.ROUNDED },
+        { label: "Pill", value: AndroidButtonShapeTypes.PILL },
+        { label: "Rounded", value: AndroidButtonShapeTypes.ROUNDED },
     ],
     [PlatformTypes.IOS]: [
-        { label: "Capsule", value: IOSShapeTypes.CAPSULE },
-        { label: "Rounded", value: IOSShapeTypes.ROUNDED },
+        { label: "Capsule", value: IOSButtonShapeTypes.CAPSULE },
+        { label: "Rounded", value: IOSButtonShapeTypes.ROUNDED },
     ],
     [PlatformTypes.WEB]: [
-        { label: "Standard", value: BootstrapShapeTypes.STANDARD },
-        { label: "Pill", value: BootstrapShapeTypes.PILL },
-        { label: "Square", value: BootstrapShapeTypes.SQUARE },
+        { label: "Standard", value: BootstrapButtonShapeTypes.STANDARD },
+        { label: "Pill", value: BootstrapButtonShapeTypes.PILL },
+        { label: "Square", value: BootstrapButtonShapeTypes.SQUARE },
     ],
 };
 
 const stylesByPlatform = {
     [PlatformTypes.ANDROID]: [
-        { label: "Tonal", value: AndroidStyleTypes.TONAL },
-        { label: "Filled", value: AndroidStyleTypes.FILLED },
-        { label: "Elevated", value: AndroidStyleTypes.ELEVATED },
-        { label: "Outlined", value: AndroidStyleTypes.OUTLINED },
-        { label: "Text", value: AndroidStyleTypes.TEXT },
+        { label: "Tonal", value: AndroidButtonStyleTypes.TONAL },
+        { label: "Filled", value: AndroidButtonStyleTypes.FILLED },
+        { label: "Elevated", value: AndroidButtonStyleTypes.ELEVATED },
+        { label: "Outlined", value: AndroidButtonStyleTypes.OUTLINED },
+        { label: "Text", value: AndroidButtonStyleTypes.TEXT },
     ],
     [PlatformTypes.IOS]: [
-        { label: "Tinted", value: IOSStyleTypes.TINTED },
-        { label: "Filled", value: IOSStyleTypes.FILLED },
-        { label: "Gray", value: IOSStyleTypes.GRAY },
-        { label: "Plain", value: IOSStyleTypes.PLAIN },
+        { label: "Tinted", value: IOSButtonStyleTypes.TINTED },
+        { label: "Filled", value: IOSButtonStyleTypes.FILLED },
+        { label: "Gray", value: IOSButtonStyleTypes.GRAY },
+        { label: "Plain", value: IOSButtonStyleTypes.PLAIN },
     ],
     [PlatformTypes.WEB]: [
-        { label: "Filled", value: BootstrapStyleTypes.FILLED },
-        { label: "Outlined", value: BootstrapStyleTypes.OUTLINED },
+        { label: "Filled", value: BootstrapButtonStyleTypes.FILLED },
+        { label: "Outlined", value: BootstrapButtonStyleTypes.OUTLINED },
     ],
 };
 
 export default function ButtonsCustomSection() {
     const [selectedPlatform, setSelectedPlatform] = useState<PlatformTypes>(PlatformTypes.ANDROID);
-    const [selectedAndroidShape, setSelectedAndroidShape] = useState<AndroidShapeTypes>(AndroidShapeTypes.PILL);
-    const [selectedIOSShape, setSelectedIOSShape] = useState<IOSShapeTypes>(IOSShapeTypes.CAPSULE);
-    const [selectedWebShape, setSelectedWebShape] = useState<BootstrapShapeTypes>(BootstrapShapeTypes.STANDARD);
+    const [selectedAndroidShape, setSelectedAndroidShape] = useState<AndroidButtonShapeTypes>(AndroidButtonShapeTypes.PILL);
+    const [selectedIOSShape, setSelectedIOSShape] = useState<IOSButtonShapeTypes>(IOSButtonShapeTypes.CAPSULE);
+    const [selectedWebShape, setSelectedWebShape] = useState<BootstrapButtonShapeTypes>(BootstrapButtonShapeTypes.STANDARD);
 
-    const [selectedAndroidStyle, setSelectedAndroidStyle] = useState<AndroidStyleTypes>(AndroidStyleTypes.TONAL);
-    const [selectedIOSStyle, setSelectedIOSStyle] = useState<IOSStyleTypes>(IOSStyleTypes.TINTED);
-    const [selectedWebStyle, setSelectedWebStyle] = useState<BootstrapStyleTypes>(BootstrapStyleTypes.FILLED);
+    const [selectedAndroidStyle, setSelectedAndroidStyle] = useState<AndroidButtonStyleTypes>(AndroidButtonStyleTypes.TONAL);
+    const [selectedIOSStyle, setSelectedIOSStyle] = useState<IOSButtonStyleTypes>(IOSButtonStyleTypes.TINTED);
+    const [selectedWebStyle, setSelectedWebStyle] = useState<BootstrapButtonStyleTypes>(BootstrapButtonStyleTypes.FILLED);
 
     return (
         <Fragment>
@@ -97,7 +97,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedAndroidShape}
-                                onChange={(e) => setSelectedAndroidShape(e.target.value as AndroidShapeTypes)}
+                                onChange={(e) => setSelectedAndroidShape(e.target.value as AndroidButtonShapeTypes)}
                             >
                                 {shapesByPlatform[PlatformTypes.ANDROID].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -109,7 +109,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedIOSShape}
-                                onChange={(e) => setSelectedIOSShape(e.target.value as IOSShapeTypes)}
+                                onChange={(e) => setSelectedIOSShape(e.target.value as IOSButtonShapeTypes)}
                             >
                                 {shapesByPlatform[PlatformTypes.IOS].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -121,7 +121,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedWebShape}
-                                onChange={(e) => setSelectedWebShape(e.target.value as BootstrapShapeTypes)}
+                                onChange={(e) => setSelectedWebShape(e.target.value as BootstrapButtonShapeTypes)}
                             >
                                 {shapesByPlatform[PlatformTypes.WEB].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -136,7 +136,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedAndroidStyle}
-                                onChange={(e) => setSelectedAndroidStyle(e.target.value as AndroidStyleTypes)}
+                                onChange={(e) => setSelectedAndroidStyle(e.target.value as AndroidButtonStyleTypes)}
                             >
                                 {stylesByPlatform[PlatformTypes.ANDROID].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -148,7 +148,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedIOSStyle}
-                                onChange={(e) => setSelectedIOSStyle(e.target.value as IOSStyleTypes)}
+                                onChange={(e) => setSelectedIOSStyle(e.target.value as IOSButtonStyleTypes)}
                             >
                                 {stylesByPlatform[PlatformTypes.IOS].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -160,7 +160,7 @@ export default function ButtonsCustomSection() {
                             <select
                                 className="form-select"
                                 value={selectedWebStyle}
-                                onChange={(e) => setSelectedWebStyle(e.target.value as BootstrapStyleTypes)}
+                                onChange={(e) => setSelectedWebStyle(e.target.value as BootstrapButtonStyleTypes)}
                             >
                                 {stylesByPlatform[PlatformTypes.WEB].map((s) => (
                                     <option key={s.value} value={s.value}>{s.label}</option>
