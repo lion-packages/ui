@@ -145,7 +145,7 @@
 /* --- Filled Floating States (Proportionally adjusted for Normal and Small) --- */
 .android-input-field-wrapper.android-style-filled.android-size-normal .android-input-element:focus ~ .android-input-label,
 .android-input-field-wrapper.android-style-filled.android-size-normal .android-input-element:not(:placeholder-shown) ~ .android-input-label {
-    top: 8px;
+    top: 7px;
     transform: translateY(0);
     font-size: 0.75rem;
     color: var(--android-active-color, var(--android-input-color));
