@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "05:15"
+      timezone: "America/Bogota"
+    open-pull-requests-limit: 1
+    rebase-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "javascript"
+    groups:
+      maintenance:
+        patterns:
+          - "*"
