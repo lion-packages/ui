@@ -12,7 +12,6 @@
     -webkit-backdrop-filter: blur(3px);
 }
 
-
 /* ==========================================
    1. WEB & BASE MODAL STYLES (.web-modal)
    ========================================== */
@@ -75,7 +74,6 @@
     background-color: transparent !important;
     box-shadow: none !important;
 }
-
 
 /* ==========================================
    2. iOS STYLE DESIGN (.ios-modal)
@@ -161,7 +159,6 @@
 .ios-modal .btn-modal:active {
     background-color: rgba(0, 0, 0, 0.08) !important;
 }
-
 
 /* ==========================================
    3. ANDROID / MATERIAL DESIGN STYLE (.android-modal)

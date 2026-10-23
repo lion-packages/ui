@@ -1,9 +1,8 @@
+import { type ChangeEvent, Fragment, useState } from "react";
 import VariantList from "../../VariantList.tsx";
 import { IOSInputStyleTypes } from "../../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../../types/IOS/IOSInputShapeTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
-
-import { Fragment, useState } from "react";
 import IOSInput from "../../../components/inputs/IOSInput.tsx";
 
 const StyleTypeList: Array<{ label: string; styleType: IOSInputStyleTypes }> = [
@@ -20,7 +19,7 @@ const ShapeList: Array<{ label: string; shape: IOSInputShapeTypes }> = [
 export default function InputsIOSSection() {
     const [inputValue, setInputValue] = useState<string>("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 

@@ -1,8 +1,8 @@
-import { Fragment, useState } from "react";
+import { type ChangeEvent, Fragment, useState } from "react";
 import VariantList from "../../VariantList";
 import { InputTypes } from "../../../types/InputTypes";
-import {BootstrapInputShapeTypes} from "../../../types/Web/BootstrapInputShapeTypes.tsx";
-import {BootstrapInputStyleTypes} from "../../../types/Web/BootstrapInputStyleTypes.tsx";
+import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
+import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyleTypes.tsx";
 import BootstrapInput from "../../../components/inputs/BootstrapInput";
 
 const StyleTypeList: Array<{ label: string; styleType: BootstrapInputStyleTypes }> = [
@@ -19,7 +19,7 @@ const ShapeList: Array<{ label: string; shape: BootstrapInputShapeTypes }> = [
 export default function InputsBootstrapSection() {
     const [inputValue, setInputValue] = useState<string>("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 
