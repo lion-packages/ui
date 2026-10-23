@@ -34,6 +34,7 @@ import ModalsWebSection from "./features/modals/components/ModalsWebSection.tsx"
 import LoadingSection from "./features/loadings/LoadingSection.tsx";
 import LoadingBarSection from "./features/loadings/components/LoadingBarSection.tsx";
 import InputsCustomSection from "./features/inputs/components/InputsCustomSection.tsx";
+import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
 
 export default function App() {
     return (
@@ -59,6 +60,16 @@ export default function App() {
                             <Route path={"custom"} element={<InputsCustomSection />} />
 
                             <Route path={"android"} element={<InputsAndroidSection />} />
+
+                            <Route path={"ios"} element={<InputsIOSSection />} />
+
+                            <Route path={"web"} element={<InputsBootstrapSection />} />
+                        </Route>
+
+                        <Route path={"selects"} element={<InputsSection />}>
+                            <Route path={"custom"} element={<InputsCustomSection />} />
+
+                            <Route path={"android"} element={<SelectsAndroidSection />} />
 
                             <Route path={"ios"} element={<InputsIOSSection />} />
 

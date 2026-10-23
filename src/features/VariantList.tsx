@@ -1,4 +1,4 @@
-import {VariantTypes} from "../types/VariantTypes.tsx";
+import { VariantTypes } from "../types/VariantTypes.tsx";
 
 const VariantList: Array<VariantTypes> = [
     VariantTypes.SECONDARY,

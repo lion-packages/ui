@@ -1,9 +1,8 @@
+import { type ChangeEvent, Fragment, useState } from "react";
+import VariantList from "../../VariantList.tsx";
 import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
-import VariantList from "../../VariantList.tsx";
-
-import { Fragment, useState } from "react";
 import AndroidInput from "../../../components/inputs/AndroidInput.tsx";
 
 const StyleTypeList: Array<{ label: string; styleType: AndroidInputStyleTypes }> = [
@@ -19,7 +18,7 @@ const ShapeList: Array<{ label: string; shape: AndroidInputShapeTypes }> = [
 export default function InputsAndroidSection() {
     const [inputValue, setInputValue] = useState<string>("");
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
 
