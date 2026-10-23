@@ -1,4 +1,4 @@
-.custom-progress-bar {
+.lion-bar {
     position: relative;
     height: 4px;
     background-color: #E0E0E0;
@@ -7,59 +7,59 @@
     --lion-active-color: var(--bs-primary, #0d6efd);
 }
 
-.custom-progress-bar.loading-variant-primary {
+.lion-bar.loading-variant-primary {
     --lion-active-color: var(--bs-primary, #0d6efd);
 }
 
-.custom-progress-bar.loading-variant-secondary {
+.lion-bar.loading-variant-secondary {
     --lion-active-color: var(--bs-secondary, #6c757d);
 }
 
-.custom-progress-bar.loading-variant-success {
+.lion-bar.loading-variant-success {
     --lion-active-color: var(--bs-success, #198754);
 }
 
-.custom-progress-bar.loading-variant-danger {
+.lion-bar.loading-variant-danger {
     --lion-active-color: var(--bs-danger, #dc3545);
 }
 
-.custom-progress-bar.loading-variant-warning {
+.lion-bar.loading-variant-warning {
     --lion-active-color: var(--bs-warning, #ffc107);
 }
 
-.custom-progress-bar.loading-variant-info {
+.lion-bar.loading-variant-info {
     --lion-active-color: var(--bs-info, #0dcaf0);
 }
 
-.custom-progress-bar.loading-variant-light {
+.lion-bar.loading-variant-light {
     --lion-active-color: var(--bs-dark, #212529);
 }
 
-.custom-progress-bar.loading-variant-dark {
+.lion-bar.loading-variant-dark {
     --lion-active-color: var(--bs-dark, #212529);
 }
 
-.custom-progress-bar.loading-variant-link {
+.lion-bar.loading-variant-link {
     --lion-active-color: var(--bs-primary, #0d6efd);
 }
 
-.custom-progress-bar.loading-variant-lion-packages {
+.lion-bar.loading-variant-lion-packages {
     --lion-active-color: var(--lion-packages, #6f42c1);
 }
 
-.custom-progress-bar.loading-variant-lion-parking {
+.lion-bar.loading-variant-lion-parking {
     --lion-active-color: var(--lion-parking, #20c997);
 }
 
-.custom-progress-bar.loading-variant-lion-tech {
+.lion-bar.loading-variant-lion-tech {
     --lion-active-color: var(--lion-tech, #fd7e14);
 }
 
-.custom-progress-bar.loading-variant-lion-glam {
+.lion-bar.loading-variant-lion-glam {
     --lion-active-color: var(--lion-glam, #e83e8c);
 }
 
-.custom-progress-bar .indeterminate {
+.lion-bar .indeterminate {
     position: absolute;
     background-color: var(--lion-active-color);
     top: 0;

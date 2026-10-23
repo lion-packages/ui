@@ -11,7 +11,7 @@ import "./assets/css/inputs/inputs-bootstrap.css";
 
 import "./assets/css/modals/modals.css";
 
-import "./assets/css/loadings/loading-bar.css";
+import "./assets/css/loadings/loadings-bar.css";
 
 import { Fragment } from "react";
 import { Container } from "react-bootstrap";
