@@ -35,6 +35,7 @@ import LoadingSection from "./features/loadings/LoadingSection.tsx";
 import LoadingBarSection from "./features/loadings/components/LoadingBarSection.tsx";
 import InputsCustomSection from "./features/inputs/components/InputsCustomSection.tsx";
 import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
+import SelectsIOSSection from "./features/selects/components/SelectIOSSection.tsx";
 
 export default function App() {
     return (
@@ -71,7 +72,7 @@ export default function App() {
 
                             <Route path={"android"} element={<SelectsAndroidSection />} />
 
-                            <Route path={"ios"} element={<InputsIOSSection />} />
+                            <Route path={"ios"} element={<SelectsIOSSection />} />
 
                             <Route path={"web"} element={<InputsBootstrapSection />} />
                         </Route>

@@ -64,8 +64,6 @@ export default function SelectsAndroidSection() {
                                                 value={selectedValues[controlKey] || ""}
                                                 onChange={(e) => handleChange(controlKey, e.target.value)}
                                                 helperText={`Helper for ${variant}`}
-                                                startIcon={<i className="bi bi-0-circle"></i>}
-                                                endIcon={<i className="bi bi-0-circle"></i>}
                                             />
                                         </Col>
                                     );
