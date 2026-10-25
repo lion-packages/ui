@@ -8,6 +8,8 @@ import IOSInput from "../../../components/inputs/IOSInput.tsx";
 const StyleTypeList: Array<{ label: string; styleType: IOSInputStyleTypes }> = [
     { label: "Form", styleType: IOSInputStyleTypes.FORM },
     { label: "Rounded Border", styleType: IOSInputStyleTypes.ROUNDED_BORDER },
+    { label: "Rounded Border", styleType: IOSInputStyleTypes.FILLED },
+    { label: "Rounded Border", styleType: IOSInputStyleTypes.PLAIN },
 ];
 
 const ShapeList: Array<{ label: string; shape: IOSInputShapeTypes }> = [

@@ -16,6 +16,7 @@ const stylesList = [
     { type: IOSInputStyleTypes.ROUNDED_BORDER, name: "Rounded Border" },
     { type: IOSInputStyleTypes.FILLED, name: "Filled" },
     { type: IOSInputStyleTypes.FORM, name: "Form" },
+    { type: IOSInputStyleTypes.PLAIN, name: "Plain" },
 ];
 
 const shapesList = [

@@ -41,7 +41,6 @@ const stylesByPlatform = {
         { label: "Form", value: IOSInputStyleTypes.FORM },
         { label: "Rounded Border", value: IOSInputStyleTypes.ROUNDED_BORDER },
         { label: "Filled", value: IOSInputStyleTypes.FILLED },
-        { label: "Outlined", value: IOSInputStyleTypes.OUTLINED },
         { label: "Plain", value: IOSInputStyleTypes.PLAIN },
     ],
     [PlatformTypes.WEB]: [
