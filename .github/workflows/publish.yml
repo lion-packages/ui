@@ -1,0 +1,35 @@
+name: Lion-UI (CI Workflow Publish)
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  checks: write
+  contents: read
+  deployments: write
+  statuses: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Publish (NPM)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile library
+        run: npm run build
+
+      - name: Publish to npm
+        run: npm publish --access public
