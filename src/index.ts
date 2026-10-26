@@ -13,6 +13,7 @@ import "./assets/css/inputs/inputs-ios.css";
 import "./assets/css/inputs/inputs-bootstrap.css";
 import "./assets/css/modals/modals.css";
 import "./assets/css/loadings/loadings-bar.css";
+import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 
 /**
@@ -71,6 +72,7 @@ export { default as AndroidSelect } from './components/select/AndroidSelect';
 export { default as BootstrapSelect } from './components/select/BootstrapSelect';
 export { default as IOSSelect } from './components/select/IOSSelect';
 export { default as LoadingBar } from './components/loadings/LoadingBar';
+export { default as LoadingApp } from './components/loadings/LoadingApp';
 export { default as LionButton } from './components/buttons/LionButton';
 export { default as LionInput } from './components/inputs/LionInput';
 export { default as LionSelect } from './components/select/LionSelect';

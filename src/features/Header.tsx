@@ -91,6 +91,10 @@ export default function Header() {
                         </NavDropdown>
 
                         <NavDropdown title="Loadings" id="loadings-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/loadings/app"} href={"#"}>
+                                App
+                            </NavDropdown.Item>
+
                             <NavDropdown.Item as={Link} to={"/loadings/bar"} href={"#"}>
                                 Bar
                             </NavDropdown.Item>

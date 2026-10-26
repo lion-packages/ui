@@ -8,6 +8,7 @@ import "./assets/css/inputs/inputs-ios.css";
 import "./assets/css/inputs/inputs-bootstrap.css";
 import "./assets/css/modals/modals.css";
 import "./assets/css/loadings/loadings-bar.css";
+import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 
 import { Fragment } from "react";
@@ -28,15 +29,14 @@ import ModalsSection from "./features/modals/ModalsSection.tsx";
 import ModalsAndroidSection from "./features/modals/components/ModalsAndroidSection.tsx";
 import ModalsIOSSection from "./features/modals/components/ModalsIOSSection.tsx";
 import ModalsWebSection from "./features/modals/components/ModalsWebSection.tsx";
-import LoadingSection from "./features/loadings/LoadingSection.tsx";
-import LoadingBarSection from "./features/loadings/components/LoadingBarSection.tsx";
+import LoadingsAppSection from "./features/loadings/LoadingApp/LoadingsAppSection.tsx";
+import LoadingsBarSection from "./features/loadings/LoadingBar/LoadingsBarSection.tsx";
 import InputsCustomSection from "./features/inputs/components/InputsCustomSection.tsx";
 import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
 import SelectsIOSSection from "./features/selects/components/SelectIOSSection.tsx";
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
 import SelectsCustomSection from "./features/selects/components/SelectsCustomSection.tsx";
 import DataTablesSection from "./features/tables/DataTablesSection.tsx";
-import DataTableSection from "./features/tables/components/DataTableSection.tsx";
 
 export default function App() {
     return (
@@ -86,8 +86,10 @@ export default function App() {
                             <Route path={"web"} element={<ModalsWebSection />} />
                         </Route>
 
-                        <Route path={"loadings"} element={<LoadingSection />}>
-                            <Route path={"bar"} element={<LoadingBarSection />} />
+                        <Route path={"loadings"}>
+                            <Route path={"app"} element={<LoadingsAppSection />} />
+
+                            <Route path={"bar"} element={<LoadingsBarSection />} />
                         </Route>
 
                         <Route path={"tables"} element={<DataTablesSection />} />

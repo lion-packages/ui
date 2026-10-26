@@ -1,25 +1,11 @@
 import { Fragment, useState } from "react";
-import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
-import { VariantTypes } from "../../../types/VariantTypes.tsx";
-import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
-import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
-import LionButton from "../../../components/buttons/LionButton.tsx";
-import LoadingBar from "../../../components/loadings/LoadingBar.tsx";
-
-const variantsList = [
-    { type: VariantTypes.SUCCESS, name: "Success" },
-    { type: VariantTypes.INFO, name: "Info" },
-    { type: VariantTypes.PRIMARY, name: "Primary" },
-    { type: VariantTypes.DANGER, name: "Danger" },
-    { type: VariantTypes.WARNING, name: "Warning" },
-    { type: VariantTypes.LIGHT, name: "Light" },
-    { type: VariantTypes.LINK, name: "Link" },
-    { type: VariantTypes.DARK, name: "Dark" },
-    { type: VariantTypes.LION_PACKAGES, name: "Lion Packages" },
-    { type: VariantTypes.LION_PARKING, name: "Lion Parking" },
-    { type: VariantTypes.LION_TECH, name: "Lion Tech" },
-    { type: VariantTypes.LION_GLAM, name: "Lion Glam" },
-];
+import { ButtonTypes } from "../../../../types/ButtonTypes.tsx";
+import { VariantTypes } from "../../../../types/VariantTypes.tsx";
+import { PlatformTypes } from "../../../../types/PlatformTypes.tsx";
+import { useLionUI } from "../../../../context/LionUIComponentsContext.tsx";
+import LionButton from "../../../../components/buttons/LionButton.tsx";
+import LoadingBar from "../../../../components/loadings/LoadingBar.tsx";
+import VariantList from "../../../VariantList.tsx";
 
 export default function LoadingBarSection() {
     const { updateState } = useLionUI();
@@ -54,18 +40,18 @@ export default function LoadingBarSection() {
             </div>
 
             <div className="d-flex gap-3 flex-wrap">
-                {variantsList.map((variantObj) => (
+                {VariantList.map((variant) => (
                     <LionButton
-                        key={variantObj.type}
+                        key={variant}
                         platform={PlatformTypes.WEB}
-                        variant={variantObj.type}
+                        variant={variant}
                         type={ButtonTypes.BUTTON}
                         disabled={isLoading}
-                        onClick={() => handleTriggerLoading(variantObj.type)}
+                        onClick={() => handleTriggerLoading(variant)}
                     >
-                        {isLoading && activeVariant === variantObj.type
+                        {isLoading && activeVariant === variant
                             ? "Loading..."
-                            : `Test ${variantObj.name}`}
+                            : `Test ${variant}`}
                     </LionButton>
                 ))}
             </div>
