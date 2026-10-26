@@ -1,0 +1,146 @@
+import { useMemo, useState } from "react";
+import { Button, Badge, Row, Col, Form, InputGroup } from "react-bootstrap";
+import DataTable from "../../../components/tables/DataTable.tsx";
+import { VariantTypes } from "../../../types/VariantTypes.tsx";
+import VariantList from "../../VariantList.tsx";
+
+// Interface for mock user data typing
+interface MockUser {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    status: string;
+}
+
+export default function DataTableSection() {
+    const [selectedRows, setSelectedRows] = useState<MockUser[]>([]);
+    const [selectedVariant, setSelectedVariant] = useState<string>(VariantTypes.PRIMARY);
+
+    // Generate a dynamic dataset of 1000 rows for performance and pagination testing
+    const rows = useMemo(() => {
+        const names = ["Lion Alpha", "Lion Beta", "Lion Gamma", "Lion Delta", "Lion Omega", "John Doe", "Jane Smith", "Carlos Ruiz", "Ana Gómez", "Lucía Pérez"];
+        const roles = ["Developer", "Designer", "Manager", "Tester", "DevOps"];
+        const statuses = ["Active", "Pending", "Inactive"];
+
+        const generatedData: MockUser[] = [];
+
+        for (let i = 1; i <= 1000; i++) {
+            const randomName = `${names[(i - 1) % names.length]} ${i}`;
+            const randomEmail = `user${i}@lionlib.test`;
+            const randomRole = roles[(i - 1) % roles.length];
+            const randomStatus = statuses[(i - 1) % statuses.length];
+
+            generatedData.push({
+                id: i,
+                name: randomName,
+                email: randomEmail,
+                role: randomRole,
+                status: randomStatus,
+            });
+        }
+
+        return generatedData;
+    }, []);
+
+    // Column definitions typed and adapted for @tanstack/react-table
+    const columns = useMemo(
+        () => [
+            {
+                accessorKey: "id",
+                header: "ID",
+                cell: ({ getValue }: { getValue: () => any }) => getValue(),
+            },
+            {
+                accessorKey: "name",
+                header: "NAME",
+                cell: ({ getValue }: { getValue: () => any }) => (
+                    <span className="fw-semibold">{getValue()}</span>
+                ),
+            },
+            {
+                accessorKey: "email",
+                header: "EMAIL",
+                cell: ({ getValue }: { getValue: () => any }) => getValue(),
+            },
+            {
+                accessorKey: "role",
+                header: "ROLE",
+                cell: ({ getValue }: { getValue: () => any }) => {
+                    const role = getValue();
+                    return <Badge bg="secondary">{role}</Badge>;
+                },
+            },
+            {
+                accessorKey: "status",
+                header: "STATUS",
+                cell: ({ getValue }: { getValue: () => any }) => {
+                    const status = getValue();
+                    const variant = status === "Active" ? "success" : status === "Pending" ? "warning" : "danger";
+                    return <Badge bg={variant}>{status}</Badge>;
+                },
+            },
+        ],
+        []
+    );
+
+    return (
+        <div className={"p-4"}>
+            <h2 className={"mb-3"}>
+                DataTable Performance & Features Test (1000 Rows)
+            </h2>
+
+            <p className={"text-muted mb-4"}>
+                Interactive section to validate block pagination, global text filtering, column sorting, row clicks, variant themes, and multi-row selection.
+            </p>
+
+            {/* Variant Switcher Control Card */}
+            <div className="card p-3 mb-4 bg-light">
+                <Row className="g-3 align-items-center">
+                    <Col md={4}>
+                        <InputGroup>
+                            <InputGroup.Text className="fw-bold">Table Variant</InputGroup.Text>
+                            <Form.Select
+                                value={selectedVariant}
+                                onChange={(e) => setSelectedVariant(e.target.value)}
+                            >
+                                {VariantList.map((variantName) => (
+                                    <option key={variantName} value={variantName}>
+                                        {variantName.charAt(0).toUpperCase() + variantName.slice(1)}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </InputGroup>
+                    </Col>
+                </Row>
+            </div>
+
+            <DataTable
+                className={"text-center"}
+                searchPlaceholder={"Searching..."}
+                data={rows}
+                columns={columns}
+                getRowId={(row) => String(row.id)}
+                selectable={true}
+                rowsPerPage={25}
+                variant={selectedVariant}
+                onSelectionChange={(rows) => {
+                    setSelectedRows(rows);
+                }}
+                customButtons={
+                    <Button
+                        variant={selectedVariant}
+                        onClick={() => {
+                            alert(`Currently selected rows: ${selectedRows.length}`);
+                        }}
+                    >
+                        Bulk Action ({selectedRows.length})
+                    </Button>
+                }
+                onRowClick={(row) => {
+                    console.log("Row clicked:", row);
+                }}
+            />
+        </div>
+    );
+}

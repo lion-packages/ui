@@ -1,17 +1,14 @@
 import "./assets/css/index.css";
 import "./assets/css/custom.css";
-
 import "./assets/css/buttons/buttons-android.css";
 import "./assets/css/buttons/buttons-ios.css";
 import "./assets/css/buttons/buttons-web.css";
-
 import "./assets/css/inputs/inputs-android.css";
 import "./assets/css/inputs/inputs-ios.css";
 import "./assets/css/inputs/inputs-bootstrap.css";
-
 import "./assets/css/modals/modals.css";
-
 import "./assets/css/loadings/loadings-bar.css";
+import "./assets/css/tables/datatables.css";
 
 import { Fragment } from "react";
 import { Container } from "react-bootstrap";
@@ -38,6 +35,8 @@ import SelectsAndroidSection from "./features/selects/components/SelectsAndroidS
 import SelectsIOSSection from "./features/selects/components/SelectIOSSection.tsx";
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
 import SelectsCustomSection from "./features/selects/components/SelectsCustomSection.tsx";
+import DataTablesSection from "./features/tables/DataTablesSection.tsx";
+import DataTableSection from "./features/tables/components/DataTableSection.tsx";
 
 export default function App() {
     return (
@@ -90,6 +89,8 @@ export default function App() {
                         <Route path={"loadings"} element={<LoadingSection />}>
                             <Route path={"bar"} element={<LoadingBarSection />} />
                         </Route>
+
+                        <Route path={"tables"} element={<DataTablesSection />} />
                     </Routes>
                 </LionUIComponentsProvider>
             </Container>
