@@ -15,6 +15,7 @@ interface MockUser {
 export default function DataTableSection() {
     const [selectedRows, setSelectedRows] = useState<MockUser[]>([]);
     const [selectedVariant, setSelectedVariant] = useState<string>(VariantTypes.PRIMARY);
+    const [currentLocale, setCurrentLocale] = useState<string>("es");
 
     const rows = useMemo(() => {
         const names = ["Lion Alpha", "Lion Beta", "Lion Gamma", "Lion Delta", "Lion Omega", "John Doe", "Jane Smith", "Carlos Ruiz", "Ana Gómez", "Lucía Pérez"];
@@ -84,7 +85,7 @@ export default function DataTableSection() {
     const handleSelectionChange = useCallback((rows: MockUser[]) => {
         setSelectedRows(rows);
 
-        console.log(rows)
+        console.log(rows);
     }, []);
 
     const handleRowClick = useCallback((row: MockUser) => {
@@ -109,7 +110,7 @@ export default function DataTableSection() {
 
             <div className="card p-3 mb-4 bg-light">
                 <Row className="g-3 align-items-center">
-                    <Col xs={12} sm={12} md={8} lg={6} xl={4}>
+                    <Col xs={12} sm={12} md={6} lg={6} xl={4}>
                         <InputGroup>
                             <InputGroup.Text className="fw-bold">Table Variant</InputGroup.Text>
                             <Form.Select
@@ -124,12 +125,25 @@ export default function DataTableSection() {
                             </Form.Select>
                         </InputGroup>
                     </Col>
+
+                    <Col xs={12} sm={12} md={6} lg={6} xl={4}>
+                        <InputGroup>
+                            <InputGroup.Text className="fw-bold">Language (Locale)</InputGroup.Text>
+                            <Form.Select
+                                value={currentLocale}
+                                onChange={(e) => setCurrentLocale(e.target.value)}
+                            >
+                                <option value="es">Español (ES)</option>
+                                <option value="en">English (EN)</option>
+                            </Form.Select>
+                        </InputGroup>
+                    </Col>
                 </Row>
             </div>
 
             <DataTable
                 className={"text-center"}
-                searchPlaceholder={"Searching..."}
+                locale={currentLocale}
                 data={rows}
                 columns={columns}
                 getRowId={(row) => String(row.id)}

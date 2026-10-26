@@ -28,6 +28,7 @@ import BootstrapInput from "../../components/inputs/BootstrapInput.tsx";
 import { InputTypes } from "../../types/InputTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
+import { defaultDictionary, type DataTableDictionary, type SupportedLanguage } from "./DataTable.i18n";
 
 const EMPTY_ARRAY: any[] = [];
 
@@ -61,6 +62,8 @@ export interface DataTableProps<TData extends RowData> {
     searchPlaceholder?: string;
     className?: string;
     variant?: string;
+    locale?: SupportedLanguage;
+    dictionary?: Partial<DataTableDictionary>;
 }
 
 export default function DataTable<TData extends RowData>({
@@ -74,10 +77,22 @@ export default function DataTable<TData extends RowData>({
                                                              customButtons = null,
                                                              rowsPerPage = 10,
                                                              rowsSelectionList = EMPTY_ARRAY,
-                                                             searchPlaceholder = "Search...",
+                                                             searchPlaceholder,
                                                              className = "",
                                                              variant = "primary",
+                                                             locale = "es",
+                                                             dictionary = {},
                                                          }: DataTableProps<TData>) {
+
+    const t = useMemo((): DataTableDictionary => {
+        const baseLang = defaultDictionary[locale] ?? defaultDictionary["es"];
+        return {
+            ...baseLang,
+            ...dictionary,
+            searchPlaceholder: searchPlaceholder ?? dictionary.searchPlaceholder ?? baseLang.searchPlaceholder,
+        };
+    }, [locale, dictionary, searchPlaceholder]);
+
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState({
@@ -105,7 +120,6 @@ export default function DataTable<TData extends RowData>({
         });
     }, [rowsPerPage]);
 
-    // Inicializar o sincronizar rowSelection basado en rowsSelectionList externa solo si es necesario
     const externalRowSelection = useMemo(() => {
         if (!selectable || !getRowId || rowsSelectionList.length === 0) {
             return {};
@@ -166,18 +180,18 @@ export default function DataTable<TData extends RowData>({
         return [
             {
                 id: "selection",
-                header: ({ table: t }: { table: any }) => (
+                header: ({ table: tbl }: { table: any }) => (
                     <Form.Check
                         type="checkbox"
-                        checked={t.getIsAllPageRowsSelected()}
+                        checked={tbl.getIsAllPageRowsSelected()}
                         ref={(element: HTMLInputElement | null) => {
                             if (element) {
                                 element.indeterminate =
-                                    t.getIsSomePageRowsSelected() &&
-                                    !t.getIsAllPageRowsSelected();
+                                    tbl.getIsSomePageRowsSelected() &&
+                                    !tbl.getIsAllPageRowsSelected();
                             }
                         }}
-                        onChange={t.getToggleAllPageRowsSelectedHandler()}
+                        onChange={tbl.getToggleAllPageRowsSelectedHandler()}
                         onClick={(event: React.MouseEvent) => {
                             event.stopPropagation();
                         }}
@@ -270,6 +284,7 @@ export default function DataTable<TData extends RowData>({
     };
 
     const rows = table.getRowModel().rows;
+    const filteredRowsCount = table.getFilteredRowModel().rows.length;
 
     const tableVariantClass = `table-variant-${variant}`;
     const combinedTableClasses = [className, tableVariantClass].filter(Boolean).join(" ");
@@ -304,7 +319,7 @@ export default function DataTable<TData extends RowData>({
                 >
                     <InputGroup className="mb-1">
                         <InputGroup.Text>
-                            Filas
+                            {t.rowsLabel}
                         </InputGroup.Text>
 
                         <Form.Select
@@ -333,7 +348,7 @@ export default function DataTable<TData extends RowData>({
                         shape={BootstrapInputShapeTypes.ROUNDED}
                         variant={variant}
                         className={"mb-1 float-end"}
-                        placeholder={searchPlaceholder}
+                        placeholder={t.searchPlaceholder}
                         autoComplete={"off"}
                         value={table.state.globalFilter ?? ""}
                         onChange={handleGlobalFilterChange}
@@ -431,7 +446,7 @@ export default function DataTable<TData extends RowData>({
                                 colSpan={columns.length}
                                 className="text-center text-muted py-4"
                             >
-                                No hay resultados
+                                {t.noResultsLabel}
                             </td>
                         </tr>
                     )}
@@ -441,8 +456,13 @@ export default function DataTable<TData extends RowData>({
 
             <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center mt-3 gap-2">
                 <div className="text-muted">
-                    Total filas:{" "}
-                    <strong>{data.length}</strong>
+                    {t.totalRowsLabel}{" "}
+                    <strong>{filteredRowsCount}</strong>
+                    {filteredRowsCount !== data.length && (
+                        <span className="ms-1 text-muted small">
+                            ({t.ofLabel} {data.length})
+                        </span>
+                    )}
                 </div>
 
                 <Pagination className={`mb-0 ${paginationVariantClass}`}>
