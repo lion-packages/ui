@@ -1,10 +1,9 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Button, Badge, Row, Col, Form, InputGroup } from "react-bootstrap";
 import DataTable from "../../../components/tables/DataTable.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import VariantList from "../../VariantList.tsx";
 
-// Interface for mock user data typing
 interface MockUser {
     id: number;
     name: string;
@@ -17,7 +16,6 @@ export default function DataTableSection() {
     const [selectedRows, setSelectedRows] = useState<MockUser[]>([]);
     const [selectedVariant, setSelectedVariant] = useState<string>(VariantTypes.PRIMARY);
 
-    // Generate a dynamic dataset of 1000 rows for performance and pagination testing
     const rows = useMemo(() => {
         const names = ["Lion Alpha", "Lion Beta", "Lion Gamma", "Lion Delta", "Lion Omega", "John Doe", "Jane Smith", "Carlos Ruiz", "Ana Gómez", "Lucía Pérez"];
         const roles = ["Developer", "Designer", "Manager", "Tester", "DevOps"];
@@ -43,7 +41,6 @@ export default function DataTableSection() {
         return generatedData;
     }, []);
 
-    // Column definitions typed and adapted for @tanstack/react-table
     const columns = useMemo(
         () => [
             {
@@ -84,6 +81,22 @@ export default function DataTableSection() {
         []
     );
 
+    const handleSelectionChange = useCallback((rows: MockUser[]) => {
+        setSelectedRows(rows);
+
+        console.log(rows)
+    }, []);
+
+    const handleRowClick = useCallback((row: MockUser) => {
+        console.log(row);
+    }, []);
+
+    const handleBulkClick = () => {
+        alert(`Currently selected rows: ${selectedRows.length}`);
+
+        console.log(selectedRows);
+    };
+
     return (
         <div className={"p-4"}>
             <h2 className={"mb-3"}>
@@ -94,7 +107,6 @@ export default function DataTableSection() {
                 Interactive section to validate block pagination, global text filtering, column sorting, row clicks, variant themes, and multi-row selection.
             </p>
 
-            {/* Variant Switcher Control Card */}
             <div className="card p-3 mb-4 bg-light">
                 <Row className="g-3 align-items-center">
                     <Col md={4}>
@@ -124,22 +136,16 @@ export default function DataTableSection() {
                 selectable={true}
                 rowsPerPage={25}
                 variant={selectedVariant}
-                onSelectionChange={(rows) => {
-                    setSelectedRows(rows);
-                }}
+                onSelectionChange={handleSelectionChange}
                 customButtons={
                     <Button
                         variant={selectedVariant}
-                        onClick={() => {
-                            alert(`Currently selected rows: ${selectedRows.length}`);
-                        }}
+                        onClick={handleBulkClick}
                     >
                         Bulk Action ({selectedRows.length})
                     </Button>
                 }
-                onRowClick={(row) => {
-                    console.log("Row clicked:", row);
-                }}
+                onRowClick={handleRowClick}
             />
         </div>
     );

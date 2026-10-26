@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
     useTable,
     tableFeatures,
@@ -24,8 +24,8 @@ import {
 } from "react-bootstrap";
 import { InputTypes } from "../../types/InputTypes.tsx";
 import BootstrapInput from "../inputs/BootstrapInput.tsx";
-import {BootstrapInputStyleTypes} from "../../types/Web/BootstrapInputStyleTypes.tsx";
-import {BootstrapInputShapeTypes} from "../../types/Web/BootstrapInputShapeTypes.tsx";
+import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
+import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 
 const EMPTY_ARRAY: any[] = [];
 const EMPTY_OBJECT: Record<string, any> = {};
@@ -82,6 +82,12 @@ export default function DataTable<TData>({
         pageSize: rowsPerPage,
     });
     const [rowSelection, setRowSelection] = useState<Record<string, boolean>>(EMPTY_OBJECT);
+
+    // Referencia para mantener actualizada la función onSelectionChange sin disparar efectos innecesarios
+    const onSelectionChangeRef = useRef(onSelectionChange);
+    useEffect(() => {
+        onSelectionChangeRef.current = onSelectionChange;
+    }, [onSelectionChange]);
 
     useEffect(() => {
         setPagination((previous) => {
@@ -242,6 +248,7 @@ export default function DataTable<TData>({
         (state: any) => state
     );
 
+    // Efecto corregido: Se removió 'table' de las dependencias para evitar el bucle infinito
     useEffect(() => {
         if (!selectable) {
             return;
@@ -252,12 +259,10 @@ export default function DataTable<TData>({
             .rows
             .map((row: any) => row.original);
 
-        onSelectionChange(selectedRows);
+        onSelectionChangeRef.current(selectedRows);
     }, [
         rowSelection,
         selectable,
-        onSelectionChange,
-        table,
     ]);
 
     const handleGlobalFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -300,7 +305,7 @@ export default function DataTable<TData>({
                     <Col
                         xs={12}
                         sm={12}
-                        md={4}
+                        md={12}
                         lg={6}
                         xl={6}
                     >
@@ -313,8 +318,8 @@ export default function DataTable<TData>({
                 <Col
                     xs={customButtons ? 12 : 6}
                     sm={customButtons ? 12 : 6}
-                    md={customButtons ? 4 : 6}
-                    lg={customButtons ? 2 : 4}
+                    md={6}
+                    lg={customButtons ? 3 : 4}
                     xl={customButtons ? 2 : 4}
                 >
                     <InputGroup className="mb-1">
@@ -338,8 +343,8 @@ export default function DataTable<TData>({
                 <Col
                     xs={customButtons ? 12 : 6}
                     sm={customButtons ? 12 : 6}
-                    md={customButtons ? 4 : 6}
-                    lg={customButtons ? 4 : 8}
+                    md={6}
+                    lg={customButtons ? 3 : 8}
                     xl={customButtons ? 4 : 8}
                 >
                     <BootstrapInput
