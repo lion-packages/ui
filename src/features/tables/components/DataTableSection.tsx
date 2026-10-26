@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, Fragment } from "react";
 import { Button, Badge, Row, Col, Form, InputGroup } from "react-bootstrap";
 import DataTable from "../../../components/tables/DataTable.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
@@ -98,7 +98,7 @@ export default function DataTableSection() {
     };
 
     return (
-        <div className={"p-4"}>
+        <Fragment>
             <h2 className={"mb-3"}>
                 DataTable Performance & Features Test (1000 Rows)
             </h2>
@@ -109,7 +109,7 @@ export default function DataTableSection() {
 
             <div className="card p-3 mb-4 bg-light">
                 <Row className="g-3 align-items-center">
-                    <Col md={4}>
+                    <Col xs={12} sm={12} md={8} lg={6} xl={4}>
                         <InputGroup>
                             <InputGroup.Text className="fw-bold">Table Variant</InputGroup.Text>
                             <Form.Select
@@ -147,6 +147,6 @@ export default function DataTableSection() {
                 }
                 onRowClick={handleRowClick}
             />
-        </div>
+        </Fragment>
     );
 }
