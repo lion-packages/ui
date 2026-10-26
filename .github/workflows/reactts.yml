@@ -1,0 +1,67 @@
+name: Lion-UI (CI Workflow ReactTS)
+
+on:
+  push:
+    branches:
+      - reactts-actions
+  pull_request:
+    branches:
+      - 1.x
+    paths:
+      - ".github/workflows/reactts.yml"
+      - "src/**"
+      - "package-lock.json"
+      - "package.json"
+
+env:
+  NODEJS_VERSION: 24.22
+  DEPENDENCIES_DIRECTORY: node_modules
+
+jobs:
+  install-dependencies:
+    runs-on: ubuntu-latest
+    name: Install Dependencies
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODEJS_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install reactts dependencies
+        run: npm ci
+
+      - name: Cache ${{ env.DEPENDENCIES_DIRECTORY }} directory
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.DEPENDENCIES_DIRECTORY }}
+          key: reactts-${{ env.DEPENDENCIES_DIRECTORY }}-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: reactts-${{ env.DEPENDENCIES_DIRECTORY }}-${{ runner.os }}-${{ github.run_id }}
+
+  npm-validation:
+    runs-on: ubuntu-latest
+    name: NPM Validation
+    needs:
+      - install-dependencies
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODEJS_VERSION }}
+
+      - name: Restore ${{ env.DEPENDENCIES_DIRECTORY }} directory from cache
+        uses: actions/cache@v6
+        with:
+          path: ${{ env.DEPENDENCIES_DIRECTORY }}
+          key: reactts-${{ env.DEPENDENCIES_DIRECTORY }}-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: reactts-${{ env.DEPENDENCIES_DIRECTORY }}-${{ runner.os }}-${{ github.run_id }}
+
+      - name: Check for vulnerabilities
+        run: npm audit --audit-level=high
