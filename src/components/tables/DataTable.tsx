@@ -24,8 +24,8 @@ import {
     Row,
     Col,
 } from "react-bootstrap";
+import BootstrapInput from "../../components/inputs/BootstrapInput.tsx";
 import { InputTypes } from "../../types/InputTypes.tsx";
-import BootstrapInput from "../inputs/BootstrapInput.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 
@@ -105,6 +105,7 @@ export default function DataTable<TData extends RowData>({
         });
     }, [rowsPerPage]);
 
+    // Inicializar o sincronizar rowSelection basado en rowsSelectionList externa solo si es necesario
     const externalRowSelection = useMemo(() => {
         if (!selectable || !getRowId || rowsSelectionList.length === 0) {
             return {};
@@ -116,29 +117,21 @@ export default function DataTable<TData extends RowData>({
             const rowId = getRowId(row);
 
             if (rowId !== undefined && rowId !== null) {
-                selection[rowId] = true;
+                selection[String(rowId)] = true;
             }
         });
 
         return selection;
     }, [rowsSelectionList, getRowId, selectable]);
 
+    const isInitialMount = useRef(true);
+
     useEffect(() => {
-        setRowSelection((previous) => {
-            const previousKeys = Object.keys(previous);
-            const externalKeys = Object.keys(externalRowSelection);
-
-            if (previousKeys.length !== externalKeys.length) {
-                return externalRowSelection;
-            }
-
-            const hasChanged = externalKeys.some(
-                (key) => previous[key] !== externalRowSelection[key]
-            );
-
-            return hasChanged ? externalRowSelection : previous;
-        });
-    }, [externalRowSelection]);
+        if (isInitialMount.current && rowsSelectionList.length > 0) {
+            isInitialMount.current = false;
+            setRowSelection(externalRowSelection);
+        }
+    }, [externalRowSelection, rowsSelectionList.length]);
 
     const pageSizeOptions = useMemo(() => {
         const defaultOptions = [10, 15, 30, 50, 100, 200, 500];
@@ -173,25 +166,23 @@ export default function DataTable<TData extends RowData>({
         return [
             {
                 id: "selection",
-
-                header: ({ table }: { table: any }) => (
+                header: ({ table: t }: { table: any }) => (
                     <Form.Check
                         type="checkbox"
-                        checked={table.getIsAllPageRowsSelected()}
+                        checked={t.getIsAllPageRowsSelected()}
                         ref={(element: HTMLInputElement | null) => {
                             if (element) {
                                 element.indeterminate =
-                                    table.getIsSomePageRowsSelected() &&
-                                    !table.getIsAllPageRowsSelected();
+                                    t.getIsSomePageRowsSelected() &&
+                                    !t.getIsAllPageRowsSelected();
                             }
                         }}
-                        onChange={table.getToggleAllPageRowsSelectedHandler()}
+                        onChange={t.getToggleAllPageRowsSelectedHandler()}
                         onClick={(event: React.MouseEvent) => {
                             event.stopPropagation();
                         }}
                     />
                 ),
-
                 cell: ({ row }: { row: any }) => (
                     <Form.Check
                         type="checkbox"
@@ -211,44 +202,27 @@ export default function DataTable<TData extends RowData>({
     const table = useTable(
         {
             features,
-
             data,
             columns,
-
             state: {
                 globalFilter,
                 sorting,
                 pagination,
                 rowSelection,
             },
-
             onGlobalFilterChange: setGlobalFilter,
-
             onSortingChange: setSorting,
-
             onPaginationChange: setPagination,
-
-            onRowSelectionChange: (updater: any) => {
-                setRowSelection((previous) => {
-                    const newSelection =
-                        typeof updater === "function"
-                            ? updater(previous)
-                            : updater;
-
-                    return newSelection;
-                });
-            },
-
+            onRowSelectionChange: setRowSelection,
             enableRowSelection: selectable,
-
             ...(getRowId ? { getRowId } : {}),
-
             globalFilterFn: "includesString" as any,
-
             enableRowRangeSelection: false,
         },
         (state: any) => state
     );
+
+    const lastSelectionKeysRef = useRef<string>("");
 
     useEffect(() => {
         if (!selectable) {
@@ -260,11 +234,16 @@ export default function DataTable<TData extends RowData>({
             .rows
             .map((row: any) => row.original);
 
-        onSelectionChangeRef.current(selectedRows);
-    }, [
-        rowSelection,
-        selectable,
-    ]);
+        const currentKeys = Object.keys(rowSelection)
+            .filter((k) => rowSelection[k])
+            .sort()
+            .join(",");
+
+        if (currentKeys !== lastSelectionKeysRef.current) {
+            lastSelectionKeysRef.current = currentKeys;
+            onSelectionChangeRef.current(selectedRows);
+        }
+    }, [rowSelection, selectable, table]);
 
     const handleGlobalFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -366,13 +345,16 @@ export default function DataTable<TData extends RowData>({
                 className="table-responsive"
                 style={{
                     maxHeight: "60vh",
+                    overflowX: "auto",
                     overflowY: "auto",
+                    WebkitOverflowScrolling: "touch",
                 }}
             >
                 <Table
                     hover
-                    responsive
+                    responsive={false}
                     className={combinedTableClasses}
+                    style={{ width: "100%", minWidth: "max-content" }}
                 >
                     <thead className="table-tbody table-glam">
                     {table
