@@ -1,0 +1,209 @@
+/* ==========================================================================
+   LION UI LIBRARY - DATATABLE & PAGINATION VARIANT STYLES
+   ========================================================================== */
+
+/* --- Color Variables Mapping per Variant --- */
+.table.table-variant-primary,
+.pagination.pagination-variant-primary {
+    --table-active-color: var(--bs-primary, #0d6efd);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--bs-primary, #0d6efd);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-secondary,
+.pagination.pagination-variant-secondary {
+    --table-active-color: var(--bs-secondary, #6c757d);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--bs-secondary, #6c757d);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-success,
+.pagination.pagination-variant-success {
+    --table-active-color: var(--bs-success, #198754);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--bs-success, #198754);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-danger,
+.pagination.pagination-variant-danger {
+    --table-active-color: var(--bs-danger, #dc3545);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--bs-danger, #dc3545);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-warning,
+.pagination.pagination-variant-warning {
+    --table-active-color: var(--bs-warning, #ffc107);
+    --table-header-text-color: #212529;
+    --pagination-active-color: var(--bs-warning, #ffc107);
+    --pagination-text-color: #212529;
+}
+
+.table.table-variant-info,
+.pagination.pagination-variant-info {
+    --table-active-color: var(--bs-info, #0dcaf0);
+    --table-header-text-color: #212529;
+    --pagination-active-color: var(--bs-info, #0dcaf0);
+    --pagination-text-color: #212529;
+}
+
+.table.table-variant-light,
+.pagination.pagination-variant-light {
+    --table-active-color: var(--bs-light, #f8f9fa);
+    --table-header-text-color: #212529;
+    --pagination-active-color: var(--bs-light, #f8f9fa);
+    --pagination-text-color: #212529;
+}
+
+.table.table-variant-dark,
+.pagination.pagination-variant-dark {
+    --table-active-color: var(--bs-dark, #212529);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--bs-dark, #212529);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-link,
+.pagination.pagination-variant-link {
+    --table-active-color: transparent;
+    --table-header-text-color: var(--bs-link-color, #0d6efd);
+    --pagination-active-color: var(--bs-link-color, #0d6efd);
+    --pagination-text-color: #ffffff;
+}
+
+/* Custom Lion Variants */
+.table.table-variant-lion-packages,
+.pagination.pagination-variant-lion-packages {
+    --table-active-color: var(--lion-packages, #6f42c1);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--lion-packages, #6f42c1);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-lion-parking,
+.pagination.pagination-variant-lion-parking {
+    --table-active-color: var(--lion-parking, #20c997);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--lion-parking, #20c997);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-lion-tech,
+.pagination.pagination-variant-lion-tech {
+    --table-active-color: var(--lion-tech, #fd7e14);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--lion-tech, #fd7e14);
+    --pagination-text-color: #ffffff;
+}
+
+.table.table-variant-lion-glam,
+.pagination.pagination-variant-lion-glam {
+    --table-active-color: var(--lion-glam, #e83e8c);
+    --table-header-text-color: #ffffff;
+    --pagination-active-color: var(--lion-glam, #e83e8c);
+    --pagination-text-color: #ffffff;
+}
+
+/* --- Apply Variant Color to Table Header (.table-glam) --- */
+.table.table-variant-primary thead.table-glam,
+.table.table-variant-secondary thead.table-glam,
+.table.table-variant-success thead.table-glam,
+.table.table-variant-danger thead.table-glam,
+.table.table-variant-warning thead.table-glam,
+.table.table-variant-info thead.table-glam,
+.table.table-variant-light thead.table-glam,
+.table.table-variant-dark thead.table-glam,
+.table.table-variant-link thead.table-glam,
+.table.table-variant-lion-packages thead.table-glam,
+.table.table-variant-lion-parking thead.table-glam,
+.table.table-variant-lion-tech thead.table-glam,
+.table.table-variant-lion-glam thead.table-glam {
+    background-color: var(--table-active-color);
+    color: var(--table-header-text-color, #ffffff);
+}
+
+.table[class*="table-variant-"] thead.table-glam th {
+    background-color: transparent;
+    color: inherit;
+    border-color: color-mix(in srgb, var(--table-active-color) 80%, black);
+}
+
+.table.table-variant-light thead.table-glam th,
+.table.table-variant-link thead.table-glam th {
+    border-color: var(--bs-border-color, #dee2e6);
+}
+
+/* --- Striped Row Coloring based on Variant --- */
+.table[class*="table-variant-"] tbody tr:nth-of-type(odd) {
+    background-color: color-mix(in srgb, var(--table-active-color) 6%, transparent);
+}
+
+.table.table-variant-light tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.table.table-variant-link tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* --- Hover Effect Harmonized with Variant --- */
+.table[class*="table-variant-"].table-hover tbody tr:hover {
+    background-color: color-mix(in srgb, var(--table-active-color) 14%, transparent);
+}
+
+.table.table-variant-light.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.table.table-variant-link.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* --- Explicit mapping for pagination items and borders --- */
+.pagination.pagination-variant-primary .page-item.active .page-link,
+.pagination.pagination-variant-secondary .page-item.active .page-link,
+.pagination.pagination-variant-success .page-item.active .page-link,
+.pagination.pagination-variant-danger .page-item.active .page-link,
+.pagination.pagination-variant-warning .page-item.active .page-link,
+.pagination.pagination-variant-info .page-item.active .page-link,
+.pagination.pagination-variant-light .page-item.active .page-link,
+.pagination.pagination-variant-dark .page-item.active .page-link,
+.pagination.pagination-variant-link .page-item.active .page-link,
+.pagination.pagination-variant-lion-packages .page-item.active .page-link,
+.pagination.pagination-variant-lion-parking .page-item.active .page-link,
+.pagination.pagination-variant-lion-tech .page-item.active .page-link,
+.pagination.pagination-variant-lion-glam .page-item.active .page-link {
+    background-color: var(--pagination-active-color);
+    border-color: var(--pagination-active-color);
+    color: var(--pagination-text-color, #ffffff);
+}
+
+.pagination[class*="pagination-variant-"] .page-link {
+    color: var(--pagination-active-color);
+}
+
+.pagination[class*="pagination-variant-"] .page-link:hover {
+    background-color: color-mix(in srgb, var(--pagination-active-color) 15%, transparent);
+    border-color: var(--pagination-active-color);
+    color: var(--pagination-active-color);
+}
+
+/* --- Unique override rules for light variant pagination icons and text visibility --- */
+.pagination.pagination-variant-light .page-item.active .page-link {
+    color: #212529;
+    border-color: #dee2e6;
+}
+
+.pagination.pagination-variant-light .page-link {
+    color: #495057;
+}
+
+.pagination.pagination-variant-light .page-link:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+    color: #212529;
+    border-color: #dee2e6;
+}

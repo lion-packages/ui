@@ -95,6 +95,8 @@ export default function Header() {
                                 Bar
                             </NavDropdown.Item>
                         </NavDropdown>
+
+                        <Nav.Link as={Link} to={"tables"} href="#">Tables</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
