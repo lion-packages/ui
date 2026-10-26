@@ -13,6 +13,8 @@ import {
     filterFn_includesString,
     type ColumnDef,
     type SortingState,
+    type RowSelectionState,
+    type RowData,
 } from "@tanstack/react-table";
 import {
     Table,
@@ -28,7 +30,6 @@ import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTyp
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 
 const EMPTY_ARRAY: any[] = [];
-const EMPTY_OBJECT: Record<string, any> = {};
 
 const features = tableFeatures({
     columnFilteringFeature,
@@ -44,9 +45,11 @@ const features = tableFeatures({
     },
 });
 
-export interface DataTableProps<TData> {
+type TableFeaturesType = typeof features;
+
+export interface DataTableProps<TData extends RowData> {
     id?: string;
-    columns?: ColumnDef<TData, any>[];
+    columns?: ColumnDef<TableFeaturesType, TData, any>[];
     getRowId?: (row: TData) => string;
     selectable?: boolean;
     onSelectionChange?: (selectedRows: TData[]) => void;
@@ -60,30 +63,29 @@ export interface DataTableProps<TData> {
     variant?: string;
 }
 
-export default function DataTable<TData>({
-                                             id,
-                                             columns: inputColumns = EMPTY_ARRAY,
-                                             getRowId,
-                                             selectable = false,
-                                             onSelectionChange = () => {},
-                                             data = EMPTY_ARRAY,
-                                             onRowClick = () => {},
-                                             customButtons = null,
-                                             rowsPerPage = 10,
-                                             rowsSelectionList = EMPTY_ARRAY,
-                                             searchPlaceholder = "Search...",
-                                             className = "",
-                                             variant = "primary",
-                                         }: DataTableProps<TData>) {
+export default function DataTable<TData extends RowData>({
+                                                             id,
+                                                             columns: inputColumns = EMPTY_ARRAY,
+                                                             getRowId,
+                                                             selectable = false,
+                                                             onSelectionChange = () => {},
+                                                             data = EMPTY_ARRAY,
+                                                             onRowClick = () => {},
+                                                             customButtons = null,
+                                                             rowsPerPage = 10,
+                                                             rowsSelectionList = EMPTY_ARRAY,
+                                                             searchPlaceholder = "Search...",
+                                                             className = "",
+                                                             variant = "primary",
+                                                         }: DataTableProps<TData>) {
     const [globalFilter, setGlobalFilter] = useState<string>("");
     const [sorting, setSorting] = useState<SortingState>([]);
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: rowsPerPage,
     });
-    const [rowSelection, setRowSelection] = useState<Record<string, boolean>>(EMPTY_OBJECT);
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
-    // Referencia para mantener actualizada la función onSelectionChange sin disparar efectos innecesarios
     const onSelectionChangeRef = useRef(onSelectionChange);
     useEffect(() => {
         onSelectionChangeRef.current = onSelectionChange;
@@ -105,10 +107,10 @@ export default function DataTable<TData>({
 
     const externalRowSelection = useMemo(() => {
         if (!selectable || !getRowId || rowsSelectionList.length === 0) {
-            return EMPTY_OBJECT;
+            return {};
         }
 
-        const selection: Record<string, boolean> = {};
+        const selection: RowSelectionState = {};
 
         rowsSelectionList.forEach((row) => {
             const rowId = getRowId(row);
@@ -203,7 +205,7 @@ export default function DataTable<TData>({
                 ),
             },
             ...normalizedColumns,
-        ] as ColumnDef<TData, any>[];
+        ] as ColumnDef<TableFeaturesType, TData, any>[];
     }, [inputColumns, selectable]);
 
     const table = useTable(
@@ -241,14 +243,13 @@ export default function DataTable<TData>({
 
             ...(getRowId ? { getRowId } : {}),
 
-            globalFilterFn: "includesString",
+            globalFilterFn: "includesString" as any,
 
             enableRowRangeSelection: false,
         },
         (state: any) => state
     );
 
-    // Efecto corregido: Se removió 'table' de las dependencias para evitar el bucle infinito
     useEffect(() => {
         if (!selectable) {
             return;
