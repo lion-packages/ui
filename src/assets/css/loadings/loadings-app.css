@@ -1,0 +1,167 @@
+/* ==========================================================================
+   LION UI LIBRARY - LOADING APP RADIAL GRADIENT STYLES (OPTIMIZED LINK)
+   ========================================================================== */
+
+.loading-app-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-app-container.loading-app-variant-primary {
+    --loading-variant-color: var(--bs-primary, #0d6efd);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #010306) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #090516) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #120a2c) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #271755) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-secondary {
+    --loading-variant-color: var(--bs-secondary, #6c757d);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #040505) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #0b0e10) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #171c1f) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #313a41) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-success {
+    --loading-variant-color: var(--bs-success, #198754);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #010603) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #020f08) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #041f11) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #0a4526) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-danger {
+    --loading-variant-color: var(--bs-danger, #dc3545);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #090102) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #150305) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #29050a) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #560b16) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-warning {
+    --loading-variant-color: var(--bs-warning, #ffc107);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #0a0700) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #181100) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #2e2000) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #5e4300) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-info {
+    --loading-variant-color: var(--bs-info, #0dcaf0);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #00080a) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #001417) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #01272c) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #044e58) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-light {
+    --loading-variant-color: var(--bs-light, #f8f9fa);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 50%, #0d0f11) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 40%, #191c20) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 30%, #2a2f35) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 12%, #41474e) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-dark {
+    --loading-variant-color: var(--bs-dark, #212529);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 90%, #000000) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 75%, #07080a) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 56%, #141719) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #31383d) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-link {
+    --loading-variant-color: #495057;
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #050505) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #121417) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #22252a) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #495057) 100%
+    );
+}
+
+/* Custom Lion Variants */
+.loading-app-container.loading-app-variant-lion-packages {
+    --loading-variant-color: var(--lion-packages, #FF8731);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #0a0300) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #1d0900) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #331000) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #662100) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-lion-parking {
+    --loading-variant-color: var(--lion-parking, #FF8731);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #0a0300) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #1d0900) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #331000) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #662100) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-lion-tech {
+    --loading-variant-color: var(--lion-tech, #B11226);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #090102) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #150305) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #29050a) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #560b16) 100%
+    );
+}
+
+.loading-app-container.loading-app-variant-lion-glam {
+    --loading-variant-color: var(--lion-glam, #FF69b4);
+    background: radial-gradient(
+            circle at center,
+            color-mix(in srgb, var(--loading-variant-color) 85%, #0d0107) 0%,
+            color-mix(in srgb, var(--loading-variant-color) 74%, #210313) 25%,
+            color-mix(in srgb, var(--loading-variant-color) 57%, #3b0622) 55%,
+            color-mix(in srgb, var(--loading-variant-color) 20%, #770d45) 100%
+    );
+}
+
+/* --- Clean Content Wrapper (No Solid Box) --- */
+.loading-app-container .loading-glass-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2rem;
+}
