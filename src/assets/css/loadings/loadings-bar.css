@@ -1,76 +1,80 @@
-.lion-bar {
+/* ==========================================================================
+   LOADING BAR COMPONENT STYLES (STANDARDIZED & ISOLATED)
+   ========================================================================== */
+
+.loading-bar-container {
     position: relative;
     height: 4px;
     background-color: #E0E0E0;
     overflow: hidden;
     border-radius: 4px;
-    --lion-active-color: var(--bs-primary, #0d6efd);
+    --loading-bar-active-color: var(--bs-primary, #0d6efd);
 }
 
-.lion-bar.loading-variant-primary {
-    --lion-active-color: var(--bs-primary, #0d6efd);
+.loading-bar-container.loading-bar-variant-primary {
+    --loading-bar-active-color: var(--bs-primary, #0d6efd);
 }
 
-.lion-bar.loading-variant-secondary {
-    --lion-active-color: var(--bs-secondary, #6c757d);
+.loading-bar-container.loading-bar-variant-secondary {
+    --loading-bar-active-color: var(--bs-secondary, #6c757d);
 }
 
-.lion-bar.loading-variant-success {
-    --lion-active-color: var(--bs-success, #198754);
+.loading-bar-container.loading-bar-variant-success {
+    --loading-bar-active-color: var(--bs-success, #198754);
 }
 
-.lion-bar.loading-variant-danger {
-    --lion-active-color: var(--bs-danger, #dc3545);
+.loading-bar-container.loading-bar-variant-danger {
+    --loading-bar-active-color: var(--bs-danger, #dc3545);
 }
 
-.lion-bar.loading-variant-warning {
-    --lion-active-color: var(--bs-warning, #ffc107);
+.loading-bar-container.loading-bar-variant-warning {
+    --loading-bar-active-color: var(--bs-warning, #ffc107);
 }
 
-.lion-bar.loading-variant-info {
-    --lion-active-color: var(--bs-info, #0dcaf0);
+.loading-bar-container.loading-bar-variant-info {
+    --loading-bar-active-color: var(--bs-info, #0dcaf0);
 }
 
-.lion-bar.loading-variant-light {
-    --lion-active-color: var(--bs-dark, #212529);
+.loading-bar-container.loading-bar-variant-light {
+    --loading-bar-active-color: var(--bs-dark, #212529);
 }
 
-.lion-bar.loading-variant-dark {
-    --lion-active-color: var(--bs-dark, #212529);
+.loading-bar-container.loading-bar-variant-dark {
+    --loading-bar-active-color: var(--bs-dark, #212529);
 }
 
-.lion-bar.loading-variant-link {
-    --lion-active-color: var(--bs-primary, #0d6efd);
+.loading-bar-container.loading-bar-variant-link {
+    --loading-bar-active-color: var(--bs-primary, #0d6efd);
 }
 
-.lion-bar.loading-variant-lion-packages {
-    --lion-active-color: var(--lion-packages, #6f42c1);
+.loading-bar-container.loading-bar-variant-lion-packages {
+    --loading-bar-active-color: var(--lion-packages, #FF8731);
 }
 
-.lion-bar.loading-variant-lion-parking {
-    --lion-active-color: var(--lion-parking, #20c997);
+.loading-bar-container.loading-bar-variant-lion-parking {
+    --loading-bar-active-color: var(--lion-parking, #FF8731);
 }
 
-.lion-bar.loading-variant-lion-tech {
-    --lion-active-color: var(--lion-tech, #fd7e14);
+.loading-bar-container.loading-bar-variant-lion-tech {
+    --loading-bar-active-color: var(--lion-tech, #B11226);
 }
 
-.lion-bar.loading-variant-lion-glam {
-    --lion-active-color: var(--lion-glam, #e83e8c);
+.loading-bar-container.loading-bar-variant-lion-glam {
+    --loading-bar-active-color: var(--lion-glam, #FF69b4);
 }
 
-.lion-bar .indeterminate {
+.loading-bar-container .loading-bar-indeterminate {
     position: absolute;
-    background-color: var(--lion-active-color);
+    background-color: var(--loading-bar-active-color);
     top: 0;
     left: -40%;
     height: 100%;
     width: 40%;
-    animation: indeterminate 1.2s infinite;
+    animation: loading-bar-indeterminate-anim 1.2s infinite;
     border-radius: 4px;
 }
 
-@keyframes indeterminate {
+@keyframes loading-bar-indeterminate-anim {
     0% {
         left: -40%;
         width: 40%;

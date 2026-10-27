@@ -8,12 +8,12 @@ export interface LoadingBarProps {
 export default function LoadingBar({ variant = VariantTypes.PRIMARY }: LoadingBarProps) {
     const { state } = useLionUI();
     const normalizedVariant = String(variant).toLowerCase().replace(/_/g, "-");
-    const variantClass = variant ? `loading-variant-${normalizedVariant}` : "";
+    const variantClass = variant ? `loading-bar-variant-${normalizedVariant}` : "";
 
     return state.loading ? (
         <div className="sticky-top">
-            <div className={`lion-bar ${variantClass}`}>
-                <div className="indeterminate"></div>
+            <div className={`loading-bar-container ${variantClass}`}>
+                <div className="loading-bar-indeterminate"></div>
             </div>
         </div>
     ) : null;
