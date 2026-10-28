@@ -15,6 +15,7 @@ import "./assets/css/modals/modals.css";
 import "./assets/css/loadings/loadings-bar.css";
 import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
+import "./assets/css/titles/title.css";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------
@@ -78,3 +79,4 @@ export { default as LionInput } from './components/inputs/LionInput';
 export { default as LionSelect } from './components/select/LionSelect';
 export { default as LionModal } from './components/modals/LionModal';
 export { default as DataTable } from './components/tables/DataTable';
+export { default as LionTitle } from './components/titles/LionTitle';

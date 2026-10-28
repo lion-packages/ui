@@ -10,6 +10,7 @@ import "./assets/css/modals/modals.css";
 import "./assets/css/loadings/loadings-bar.css";
 import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
+import "./assets/css/titles/title.css";
 
 import { Fragment } from "react";
 import { Container } from "react-bootstrap";
@@ -37,6 +38,7 @@ import SelectsIOSSection from "./features/selects/components/SelectIOSSection.ts
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
 import SelectsCustomSection from "./features/selects/components/SelectsCustomSection.tsx";
 import DataTablesSection from "./features/tables/DataTablesSection.tsx";
+import LionTitlesSection from "./features/titles/title/LionTitlesSection.tsx";
 
 export default function App() {
     return (
@@ -93,6 +95,8 @@ export default function App() {
                         </Route>
 
                         <Route path={"tables"} element={<DataTablesSection />} />
+
+                        <Route path={"titles"} element={<LionTitlesSection />} />
                     </Routes>
                 </LionUIComponentsProvider>
             </Container>
