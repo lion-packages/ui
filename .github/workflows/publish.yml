@@ -25,6 +25,14 @@ jobs:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Commit check (pending)
+        uses: ./.github/actions/commit-check
+        with:
+          status: pending
+          context: NPM
+          description: Publish in progress.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Install dependencies
         run: npm ci
 
@@ -33,3 +41,22 @@ jobs:
 
       - name: Publish to npm
         run: npm publish --access public
+
+      - name: Commit check (success)
+        uses: ./.github/actions/commit-check
+        with:
+          status: completed
+          conclusion: success
+          context: NPM
+          description: Publish has completed.
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit check (failure)
+        if: failure()
+        uses: ./.github/actions/commit-check
+        with:
+          status: completed
+          conclusion: failure
+          context: NPM
+          description: The publish has failed.
+          token: ${{ secrets.GITHUB_TOKEN }}

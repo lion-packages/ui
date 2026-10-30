@@ -1,0 +1,45 @@
+name: Commit Check
+description: Create a GitHub Commit Status
+
+inputs:
+  status:
+    required: true
+    description: "pending | success | failure | error"
+  context:
+    required: true
+    description: "Check name (GitHub UI)"
+  description:
+    required: false
+    description: "Check summary"
+  conclusion:
+    required: false
+    description: "success | failure | error"
+  token:
+    required: true
+    description: Authorization token
+
+runs:
+  using: composite
+  steps:
+    - name: Create commit status
+      shell: bash
+      run: |
+        CURRENT_SHA=$(git rev-parse HEAD)
+
+        FINAL_STATE="${{ inputs.status }}"
+        if [[ "${{ inputs.status }}" == "completed" ]]; then
+          FINAL_STATE="${{ inputs.conclusion }}"
+        fi
+
+        curl -s -X POST \
+          -H "Authorization: Bearer ${{ inputs.token }}" \
+          -H "Accept: application/vnd.github+json" \
+          https://api.github.com/repos/${{ github.repository }}/statuses/$CURRENT_SHA \
+          -d @- <<EOF
+        {
+          "state": "$FINAL_STATE",
+          "context": "${{ inputs.context }}",
+          "description": "${{ inputs.description }}",
+          "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        }
+        EOF
