@@ -40,17 +40,16 @@ export default function LoadingApp({
     ].filter(Boolean).join(" ");
 
     return (
-        <Container
-            fluid
+        <div
             className={combinedContainerClasses}
         >
-            <div className="loading-glass-card d-flex flex-column align-items-center text-center gap-3">
-                <div className="position-relative d-flex justify-content-center align-items-center">
-                    <div className="spinner-glow" />
+            <div className={"loading-glass-card d-flex flex-column align-items-center text-center gap-3"}>
+                <div className={"position-relative d-flex justify-content-center align-items-center"}>
+                    <div className={"spinner-glow"} />
 
                     <Spinner
-                        animation="border"
-                        role="status"
+                        animation={"border"}
+                        role={"status"}
                         style={{
                             width: "4.5rem",
                             height: "4.5rem",
@@ -58,13 +57,13 @@ export default function LoadingApp({
                             color: "#ffffff",
                         }}
                     >
-                        <span className="visually-hidden">Loading...</span>
+                        <span className={"visually-hidden"}>Loading...</span>
                     </Spinner>
                 </div>
 
-                <div className="mt-2">
+                <div className={"mt-2"}>
                     <h2
-                        className="fw-bold mb-1 fs-4"
+                        className={"fw-bold mb-1 fs-4"}
                         style={{ color: "#ffffff" }}
                     >
                         {appName}
@@ -81,16 +80,16 @@ export default function LoadingApp({
                     </h2>
 
                     <p
-                        className="text-uppercase mb-0 small"
+                        className={"text-uppercase mb-0 small"}
                         style={{
                             letterSpacing: "2px",
                             color: "rgba(255, 255, 255, 0.75)",
                         }}
                     >
-                        {loadingText}: Variant({variant})
+                        {loadingText}
                     </p>
                 </div>
             </div>
-        </Container>
+        </div>
     );
 }
