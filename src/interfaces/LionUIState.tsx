@@ -10,4 +10,5 @@ export interface LionUIState {
     modal?: string | null;
     logo: File | string | null;
     background: File | string | null;
+    session: boolean;
 }

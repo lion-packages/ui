@@ -18,6 +18,7 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             initialPlatform = defaultPlatform;
         } else {
             const capPlatform = Capacitor.getPlatform();
+
             if (capPlatform === PlatformTypes.IOS || capPlatform === PlatformTypes.ANDROID) {
                 initialPlatform = capPlatform as PlatformTypes;
             }
@@ -33,6 +34,7 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             modal: null,
             logo: null,
             background: null,
+            session: false,
         };
     });
 
@@ -66,7 +68,7 @@ export const useLionUI = (): LionUIContextProps => {
     const context = useContext(LionUIComponentsContext);
 
     if (!context) {
-        throw new Error('useLionUI debe ser utilizado dentro de un LionUIComponentsProvider');
+        throw new Error('useLionUI must be used within a LionUIComponentsProvider.');
     }
 
     return context;
