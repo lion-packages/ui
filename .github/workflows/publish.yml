@@ -37,10 +37,10 @@ jobs:
         run: npm ci
 
       - name: Compile library
-        run: npm run publish:build
+        run: npm run build:lib
 
       - name: Publish to NPM
-        run: npm run publish
+        run: npm run release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
