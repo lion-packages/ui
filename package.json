@@ -26,7 +26,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "publish:build": "tsc -b && vite build --config vite.config.lib.ts",
+    "publish:build": "tsc -p tsconfig.build.json && vite build --config vite.config.lib.ts",
     "publish": "npm run publish:build && npm publish --access public"
   },
   "dependencies": {},
