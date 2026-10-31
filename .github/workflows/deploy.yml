@@ -4,6 +4,12 @@ on:
   release:
     types: [published]
 
+permissions:
+  checks: write
+  contents: read
+  deployments: write
+  statuses: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,8 +23,8 @@ jobs:
           description: Deploy in progress.
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Install dependencies
-        run: curl ${{ secrets.VERCEL_DEPLOY_HOOK_KEY }}
+      - name: Deploy
+        run: curl -X POST -fsSL ${{ secrets.VERCEL_DEPLOY_HOOK_KEY }}
 
       - name: Commit check (success)
         uses: ./.github/actions/commit-check
