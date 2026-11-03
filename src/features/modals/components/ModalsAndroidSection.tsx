@@ -9,6 +9,7 @@ import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionModal from "../../../components/modals/LionModal.tsx";
 import ModalsDefaultForm from "./ModalsDefaultForm.tsx";
 import LionButton from "../../../components/buttons/LionButton.tsx";
+import LionModalButton from "../../../components/buttons/LionModalButton.tsx";
 
 const variantsList = [
     { type: VariantTypes.SUCCESS, name: "Success" },
@@ -93,13 +94,13 @@ export default function ModalsAndroidSection() {
                         />
                     )}
                     buttons={(
-                        <LionButton
+                        <LionModalButton
                             variant={VariantTypes.MODAL}
                             type={ButtonTypes.BUTTON}
                             onClick={() => alert("Clicked")}
                         >
                             Click
-                        </LionButton>
+                        </LionModalButton>
                     )}
                 />
             ))}
