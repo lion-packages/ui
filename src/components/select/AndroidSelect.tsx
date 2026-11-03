@@ -3,12 +3,6 @@ import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTyp
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 
-export interface AndroidSelectOption {
-    label: string;
-    value: string | number;
-    disabled?: boolean;
-}
-
 export interface AndroidSelectProps
     extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
     styleType?: AndroidInputStyleTypes;
@@ -18,7 +12,10 @@ export interface AndroidSelectProps
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
-    options: AndroidSelectOption[];
+    options: any[];
+    optionValueKey?: string;
+    optionLabelKey?: string;
+    optionDisabledKey?: string;
     placeholderOption?: string;
 }
 
@@ -31,6 +28,9 @@ export default function AndroidSelect({
                                           helperText,
                                           error,
                                           options = [],
+                                          optionValueKey = "value",
+                                          optionLabelKey = "label",
+                                          optionDisabledKey = "disabled",
                                           placeholderOption = "Select an option",
                                           disabled = false,
                                           value,
@@ -123,11 +123,17 @@ export default function AndroidSelect({
                         {placeholderOption}
                     </option>
 
-                    {options.map((opt) => (
-                        <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-                            {opt.label}
-                        </option>
-                    ))}
+                    {options.map((opt, index) => {
+                        const optionValue = typeof opt === "object" && opt !== null ? opt[optionValueKey] : opt;
+                        const optionLabel = typeof opt === "object" && opt !== null ? opt[optionLabelKey] : opt;
+                        const optionDisabled = typeof opt === "object" && opt !== null ? Boolean(opt[optionDisabledKey]) : false;
+
+                        return (
+                            <option key={optionValue ?? index} value={optionValue} disabled={optionDisabled}>
+                                {optionLabel}
+                            </option>
+                        );
+                    })}
                 </select>
 
                 {label && (

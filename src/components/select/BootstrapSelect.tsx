@@ -1,28 +1,25 @@
-import { type ChangeEvent, type SelectHTMLAttributes, useId, useState } from "react";
+import { type ChangeEvent, Fragment, type SelectHTMLAttributes, useId, useState } from "react";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 
-export interface BootstrapSelectOption {
-    label: string;
-    value: string | number;
-    disabled?: boolean;
-}
-
 export interface BootstrapSelectProps
     extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
-        styleType?: BootstrapInputStyleTypes;
-        shape?: BootstrapInputShapeTypes;
-        variant?: string;
-        sizeType?: "sm" | "lg" | SizeTypes;
-        label?: string;
-        required?: boolean;
-        helperText?: string;
-        error?: boolean | string;
-        options: BootstrapSelectOption[];
-        placeholderOption?: string;
-    }
+    styleType?: BootstrapInputStyleTypes;
+    shape?: BootstrapInputShapeTypes;
+    variant?: string | VariantTypes;
+    sizeType?: "sm" | "lg" | SizeTypes;
+    label?: string;
+    required?: boolean;
+    helperText?: string;
+    error?: boolean | string;
+    options: any[];
+    optionValueKey?: string;
+    optionLabelKey?: string;
+    optionDisabledKey?: string;
+    placeholderOption?: string;
+}
 
 export default function BootstrapSelect({
                                             styleType = BootstrapInputStyleTypes.FLOATING,
@@ -34,6 +31,9 @@ export default function BootstrapSelect({
                                             helperText,
                                             error,
                                             options = [],
+                                            optionValueKey = "value",
+                                            optionLabelKey = "label",
+                                            optionDisabledKey = "disabled",
                                             placeholderOption = "Select an option",
                                             disabled = false,
                                             value,
@@ -73,6 +73,25 @@ export default function BootstrapSelect({
     const currentValue = value !== undefined ? value : internalValue;
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
 
+    const renderOptions = () => (
+        <Fragment>
+            <option value={""} disabled>
+                {placeholderOption}
+            </option>
+            {options.map((opt, index) => {
+                const optionValue = typeof opt === "object" && opt !== null ? opt[optionValueKey] : opt;
+                const optionLabel = typeof opt === "object" && opt !== null ? opt[optionLabelKey] : opt;
+                const optionDisabled = typeof opt === "object" && opt !== null ? Boolean(opt[optionDisabledKey]) : false;
+
+                return (
+                    <option key={optionValue ?? index} value={optionValue} disabled={optionDisabled}>
+                        {optionLabel}
+                    </option>
+                );
+            })}
+        </Fragment>
+    );
+
     return (
         <div className="mb-3 w-100">
             {!isFloating && label && (
@@ -93,15 +112,7 @@ export default function BootstrapSelect({
                         onChange={handleChange}
                         {...rest}
                     >
-                        <option value="" disabled>
-                            {placeholderOption}
-                        </option>
-
-                        {options.map((opt) => (
-                            <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-                                {opt.label}
-                            </option>
-                        ))}
+                        {renderOptions()}
                     </select>
                     {label && (
                         <label htmlFor={selectId}>
@@ -120,15 +131,7 @@ export default function BootstrapSelect({
                     onChange={handleChange}
                     {...rest}
                 >
-                    <option value="" disabled>
-                        {placeholderOption}
-                    </option>
-
-                    {options.map((opt) => (
-                        <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-                            {opt.label}
-                        </option>
-                    ))}
+                    {renderOptions()}
                 </select>
             )}
 

@@ -1,37 +1,39 @@
-import React, { useId, useState, type ChangeEvent, type SelectHTMLAttributes } from "react";
+import { useId, useState, type ChangeEvent, type SelectHTMLAttributes } from "react";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
-
-export interface IOSSelectOption {
-    label: string;
-    value: string | number;
-    disabled?: boolean;
-}
+import { VariantTypes } from "../../types/VariantTypes.tsx";
+import { SizeTypes } from "../../types/SizeTypes.tsx";
 
 export interface IOSSelectProps
     extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
     styleType?: IOSInputStyleTypes;
     shape?: IOSInputShapeTypes;
-    variant?: string;
-    sizeType?: "sx" | "sm" | "md" | "lg";
+    variant?: string | VariantTypes;
+    sizeType?: SizeTypes | "sx" | "sm" | "md" | "lg";
     label?: string;
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
-    options: IOSSelectOption[];
+    options: any[];
+    optionValueKey?: string;
+    optionLabelKey?: string;
+    optionDisabledKey?: string;
     placeholderOption?: string;
 }
 
 export default function IOSSelect({
                                       styleType = IOSInputStyleTypes.ROUNDED_BORDER,
                                       shape = IOSInputShapeTypes.ROUNDED,
-                                      variant = "primary",
-                                      sizeType = "md",
+                                      variant = VariantTypes.PRIMARY,
+                                      sizeType = SizeTypes.MD,
                                       label,
                                       required = false,
                                       helperText,
                                       error,
                                       options = [],
+                                      optionValueKey = "value",
+                                      optionLabelKey = "label",
+                                      optionDisabledKey = "disabled",
                                       placeholderOption = "Select an option",
                                       disabled = false,
                                       value,
@@ -118,11 +120,17 @@ export default function IOSSelect({
                         {placeholderOption}
                     </option>
 
-                    {options.map((opt) => (
-                        <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-                            {opt.label}
-                        </option>
-                    ))}
+                    {options.map((opt, index) => {
+                        const optionValue = typeof opt === "object" && opt !== null ? opt[optionValueKey] : opt;
+                        const optionLabel = typeof opt === "object" && opt !== null ? opt[optionLabelKey] : opt;
+                        const optionDisabled = typeof opt === "object" && opt !== null ? Boolean(opt[optionDisabledKey]) : false;
+
+                        return (
+                            <option key={optionValue ?? index} value={optionValue} disabled={optionDisabled}>
+                                {optionLabel}
+                            </option>
+                        );
+                    })}
                 </select>
             </div>
 
