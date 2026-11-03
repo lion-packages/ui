@@ -102,11 +102,10 @@ export default function LionModal({
 
     const CancelButton: FC = () => (
         <Button
-            // @ts-ignore
             type={ButtonTypes.BUTTON}
             variant={VariantTypes.MODAL}
             id={"modal-cancel-button"}
-            className={`btn-modal btn-modal-cancel ${cancelTextColorClass}`}
+            className={`btn-modal btn-modal-cancel flex-fill ${cancelTextColorClass}`}
             onClick={() => updateState({ modal: null })}
             disabled={state.reload || state.loading}
         >

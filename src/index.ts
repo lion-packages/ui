@@ -78,5 +78,6 @@ export { default as LionButton } from './components/buttons/LionButton';
 export { default as LionInput } from './components/inputs/LionInput';
 export { default as LionSelect } from './components/select/LionSelect';
 export { default as LionModal } from './components/modals/LionModal';
+export { default as LionModalButton } from './components/buttons/LionModalButton';
 export { default as DataTable } from './components/tables/DataTable';
 export { default as LionTitle } from './components/titles/LionTitle';

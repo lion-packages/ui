@@ -9,6 +9,7 @@ import ModalsDefaultForm from "./ModalsDefaultForm.tsx";
 import LionButton from "../../../components/buttons/LionButton.tsx";
 import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
 import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import LionModalButton from "../../../components/buttons/LionModalButton.tsx";
 
 const variantsList = [
     { type: VariantTypes.SUCCESS, name: "Success" },
@@ -90,14 +91,13 @@ export default function ModalsIOSSection() {
                     fullscreen={modal.fullscreen}
                     body={<ModalsDefaultForm platform={PlatformTypes.IOS} variant={modal.variant} />}
                     buttons={(
-                        <LionButton
+                        <LionModalButton
                             variant={VariantTypes.MODAL}
-                            //@ts-ignore
                             type={ButtonTypes.BUTTON}
                             onClick={() => alert("Clicked")}
                         >
                             Click
-                        </LionButton>
+                        </LionModalButton>
                     )}
                 />
             ))}
