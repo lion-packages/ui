@@ -13,7 +13,7 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    name: Publish (NPM)
+    name: Deploy (Vercel)
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
