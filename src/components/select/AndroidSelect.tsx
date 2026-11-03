@@ -1,28 +1,20 @@
-import { type ChangeEvent, type SelectHTMLAttributes, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
+import { SizeTypes } from "../../types/SizeTypes.tsx";
+import type { BaseSelectProps } from "./SelectProps.tsx";
 
-export interface AndroidSelectProps
-    extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
+export interface AndroidSelectProps extends BaseSelectProps {
     styleType?: AndroidInputStyleTypes;
     shape?: AndroidInputShapeTypes;
-    variant?: VariantTypes | string;
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    error?: boolean | string;
-    options: any[];
-    optionValueKey?: string;
-    optionLabelKey?: string;
-    optionDisabledKey?: string;
-    placeholderOption?: string;
 }
 
 export default function AndroidSelect({
                                           styleType = AndroidInputStyleTypes.OUTLINED,
                                           shape = AndroidInputShapeTypes.NORMAL,
                                           variant = VariantTypes.PRIMARY,
+                                          sizeType = SizeTypes.MD,
                                           label,
                                           required = false,
                                           helperText,
@@ -79,20 +71,14 @@ export default function AndroidSelect({
         if (onChange) onChange(e);
     };
 
-    const handleFocus = (e: FocusEvent) => {
+    const handleFocus = (e: FocusEvent<HTMLSelectElement>) => {
         setIsFocused(true);
-        if (onFocus) {
-            // @ts-ignore
-            onFocus(e);
-        }
+        if (onFocus) onFocus(e);
     };
 
-    const handleBlur = (e: FocusEvent) => {
+    const handleBlur = (e: FocusEvent<HTMLSelectElement>) => {
         setIsFocused(false);
-        if (onBlur) {
-            // @ts-ignore
-            onBlur(e);
-        }
+        if (onBlur) onBlur(e);
     };
 
     const currentValue = value !== undefined ? value : internalValue;
@@ -112,9 +98,7 @@ export default function AndroidSelect({
                     required={required}
                     disabled={disabled}
                     onChange={handleChange}
-                    // @ts-ignore
                     onFocus={handleFocus}
-                    // @ts-ignore
                     onBlur={handleBlur}
                     className={selectClasses}
                     {...rest}

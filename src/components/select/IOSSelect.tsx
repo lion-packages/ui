@@ -1,24 +1,13 @@
-import { useId, useState, type ChangeEvent, type SelectHTMLAttributes } from "react";
+import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
+import type { BaseSelectProps } from "./SelectProps.tsx";
 
-export interface IOSSelectProps
-    extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
+export interface IOSSelectProps extends BaseSelectProps {
     styleType?: IOSInputStyleTypes;
     shape?: IOSInputShapeTypes;
-    variant?: string | VariantTypes;
-    sizeType?: SizeTypes | "sx" | "sm" | "md" | "lg";
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    error?: boolean | string;
-    options: any[];
-    optionValueKey?: string;
-    optionLabelKey?: string;
-    optionDisabledKey?: string;
-    placeholderOption?: string;
 }
 
 export default function IOSSelect({
@@ -83,12 +72,12 @@ export default function IOSSelect({
         if (onChange) onChange(e);
     };
 
-    const handleFocus = (e: React.FocusEvent<HTMLSelectElement>) => {
+    const handleFocus = (e: FocusEvent<HTMLSelectElement>) => {
         setIsFocused(true);
         if (onFocus) onFocus(e);
     };
 
-    const handleBlur = (e: React.FocusEvent<HTMLSelectElement>) => {
+    const handleBlur = (e: FocusEvent<HTMLSelectElement>) => {
         setIsFocused(false);
         if (onBlur) onBlur(e);
     };
