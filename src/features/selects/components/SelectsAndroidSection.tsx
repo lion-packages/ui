@@ -6,10 +6,11 @@ import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyle
 import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
 import AndroidSelect from "../../../components/select/AndroidSelect.tsx";
 
-const mockOptions = [
-    { label: "Option 1 - Alpha", value: "1" },
-    { label: "Option 2 - Beta", value: "2" },
-    { label: "Option 3 - Gamma", value: "3" },
+// Mock raw API data with custom property keys
+const mockRoleOptions = [
+    { idroles: 1, roles_name: "Administrator", is_disabled: false },
+    { idroles: 2, roles_name: "Stylist", is_disabled: false },
+    { idroles: 3, roles_name: "Client (Inactive)", is_disabled: true },
 ];
 
 const stylesList = [
@@ -37,7 +38,7 @@ export default function SelectsAndroidSection() {
             <h2>Selects (Android)</h2>
 
             <p className="text-muted">
-                Interactive demonstration of Android Material Design 3 selects across styles, shapes, and variants.
+                Interactive demonstration of Android Material Design 3 selects across styles, shapes, variants, and dynamic API key mappings.
             </p>
 
             {stylesList.map((styleObj) => (
@@ -59,8 +60,11 @@ export default function SelectsAndroidSection() {
                                                 styleType={styleObj.type}
                                                 shape={shapeObj.type}
                                                 label={`${variant} Select`}
-                                                placeholderOption={"Choose an option..."}
-                                                options={mockOptions}
+                                                placeholderOption={"Choose a role..."}
+                                                options={mockRoleOptions}
+                                                optionValueKey="idroles"
+                                                optionLabelKey="roles_name"
+                                                optionDisabledKey="is_disabled"
                                                 value={selectedValues[controlKey] || ""}
                                                 onChange={(e) => handleChange(controlKey, e.target.value)}
                                                 helperText={`Helper for ${variant}`}
@@ -85,7 +89,10 @@ export default function SelectsAndroidSection() {
                             shape={AndroidInputShapeTypes.NORMAL}
                             label={"Error State Select"}
                             placeholderOption={"Select with error..."}
-                            options={mockOptions}
+                            options={mockRoleOptions}
+                            optionValueKey="idroles"
+                            optionLabelKey="roles_name"
+                            optionDisabledKey="is_disabled"
                             error={"This field is required"}
                         />
                     </Col>
@@ -97,7 +104,10 @@ export default function SelectsAndroidSection() {
                             shape={AndroidInputShapeTypes.NORMAL}
                             label={"Disabled State Select"}
                             placeholderOption={"Disabled select..."}
-                            options={mockOptions}
+                            options={mockRoleOptions}
+                            optionValueKey="idroles"
+                            optionLabelKey="roles_name"
+                            optionDisabledKey="is_disabled"
                             disabled={true}
                             value={"1"}
                         />

@@ -7,17 +7,15 @@ import type { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputSha
 import type { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import type { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
 import type { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
-import AndroidSelect, { type AndroidSelectOption } from "./AndroidSelect.tsx";
-import IOSSelect, { type IOSSelectOption } from "./IOSSelect.tsx";
-import BootstrapSelect, { type BootstrapSelectOption } from "./BootstrapSelect.tsx";
+import AndroidSelect from "./AndroidSelect.tsx";
+import IOSSelect from "./IOSSelect.tsx";
+import BootstrapSelect from "./BootstrapSelect.tsx";
 
 type PlatformMapping<T> = {
     [PlatformTypes.ANDROID]?: T;
     [PlatformTypes.IOS]?: T;
     [PlatformTypes.WEB]?: T;
 };
-
-export type LionSelectOption = AndroidSelectOption | IOSSelectOption | BootstrapSelectOption;
 
 export type LionSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "shape" | "size"> & {
     variant?: string;
@@ -29,7 +27,10 @@ export type LionSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "sha
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
-    options: LionSelectOption[];
+    options: any[]; // Allow raw API objects or standard options arrays
+    optionValueKey?: string;   // Dynamic property key for option value
+    optionLabelKey?: string;   // Dynamic property key for option label
+    optionDisabledKey?: string; // Dynamic property key for option disabled state
     placeholderOption?: string;
 };
 
