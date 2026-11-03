@@ -1,24 +1,13 @@
-import { type ChangeEvent, Fragment, type SelectHTMLAttributes, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, Fragment, useId, useState } from "react";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
+import type { BaseSelectProps } from "./SelectProps.tsx";
 
-export interface BootstrapSelectProps
-    extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size" | "shape"> {
+export interface BootstrapSelectProps extends BaseSelectProps {
     styleType?: BootstrapInputStyleTypes;
     shape?: BootstrapInputShapeTypes;
-    variant?: string | VariantTypes;
-    sizeType?: "sm" | "lg" | SizeTypes;
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    error?: boolean | string;
-    options: any[];
-    optionValueKey?: string;
-    optionLabelKey?: string;
-    optionDisabledKey?: string;
-    placeholderOption?: string;
 }
 
 export default function BootstrapSelect({
@@ -39,6 +28,8 @@ export default function BootstrapSelect({
                                             value,
                                             defaultValue,
                                             onChange,
+                                            onFocus,
+                                            onBlur,
                                             id,
                                             className = "",
                                             ...rest
@@ -51,7 +42,7 @@ export default function BootstrapSelect({
     const hasError = Boolean(error);
     const errorMessage = typeof error === "string" ? error : undefined;
 
-    const sizeClass = sizeType === "sm" ? "form-select-sm" : sizeType === "lg" ? "form-select-lg" : "";
+    const sizeClass = sizeType === SizeTypes.SM || sizeType === "sm" ? "form-select-sm" : sizeType === SizeTypes.LG || sizeType === "lg" ? "form-select-lg" : "";
     const variantClass = `bootstrap-variant-${variant}`;
 
     const selectClasses = [
@@ -68,6 +59,14 @@ export default function BootstrapSelect({
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
         if (onChange) onChange(e);
+    };
+
+    const handleFocus = (e: FocusEvent<HTMLSelectElement>) => {
+        if (onFocus) onFocus(e);
+    };
+
+    const handleBlur = (e: FocusEvent<HTMLSelectElement>) => {
+        if (onBlur) onBlur(e);
     };
 
     const currentValue = value !== undefined ? value : internalValue;
@@ -110,6 +109,8 @@ export default function BootstrapSelect({
                         required={required}
                         value={currentValue}
                         onChange={handleChange}
+                        onFocus={handleFocus}
+                        onBlur={handleBlur}
                         {...rest}
                     >
                         {renderOptions()}
@@ -129,6 +130,8 @@ export default function BootstrapSelect({
                     required={required}
                     value={currentValue}
                     onChange={handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                     {...rest}
                 >
                     {renderOptions()}
