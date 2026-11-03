@@ -3,7 +3,9 @@ import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTyp
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
-import type { BaseSelectProps } from "./SelectProps.tsx";
+import type { BaseSelectProps } from "./BaseSelectProps.tsx";
+import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
+import { useValidationError } from "../../hooks/useValidationError.tsx";
 
 export interface BootstrapSelectProps extends BaseSelectProps {
     styleType?: BootstrapInputStyleTypes;
@@ -19,6 +21,8 @@ export default function BootstrapSelect({
                                             required = false,
                                             helperText,
                                             error,
+                                            formId,
+                                            errorKey,
                                             options = [],
                                             optionValueKey = "value",
                                             optionLabelKey = "label",
@@ -31,16 +35,20 @@ export default function BootstrapSelect({
                                             onFocus,
                                             onBlur,
                                             id,
+                                            name,
                                             className = "",
                                             ...rest
                                         }: BootstrapSelectProps) {
     const generatedId = useId();
     const selectId = id || generatedId;
+    const { clearFormErrors } = useLionUI();
 
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
 
-    const hasError = Boolean(error);
-    const errorMessage = typeof error === "string" ? error : undefined;
+    // Resolve target field key and fetch errors using the shared validation hook
+    const targetErrorKey = errorKey || name;
+    const resolvedErrors = useValidationError(error, formId, targetErrorKey);
+    const hasError = resolvedErrors.length > 0 || Boolean(error);
 
     const sizeClass = sizeType === SizeTypes.SM || sizeType === "sm" ? "form-select-sm" : sizeType === SizeTypes.LG || sizeType === "lg" ? "form-select-lg" : "";
     const variantClass = `bootstrap-variant-${variant}`;
@@ -58,6 +66,12 @@ export default function BootstrapSelect({
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
+
+        // Automatically clear global form error for this field upon user interaction
+        if (formId && targetErrorKey && hasError) {
+            clearFormErrors(formId, targetErrorKey);
+        }
+
         if (onChange) onChange(e);
     };
 
@@ -104,6 +118,7 @@ export default function BootstrapSelect({
                 <div className="form-floating">
                     <select
                         id={selectId}
+                        name={name}
                         className={selectClasses}
                         disabled={disabled}
                         required={required}
@@ -125,6 +140,7 @@ export default function BootstrapSelect({
             ) : (
                 <select
                     id={selectId}
+                    name={name}
                     className={selectClasses}
                     disabled={disabled}
                     required={required}
@@ -138,11 +154,27 @@ export default function BootstrapSelect({
                 </select>
             )}
 
-            {hasError ? (
-                <div className="invalid-feedback d-block">{errorMessage}</div>
-            ) : helperText ? (
-                <div className="form-text">{helperText}</div>
-            ) : null}
+            {(helperText || hasError) && (
+                <div>
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="invalid-feedback d-block">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : typeof error === "string" ? (
+                        <div className="invalid-feedback d-block">{error}</div>
+                    ) : helperText ? (
+                        <div className="form-text">{helperText}</div>
+                    ) : null}
+                </div>
+            )}
         </div>
     );
 }

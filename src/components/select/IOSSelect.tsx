@@ -3,7 +3,9 @@ import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
-import type { BaseSelectProps } from "./SelectProps.tsx";
+import type { BaseSelectProps } from "./BaseSelectProps.tsx";
+import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
+import { useValidationError } from "../../hooks/useValidationError.tsx";
 
 export interface IOSSelectProps extends BaseSelectProps {
     styleType?: IOSInputStyleTypes;
@@ -19,6 +21,8 @@ export default function IOSSelect({
                                       required = false,
                                       helperText,
                                       error,
+                                      formId,
+                                      errorKey,
                                       options = [],
                                       optionValueKey = "value",
                                       optionLabelKey = "label",
@@ -31,17 +35,21 @@ export default function IOSSelect({
                                       onFocus,
                                       onBlur,
                                       id,
+                                      name,
                                       className = "",
                                       ...rest
                                   }: IOSSelectProps) {
     const generatedId = useId();
     const selectId = id || generatedId;
+    const { clearFormErrors } = useLionUI();
 
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
 
-    const hasError = Boolean(error);
-    const errorMessage = typeof error === "string" ? error : undefined;
+    // Resolve target field key and fetch errors using the shared validation hook
+    const targetErrorKey = errorKey || name;
+    const resolvedErrors = useValidationError(error, formId, targetErrorKey);
+    const hasError = resolvedErrors.length > 0 || Boolean(error);
 
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
@@ -69,6 +77,12 @@ export default function IOSSelect({
 
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
+
+        // Automatically clear global form error for this field upon user interaction
+        if (formId && targetErrorKey && hasError) {
+            clearFormErrors(formId, targetErrorKey);
+        }
+
         if (onChange) onChange(e);
     };
 
@@ -96,6 +110,7 @@ export default function IOSSelect({
             <div className={wrapperClasses}>
                 <select
                     id={selectId}
+                    name={name}
                     value={currentValue}
                     required={required}
                     disabled={disabled}
@@ -123,11 +138,27 @@ export default function IOSSelect({
                 </select>
             </div>
 
-            {hasError ? (
-                <div className="ios-input-error-text">{errorMessage}</div>
-            ) : helperText ? (
-                <div className="ios-input-helper-text">{helperText}</div>
-            ) : null}
+            {(helperText || hasError) && (
+                <div>
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="ios-input-error-text">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : typeof error === "string" ? (
+                        <div className="ios-input-error-text">{error}</div>
+                    ) : helperText ? (
+                        <div className="ios-input-helper-text">{helperText}</div>
+                    ) : null}
+                </div>
+            )}
         </div>
     );
 }
