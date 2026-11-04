@@ -1,62 +1,61 @@
 import React, { useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
+import { SizeTypes } from "../../types/SizeTypes.tsx";
+import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
+import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
+import { useValidationError } from "../../hooks/useValidationError.tsx";
+import type { BaseInputProps } from "./BaseInputProps.tsx";
 
-export interface IOSInputProps
-    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
-    type?: InputTypes;
+export interface IOSInputProps extends BaseInputProps {
     styleType?: IOSInputStyleTypes;
     shape?: IOSInputShapeTypes;
-    variant?: string;
-    sizeType?: "sx" | "sm" | "md" | "lg";
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    error?: boolean | string;
-    startIcon?: React.ReactNode;
-    endIcon?: React.ReactNode;
-    prefixText?: string;
-    suffixText?: string;
-    clearable?: boolean;
+    sizeType?: "sx" | "sm" | "md" | "lg" | SizeTypes;
 }
 
 export default function IOSInput({
-                             type = InputTypes.TEXT,
-                             styleType = IOSInputStyleTypes.ROUNDED_BORDER,
-                             shape = IOSInputShapeTypes.ROUNDED,
-                             variant = "primary",
-                             sizeType = "md",
-                             label,
-                             required = false,
-                             helperText,
-                             error,
-                             startIcon,
-                             endIcon,
-                             prefixText,
-                             suffixText,
-                             clearable = false,
-                             disabled = false,
-                             readOnly = false,
-                             value,
-                             defaultValue,
-                             onChange,
-                             onFocus,
-                             onBlur,
-                             id,
-                             className = "",
-                             maxLength,
-                             placeholder,
-                             ...rest
-                         }: IOSInputProps) {
+                                     type = InputTypes.TEXT,
+                                     styleType = IOSInputStyleTypes.ROUNDED_BORDER,
+                                     shape = IOSInputShapeTypes.ROUNDED,
+                                     variant = VariantTypes.PRIMARY,
+                                     sizeType = SizeTypes.MD,
+                                     label,
+                                     required = false,
+                                     helperText,
+                                     error,
+                                     formId,
+                                     errorKey,
+                                     startIcon,
+                                     endIcon,
+                                     prefixText,
+                                     suffixText,
+                                     clearable = false,
+                                     disabled = false,
+                                     readOnly = false,
+                                     value,
+                                     defaultValue,
+                                     onChange,
+                                     onFocus,
+                                     onBlur,
+                                     id,
+                                     name,
+                                     className = "",
+                                     maxLength,
+                                     placeholder,
+                                     ...rest
+                                 }: IOSInputProps) {
     const generatedId = useId();
     const inputId = id || generatedId;
+    const { clearFormErrors } = useLionUI();
 
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
 
-    const hasError = Boolean(error);
-    const errorMessage = typeof error === "string" ? error : undefined;
+    // Resolve target error key and fetch validation errors via shared hook
+    const targetErrorKey = errorKey || name;
+    const resolvedErrors = useValidationError(error, formId, targetErrorKey);
+    const hasError = resolvedErrors.length > 0 || Boolean(error);
 
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
@@ -94,6 +93,11 @@ export default function IOSInput({
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInternalValue(e.target.value);
+
+        if (formId && targetErrorKey && hasError) {
+            clearFormErrors(formId, targetErrorKey);
+        }
+
         if (onChange) onChange(e);
     };
 
@@ -124,6 +128,7 @@ export default function IOSInput({
 
                 <input
                     id={inputId}
+                    name={name}
                     type={type}
                     value={currentValue}
                     required={required}
@@ -153,11 +158,27 @@ export default function IOSInput({
                 {endIcon && <div className="ios-input-icon-right">{endIcon}</div>}
             </div>
 
-            {hasError ? (
-                <div className="ios-input-error-text">{errorMessage}</div>
-            ) : helperText ? (
-                <div className="ios-input-helper-text">{helperText}</div>
-            ) : null}
+            {(helperText || hasError) && (
+                <div>
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="ios-input-error-text">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : typeof error === "string" ? (
+                        <div className="ios-input-error-text">{error}</div>
+                    ) : helperText ? (
+                        <div className="ios-input-helper-text">{helperText}</div>
+                    ) : null}
+                </div>
+            )}
         </div>
     );
 }

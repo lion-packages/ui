@@ -1,34 +1,28 @@
+import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
+import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
-import { type ChangeEvent, type InputHTMLAttributes, type ReactNode, useId, useState } from "react";
+import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
+import { useValidationError } from "../../hooks/useValidationError.tsx";
+import type { BaseInputProps } from "./BaseInputProps.tsx";
 
-export interface AndroidInputProps
-    extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "shape"> {
-    type?: InputTypes;
+export interface AndroidInputProps extends BaseInputProps {
     styleType?: AndroidInputStyleTypes;
     shape?: AndroidInputShapeTypes;
-    variant?: string;
-    label?: string;
-    required?: boolean;
-    helperText?: string;
-    error?: boolean | string;
-    startIcon?: ReactNode;
-    endIcon?: ReactNode;
-    prefixText?: string;
-    suffixText?: string;
-    counter?: boolean | number;
 }
 
 export default function AndroidInput({
                                          type = InputTypes.TEXT,
                                          styleType = AndroidInputStyleTypes.OUTLINED,
                                          shape = AndroidInputShapeTypes.NORMAL,
-                                         variant = "primary",
+                                         variant = VariantTypes.PRIMARY,
                                          label,
                                          required = false,
                                          helperText,
                                          error,
+                                         formId,
+                                         errorKey,
                                          startIcon,
                                          endIcon,
                                          prefixText,
@@ -42,6 +36,7 @@ export default function AndroidInput({
                                          onFocus,
                                          onBlur,
                                          id,
+                                         name,
                                          className = "",
                                          maxLength,
                                          placeholder = " ",
@@ -49,12 +44,15 @@ export default function AndroidInput({
                                      }: AndroidInputProps) {
     const generatedId = useId();
     const inputId = id || generatedId;
+    const { clearFormErrors } = useLionUI();
 
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
 
-    const hasError = Boolean(error);
-    const errorMessage = typeof error === "string" ? error : undefined;
+    // Resolve target error key and fetch validation errors via shared hook
+    const targetErrorKey = errorKey || name;
+    const resolvedErrors = useValidationError(error, formId, targetErrorKey);
+    const hasError = resolvedErrors.length > 0 || Boolean(error);
 
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
@@ -82,6 +80,12 @@ export default function AndroidInput({
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInternalValue(e.target.value);
+
+        // Automatically clear global form error for this field upon user interaction
+        if (formId && targetErrorKey && hasError) {
+            clearFormErrors(formId, targetErrorKey);
+        }
+
         if (onChange) onChange(e);
     };
 
@@ -102,7 +106,7 @@ export default function AndroidInput({
     const currentValue = value !== undefined ? value : internalValue;
     const currentLength = String(currentValue || "").length;
     const maxLen = typeof counter === "number" ? counter : maxLength;
-    
+
     return (
         <div className={containerClasses}>
             <div className={wrapperClasses}>
@@ -111,6 +115,7 @@ export default function AndroidInput({
 
                 <input
                     id={inputId}
+                    name={name}
                     type={type}
                     value={currentValue}
                     required={required}
@@ -138,10 +143,22 @@ export default function AndroidInput({
                 {endIcon && <div className="android-input-end-icon">{endIcon}</div>}
             </div>
 
-            {(helperText || errorMessage || counter) && (
+            {(helperText || hasError || counter) && (
                 <div className="android-input-subtext-container">
-                    {hasError ? (
-                        <div className="android-input-error-text">{errorMessage}</div>
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="android-input-error-text">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : typeof error === "string" ? (
+                        <div className="android-input-error-text">{error}</div>
                     ) : helperText ? (
                         <div className="android-input-helper-text">{helperText}</div>
                     ) : <div />}

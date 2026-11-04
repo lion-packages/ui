@@ -1,154 +1,204 @@
-import { type ChangeEvent, Fragment, useState } from "react";
-import VariantList from "../../VariantList";
-import { InputTypes } from "../../../types/InputTypes";
-import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
+import { Fragment, useState } from "react";
+import { Row, Col, Button, Form, Card } from "react-bootstrap";
+import VariantList from "../../VariantList.tsx";
 import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyleTypes.tsx";
-import BootstrapInput from "../../../components/inputs/BootstrapInput";
+import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
+import { VariantTypes } from "../../../types/VariantTypes.tsx";
+import { InputTypes } from "../../../types/InputTypes.tsx";
+import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import BootstrapInput from "../../../components/inputs/BootstrapInput.tsx";
 
-const StyleTypeList: Array<{ label: string; styleType: BootstrapInputStyleTypes }> = [
-    { label: "Floating Labels", styleType: BootstrapInputStyleTypes.FLOATING },
-    { label: "Standard Label", styleType: BootstrapInputStyleTypes.STANDARD },
+const stylesList = [
+    { type: BootstrapInputStyleTypes.FLOATING, name: "Floating" },
+    { type: BootstrapInputStyleTypes.STANDARD, name: "Standard" },
 ];
 
-const ShapeList: Array<{ label: string; shape: BootstrapInputShapeTypes }> = [
-    { label: "Rounded Shape", shape: BootstrapInputShapeTypes.ROUNDED },
-    { label: "Pill Shape", shape: BootstrapInputShapeTypes.PILL },
-    { label: "Square Shape", shape: BootstrapInputShapeTypes.SQUARE },
+const shapesList = [
+    { type: BootstrapInputShapeTypes.ROUNDED, name: "Rounded" },
+    { type: BootstrapInputShapeTypes.PILL, name: "Pill" },
+    { type: BootstrapInputShapeTypes.SQUARE, name: "Square" },
 ];
 
 export default function InputsBootstrapSection() {
-    const [inputValue, setInputValue] = useState<string>("");
+    const { setFormErrors } = useLionUI();
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
+    const [playVariant, setPlayVariant] = useState<VariantTypes | string>(VariantTypes.PRIMARY);
+    const [playStyle, setPlayStyle] = useState<BootstrapInputStyleTypes>(BootstrapInputStyleTypes.FLOATING);
+    const [playShape, setPlayShape] = useState<BootstrapInputShapeTypes>(BootstrapInputShapeTypes.ROUNDED);
+    const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
+    const [playError, setPlayError] = useState<string>("");
+    const [playValue, setPlayValue] = useState<string>("lion.developer");
+
+    const handleSimulateServerErrors = () => {
+        setFormErrors("bootstrap-input-form", {
+            username: [
+                "The username is already taken in the system.",
+                "Username must contain only alphanumeric characters.",
+            ],
+        });
     };
+
+    const getEnumKey = (enumObject: Record<string, any>, value: any): string => {
+        return Object.keys(enumObject).find((key) => enumObject[key] === value) || value;
+    };
+
+    const variantEnumName = getEnumKey(VariantTypes, playVariant);
+    const styleEnumName = getEnumKey(BootstrapInputStyleTypes, playStyle);
+    const shapeEnumName = getEnumKey(BootstrapInputShapeTypes, playShape);
+
+    const generatedCodeSnippet = `import { useState } from "react";
+import { 
+    BootstrapInput, 
+    VariantTypes, 
+    BootstrapInputStyleTypes, 
+    BootstrapInputShapeTypes, 
+    InputTypes, 
+    useLionUI 
+} from "@lion-npm/ui";
+
+export default function UserInputForm() {
+    const [username, setUsername] = useState("${playValue}");
+    const { setFormErrors } = useLionUI();
+
+    const handleSimulateServerErrors = () => {
+        setFormErrors("bootstrap-input-form", {
+            username: [
+                "The username is already taken in the system.",
+                "Username must contain only alphanumeric characters.",
+            ],
+        });
+    };
+
+    return (
+        <BootstrapInput
+            formId="bootstrap-input-form"
+            name="username"
+            type={InputTypes.TEXT}
+            variant={VariantTypes.${variantEnumName}}
+            styleType={BootstrapInputStyleTypes.${styleEnumName}}
+            shape={BootstrapInputShapeTypes.${shapeEnumName}}
+            label="Username"
+            placeholder="Enter username..."${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+        />
+    );
+}`;
 
     return (
         <Fragment>
             <h2>Inputs (Bootstrap 5 Desktop)</h2>
+            <p className="text-muted">
+                Interactive playground and live documentation for Bootstrap inputs. Test variants, styles, shapes, states, and global context validation handling.
+            </p>
 
-            {StyleTypeList.map(({ label: styleLabel, styleType }) => (
-                <div key={styleType} className="my-4">
-                    <h4 className="text-primary mb-3">{styleLabel}</h4>
-
-                    {ShapeList.map(({ label: shapeLabel, shape }) => (
-                        <div key={`${styleType}-${shape}`} className="mb-5">
-                            <div className={"ms-3"}>
-                                <h6 className="text-secondary mb-3">{shapeLabel}</h6>
-                            </div>
-
-                            {/* Enabled State */}
-                            <div className="mb-4">
-                                <span className="text-muted d-block mb-2 small font-monospace">Enabled</span>
-                                <div className="row g-3">
-                                    {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-enabled`} className="col-12 col-md-6 col-lg-4">
-                                            <BootstrapInput
-                                                type={InputTypes.TEXT}
-                                                styleType={styleType}
-                                                shape={shape}
-                                                variant={variant}
-                                                label={`Field (${variant})`}
-                                                helperText="Optional helper text"
-                                                required={true}
-                                                placeholder="Custom Placeholder..."
-                                                value={inputValue}
-                                                onChange={handleChange}
-                                            />
-                                        </div>
+            <Card className="mb-4 shadow-sm">
+                <Card.Header className="bg-light d-flex justify-content-between align-items-center py-3">
+                    <h5 className="mb-0 text-secondary">Interactive Playground & Code Documentation</h5>
+                    <Button variant="outline-danger" size="sm" onClick={handleSimulateServerErrors}>
+                        Simulate Server Response Errors
+                    </Button>
+                </Card.Header>
+                <Card.Body>
+                    <Row className="g-3 mb-4">
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Variant</Form.Label>
+                                <Form.Select value={playVariant} onChange={(e) => setPlayVariant(e.target.value)}>
+                                    {VariantList.map((v) => (
+                                        <option key={v} value={v}>{v}</option>
                                     ))}
-                                </div>
-                            </div>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
 
-                            {/* With Value / Floating State */}
-                            <div className="mb-4">
-                                <span className="text-muted d-block mb-2 small font-monospace">With Value / Floating</span>
-                                <div className="row g-3">
-                                    {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-value`} className="col-12 col-md-6 col-lg-4">
-                                            <BootstrapInput
-                                                type={InputTypes.TEXT}
-                                                styleType={styleType}
-                                                shape={shape}
-                                                variant={variant}
-                                                label="Username"
-                                                defaultValue="lion.developer"
-                                                helperText="Completed field"
-                                                placeholder="Custom Placeholder..."
-                                            />
-                                        </div>
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Style</Form.Label>
+                                <Form.Select value={playStyle} onChange={(e) => setPlayStyle(e.target.value as BootstrapInputStyleTypes)}>
+                                    {stylesList.map((s) => (
+                                        <option key={s.type} value={s.type}>{s.name}</option>
                                     ))}
-                                </div>
-                            </div>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
 
-                            {/* Error State */}
-                            <div className="mb-4">
-                                <span className="text-muted d-block mb-2 small font-monospace">Error State</span>
-                                <div className="row g-3">
-                                    {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-error`} className="col-12 col-md-6 col-lg-4">
-                                            <BootstrapInput
-                                                type={InputTypes.TEXT}
-                                                styleType={styleType}
-                                                shape={shape}
-                                                variant={variant}
-                                                label="Email Address"
-                                                defaultValue="invalid-email"
-                                                error="The email format is invalid"
-                                                placeholder="Custom Placeholder..."
-                                            />
-                                        </div>
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Shape</Form.Label>
+                                <Form.Select value={playShape} onChange={(e) => setPlayShape(e.target.value as BootstrapInputShapeTypes)}>
+                                    {shapesList.map((sh) => (
+                                        <option key={sh.type} value={sh.type}>{sh.name}</option>
                                     ))}
-                                </div>
-                            </div>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
 
-                            {/* Disabled State */}
-                            <div className="mb-4">
-                                <span className="text-muted d-block mb-2 small font-monospace">Disabled</span>
-                                <div className="row g-3">
-                                    {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-disabled`} className="col-12 col-md-6 col-lg-4">
-                                            <BootstrapInput
-                                                type={InputTypes.TEXT}
-                                                styleType={styleType}
-                                                shape={shape}
-                                                variant={variant}
-                                                label="Disabled"
-                                                defaultValue="Locked value"
-                                                disabled={true}
-                                                helperText="Non-editable"
-                                                placeholder="Custom Placeholder..."
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter error message..."
+                                    value={playError}
+                                    onChange={(e) => setPlayError(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
 
-                            {/* Readonly State */}
-                            <div>
-                                <span className="text-muted d-block mb-2 small font-monospace">ReadOnly</span>
-                                <div className="row g-3">
-                                    {VariantList.map((variant) => (
-                                        <div key={`${styleType}-${shape}-${variant}-readonly`} className="col-12 col-md-6 col-lg-4">
-                                            <BootstrapInput
-                                                type={InputTypes.TEXT}
-                                                styleType={styleType}
-                                                shape={shape}
-                                                variant={variant}
-                                                label="ReadOnly"
-                                                defaultValue="Locked value"
-                                                readOnly={true}
-                                                helperText="Non-editable"
-                                                placeholder="Custom Placeholder..."
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                        <Col xs={12} className="d-flex align-items-center gap-4">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-bootstrap-disabled"
+                                label="Disabled State"
+                                checked={playDisabled}
+                                onChange={(e) => setPlayDisabled(e.target.checked)}
+                            />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-bootstrap-readonly"
+                                label="Readonly State"
+                                checked={playReadOnly}
+                                onChange={(e) => setPlayReadOnly(e.target.checked)}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row className="g-4 align-items-start">
+                        <Col xs={12} lg={5}>
+                            <div className="p-4 border rounded bg-white h-100">
+                                <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
+                                <BootstrapInput
+                                    formId="bootstrap-input-form"
+                                    name="username"
+                                    type={InputTypes.TEXT}
+                                    variant={playVariant}
+                                    styleType={playStyle}
+                                    shape={playShape}
+                                    label="Username"
+                                    placeholder="Enter username..."
+                                    disabled={playDisabled}
+                                    readOnly={playReadOnly}
+                                    error={playError}
+                                    value={playValue}
+                                    onChange={(e) => setPlayValue(e.target.value)}
+                                    helperText="Interactive input field testing."
+                                />
                             </div>
-                        </div>
-                    ))}
-                </div>
-            ))}
+                        </Col>
+
+                        <Col xs={12} lg={7}>
+                            <div className="p-3 bg-dark text-light rounded position-relative">
+                                <span className="d-block text-muted small mb-2 fw-bold">GENERATED CODE SNIPPET (COPY & PASTE READY)</span>
+                                <pre className="mb-0 text-light bg-transparent p-0" style={{ fontSize: "0.825rem", overflowX: "auto" }}>
+                                    <code>{generatedCodeSnippet}</code>
+                                </pre>
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
         </Fragment>
     );
 }
