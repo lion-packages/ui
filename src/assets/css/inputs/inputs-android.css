@@ -232,6 +232,35 @@
     color: var(--android-input-error-color) !important;
 }
 
+/* ==========================================================================
+   ANDROID INPUT ERROR FOCUS OVERRIDES (Fixing Variant Color Interference)
+   ========================================================================== */
+
+/* --- Outlined Style Error Focus Override --- */
+.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus,
+.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:not(:placeholder-shown) {
+    border-color: var(--android-input-error-color) !important;
+}
+
+.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus {
+    box-shadow: 0 0 0 1px var(--android-input-error-color) !important;
+}
+
+/* --- Filled Style Error Focus Override --- */
+.android-input-field-wrapper.android-style-filled.has-error.is-focused,
+.android-input-field-wrapper.android-style-filled.has-error:has(.android-input-element:not(:placeholder-shown)) {
+    border-bottom: 2px solid var(--android-input-error-color) !important;
+    background-color: color-mix(in srgb, var(--android-input-error-color) 14%, var(--bs-body-bg, #ffffff)) !important;
+}
+
+/* --- Floating Label Color Synchronization on Error Focus --- */
+.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.has-error .android-input-element:focus ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.has-error .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+    color: var(--android-input-error-color) !important;
+}
+
 .android-input-subtext-container {
     display: flex;
     justify-content: space-between;

@@ -1,23 +1,54 @@
 /* ==========================================================================
-   LION UI LIBRARY - BOOTSTRAP 5 INPUT SYSTEM
+   LION UI LIBRARY - BOOTSTRAP 5 INPUT SYSTEM STYLES
    ========================================================================== */
 
-/* --- Color Variables Mapping per Variant --- */
-.form-control.bootstrap-variant-primary { --bootstrap-active-color: var(--bs-primary, #0d6efd); }
-.form-control.bootstrap-variant-secondary { --bootstrap-active-color: var(--bs-secondary, #6c757d); }
-.form-control.bootstrap-variant-success { --bootstrap-active-color: var(--bs-success, #198754); }
-.form-control.bootstrap-variant-danger { --bootstrap-active-color: var(--bs-danger, #dc3545); }
-.form-control.bootstrap-variant-warning { --bootstrap-active-color: var(--bs-warning, #ffc107); }
-.form-control.bootstrap-variant-info { --bootstrap-active-color: var(--bs-info, #0dcaf0); }
-.form-control.bootstrap-variant-dark { --bootstrap-active-color: var(--bs-dark, #212529); }
+/* --- Color Variables Mapping per Variant (Inputs) --- */
+.form-control.bootstrap-variant-primary {
+    --bootstrap-active-color: var(--bs-primary, #0d6efd);
+}
+
+.form-control.bootstrap-variant-secondary {
+    --bootstrap-active-color: var(--bs-secondary, #6c757d);
+}
+
+.form-control.bootstrap-variant-success {
+    --bootstrap-active-color: var(--bs-success, #198754);
+}
+
+.form-control.bootstrap-variant-danger {
+    --bootstrap-active-color: var(--bs-danger, #dc3545);
+}
+
+.form-control.bootstrap-variant-warning {
+    --bootstrap-active-color: var(--bs-warning, #ffc107);
+}
+
+.form-control.bootstrap-variant-info {
+    --bootstrap-active-color: var(--bs-info, #0dcaf0);
+}
+
+.form-control.bootstrap-variant-dark {
+    --bootstrap-active-color: var(--bs-dark, #212529);
+}
 
 /* Custom Lion Variants */
-.form-control.bootstrap-variant-lion-packages { --bootstrap-active-color: var(--lion-packages, #6f42c1); }
-.form-control.bootstrap-variant-lion-parking { --bootstrap-active-color: var(--lion-parking, #20c997); }
-.form-control.bootstrap-variant-lion-tech { --bootstrap-active-color: var(--lion-tech, #fd7e14); }
-.form-control.bootstrap-variant-lion-glam { --bootstrap-active-color: var(--lion-glam, #e83e8c); }
+.form-control.bootstrap-variant-lion-packages {
+    --bootstrap-active-color: var(--lion-packages, #6f42c1);
+}
 
-/* --- Native Bootstrap Focus Overrides --- */
+.form-control.bootstrap-variant-lion-parking {
+    --bootstrap-active-color: var(--lion-parking, #20c997);
+}
+
+.form-control.bootstrap-variant-lion-tech {
+    --bootstrap-active-color: var(--lion-tech, #fd7e14);
+}
+
+.form-control.bootstrap-variant-lion-glam {
+    --bootstrap-active-color: var(--lion-glam, #e83e8c);
+}
+
+/* --- Native Bootstrap Focus Overrides (Inputs) --- */
 .form-control.bootstrap-variant-primary:focus,
 .form-control.bootstrap-variant-secondary:focus,
 .form-control.bootstrap-variant-success:focus,
@@ -33,41 +64,68 @@
     box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bootstrap-active-color) 25%, transparent);
 }
 
-/* --- Floating Label Color Synchronization --- */
+/* --- Floating Label Color Synchronization (Inputs) --- */
 .form-floating:has(.form-control.bootstrap-variant-primary:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-primary:not(:placeholder-shown)) > label { color: var(--bs-primary); }
+.form-floating:has(.form-control.bootstrap-variant-primary:not(:placeholder-shown)) > label {
+    color: var(--bs-primary);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-secondary:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-secondary:not(:placeholder-shown)) > label { color: var(--bs-secondary); }
+.form-floating:has(.form-control.bootstrap-variant-secondary:not(:placeholder-shown)) > label {
+    color: var(--bs-secondary);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-success:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-success:not(:placeholder-shown)) > label { color: var(--bs-success); }
+.form-floating:has(.form-control.bootstrap-variant-success:not(:placeholder-shown)) > label {
+    color: var(--bs-success);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-danger:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-danger:not(:placeholder-shown)) > label { color: var(--bs-danger); }
+.form-floating:has(.form-control.bootstrap-variant-danger:not(:placeholder-shown)) > label {
+    color: var(--bs-danger);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-warning:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-warning:not(:placeholder-shown)) > label { color: var(--bs-warning); }
+.form-floating:has(.form-control.bootstrap-variant-warning:not(:placeholder-shown)) > label {
+    color: var(--bs-warning);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-info:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-info:not(:placeholder-shown)) > label { color: var(--bs-info); }
+.form-floating:has(.form-control.bootstrap-variant-info:not(:placeholder-shown)) > label {
+    color: var(--bs-info);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-dark:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-dark:not(:placeholder-shown)) > label { color: var(--bs-dark); }
+.form-floating:has(.form-control.bootstrap-variant-dark:not(:placeholder-shown)) > label {
+    color: var(--bs-dark);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-lion-packages:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-lion-packages:not(:placeholder-shown)) > label { color: var(--lion-packages, #6f42c1); }
+.form-floating:has(.form-control.bootstrap-variant-lion-packages:not(:placeholder-shown)) > label {
+    color: var(--lion-packages, #6f42c1);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-lion-parking:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-lion-parking:not(:placeholder-shown)) > label { color: var(--lion-parking, #20c997); }
+.form-floating:has(.form-control.bootstrap-variant-lion-parking:not(:placeholder-shown)) > label {
+    color: var(--lion-parking, #20c997);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-lion-tech:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-lion-tech:not(:placeholder-shown)) > label { color: var(--lion-tech, #fd7e14); }
+.form-floating:has(.form-control.bootstrap-variant-lion-tech:not(:placeholder-shown)) > label {
+    color: var(--lion-tech, #fd7e14);
+}
 
 .form-floating:has(.form-control.bootstrap-variant-lion-glam:focus) > label,
-.form-floating:has(.form-control.bootstrap-variant-lion-glam:not(:placeholder-shown)) > label { color: var(--lion-glam, #e83e8c); }
+.form-floating:has(.form-control.bootstrap-variant-lion-glam:not(:placeholder-shown)) > label {
+    color: var(--lion-glam, #e83e8c);
+}
 
-/* --- Shape Utility Overrides --- */
+/* --- Invalid State Label Synchronization (Inputs) --- */
+.form-floating:has(.form-control.is-invalid) > label {
+    color: var(--bs-danger, #dc3545) !important;
+}
+
+/* --- Shape Utility Overrides (Inputs) --- */
 .form-control.rounded-pill {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
@@ -77,7 +135,7 @@
    BOOTSTRAP 5 SELECT SYSTEM EXTENSIONS
    ========================================================================== */
 
-/* --- Color Variables Mapping per Variant for Form Select --- */
+/* --- Color Variables Mapping per Variant (Selects) --- */
 .form-select.bootstrap-variant-primary {
     --bootstrap-active-color: var(--bs-primary, #0d6efd);
 }
@@ -123,7 +181,7 @@
     --bootstrap-active-color: var(--lion-glam, #e83e8c);
 }
 
-/* --- Native Bootstrap Focus Overrides for Form Select --- */
+/* --- Native Bootstrap Focus Overrides (Selects) --- */
 .form-select.bootstrap-variant-primary:focus,
 .form-select.bootstrap-variant-secondary:focus,
 .form-select.bootstrap-variant-success:focus,
@@ -139,7 +197,7 @@
     box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bootstrap-active-color) 25%, transparent);
 }
 
-/* --- Floating Label Color Synchronization for Form Select --- */
+/* --- Floating Label Color Synchronization (Selects) --- */
 .form-floating:has(.form-select.bootstrap-variant-primary:focus) > label,
 .form-floating:has(.form-select.bootstrap-variant-primary:not(:placeholder-shown)) > label {
     color: var(--bs-primary);
@@ -195,7 +253,25 @@
     color: var(--lion-glam, #e83e8c);
 }
 
-/* --- Shape Utility Overrides for Form Select --- */
+/* --- Invalid State Label Synchronization (Selects) --- */
+.form-floating:has(.form-select.is-invalid) > label {
+    color: var(--bs-danger, #dc3545) !important;
+}
+
+/* --- Focus Override for Invalid State (Inputs & Selects) --- */
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+    border-color: var(--bs-danger, #dc3545) !important;
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--bs-danger, #dc3545) 25%, transparent) !important;
+}
+
+/* --- Floating Label Color Synchronization on Focus for Invalid State --- */
+.form-floating:has(.form-control.is-invalid:focus) > label,
+.form-floating:has(.form-select.is-invalid:focus) > label {
+    color: var(--bs-danger, #dc3545) !important;
+}
+
+/* --- Shape Utility Overrides (Selects) --- */
 .form-select.rounded-pill {
     padding-left: 1.25rem;
     padding-right: 2.5rem;
