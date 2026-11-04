@@ -1,18 +1,13 @@
-import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { VariantTypes } from "../../types/VariantTypes";
 import { SizeTypes } from "../../types/SizeTypes";
 import { ButtonTypes } from "../../types/ButtonTypes";
 import { IOSButtonStyleTypes } from "../../types/IOS/IOSButtonStyleTypes.tsx";
 import { IOSButtonShapeTypes } from "../../types/IOS/IOSButtonShapeTypes.tsx";
+import type { BaseButtonProps } from "./BaseButtonProps.tsx";
 
-export interface IOSButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type" | "size"> {
-    children?: ReactNode;
-    variant?: VariantTypes;
+export interface IOSButtonProps extends BaseButtonProps {
     styleType?: IOSButtonStyleTypes;
     shape?: IOSButtonShapeTypes;
-    size?: SizeTypes;
-    type?: ButtonTypes;
-    className?: string;
 }
 
 export default function IOSButton({

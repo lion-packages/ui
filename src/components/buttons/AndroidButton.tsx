@@ -1,19 +1,13 @@
-// components/buttons/AndroidButton.tsx
-import {type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { VariantTypes } from '../../types/VariantTypes';
 import { SizeTypes } from '../../types/SizeTypes';
 import { ButtonTypes } from '../../types/ButtonTypes';
 import { AndroidButtonStyleTypes } from '../../types/Android/AndroidButtonStyleTypes.tsx';
 import { AndroidButtonShapeTypes } from '../../types/Android/AndroidButtonShapeTypes.tsx';
+import type { BaseButtonProps } from "./BaseButtonProps.tsx";
 
-export interface AndroidButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'size'> {
-    children?: ReactNode;
-    variant?: VariantTypes;
+export interface AndroidButtonProps extends BaseButtonProps {
     styleType?: AndroidButtonStyleTypes;
     shape?: AndroidButtonShapeTypes;
-    size?: SizeTypes;
-    type?: ButtonTypes;
-    className?: string;
 }
 
 export default function AndroidButton({

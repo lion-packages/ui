@@ -1,13 +1,15 @@
+import { Fragment, useState } from "react";
+import { Row, Col, Form, Card } from "react-bootstrap";
+import VariantList from "../../VariantList.tsx";
 import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
 import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
+import { VariantTypes } from "../../../types/VariantTypes.tsx";
+import { SizeTypes } from "../../../types/SizeTypes.tsx";
 import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
-import VariantList from "../../VariantList.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import LionButton from "../../../components/buttons/LionButton.tsx";
 
-import { Fragment } from "react";
-import AndroidButton from "../../../components/buttons/AndroidButton.tsx";
-
-// List of Material Design 3 styles
-const StyleTypeList: Array<{ label: string; styleType: AndroidButtonStyleTypes }> = [
+const StyleTypeList = [
     { label: "Filled", styleType: AndroidButtonStyleTypes.FILLED },
     { label: "Elevated", styleType: AndroidButtonStyleTypes.ELEVATED },
     { label: "Tonal", styleType: AndroidButtonStyleTypes.TONAL },
@@ -15,65 +17,163 @@ const StyleTypeList: Array<{ label: string; styleType: AndroidButtonStyleTypes }
     { label: "Text", styleType: AndroidButtonStyleTypes.TEXT },
 ];
 
-// List of supported button shapes
-const ShapeList: Array<{ label: string; shape: AndroidButtonShapeTypes }> = [
+const ShapeList = [
     { label: "Pill Shape", shape: AndroidButtonShapeTypes.PILL },
     { label: "Rounded Shape", shape: AndroidButtonShapeTypes.ROUNDED },
 ];
 
 export default function ButtonsAndroidSection() {
+    const [playVariant, setPlayVariant] = useState<VariantTypes | string>(VariantTypes.PRIMARY);
+    const [playStyle, setPlayStyle] = useState<AndroidButtonStyleTypes>(AndroidButtonStyleTypes.FILLED);
+    const [playShape, setPlayShape] = useState<AndroidButtonShapeTypes>(AndroidButtonShapeTypes.PILL);
+    const [playSize, setPlaySize] = useState<SizeTypes | string>(SizeTypes.MD);
+    const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playText, setPlayText] = useState<string>("Android Action");
+
+    const getEnumKey = (enumObject: Record<string, any>, value: any): string => {
+        return Object.keys(enumObject).find((key) => enumObject[key] === value) || value;
+    };
+
+    const variantEnumName = getEnumKey(VariantTypes, playVariant);
+    const styleEnumName = getEnumKey(AndroidButtonStyleTypes, playStyle);
+    const shapeEnumName = getEnumKey(AndroidButtonShapeTypes, playShape);
+    const sizeEnumName = getEnumKey(SizeTypes, playSize);
+
+    const generatedCodeSnippet = `import { 
+    LionButton,
+    VariantTypes,
+    SizeTypes,
+    ButtonTypes,
+    PlatformTypes,
+    AndroidButtonStyleTypes,
+    AndroidButtonShapeTypes
+} from "@lion-npm/ui";
+
+export default function MyAndroidScreen() {
+    return (
+        <LionButton
+            platform={PlatformTypes.ANDROID}
+            type={ButtonTypes.BUTTON}
+            variant={VariantTypes.${variantEnumName}}
+            styleType={AndroidButtonStyleTypes.${styleEnumName}}
+            shape={AndroidButtonShapeTypes.${shapeEnumName}}
+            size={SizeTypes.${sizeEnumName}}${playDisabled ? "\n            disabled={true}" : ""}
+        >
+            ${playText}
+        </LionButton>
+    );
+}`;
+
     return (
         <Fragment>
             <h2>Buttons (Android MD3)</h2>
+            <p className="text-muted">
+                Interactive playground and live documentation for Android Material Design 3 buttons.
+            </p>
 
-            {StyleTypeList.map(({ label: styleLabel, styleType }) => (
-                <div key={styleType} className="my-4">
-                    <h4 className="text-primary mb-3">{styleLabel} Buttons</h4>
-
-                    {ShapeList.map(({ label: shapeLabel, shape }) => (
-                        <div key={`${styleType}-${shape}`} className="ms-3 mb-4">
-                            <h6 className="text-secondary mb-2">{shapeLabel}</h6>
-
-                            {/* Enabled State */}
-                            <div className="mb-3">
-                                <span className="text-muted d-block mb-1 small">Enabled</span>
-                                <div className="d-flex flex-wrap gap-2 py-1">
-                                    {VariantList.map((variant) => (
-                                        <AndroidButton
-                                            key={`${styleType}-${shape}-${variant}-enabled`}
-                                            type={ButtonTypes.BUTTON}
-                                            styleType={styleType}
-                                            shape={shape}
-                                            variant={variant}
-                                        >
-                                            {variant}
-                                        </AndroidButton>
+            <Card className="mb-4 shadow-sm">
+                <Card.Header className="bg-light py-3">
+                    <h5 className="mb-0 text-secondary">Interactive Playground & Code Documentation</h5>
+                </Card.Header>
+                <Card.Body>
+                    <Row className="g-3 mb-4">
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Variant</Form.Label>
+                                <Form.Select value={playVariant} onChange={(e) => setPlayVariant(e.target.value)}>
+                                    {VariantList.map((v) => (
+                                        <option key={v} value={v}>{v}</option>
                                     ))}
-                                </div>
-                            </div>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
 
-                            {/* Disabled State */}
-                            <div>
-                                <span className="text-muted d-block mb-1 small">Disabled</span>
-                                <div className="d-flex flex-wrap gap-2 py-1">
-                                    {VariantList.map((variant) => (
-                                        <AndroidButton
-                                            key={`${styleType}-${shape}-${variant}-disabled`}
-                                            type={ButtonTypes.BUTTON}
-                                            styleType={styleType}
-                                            shape={shape}
-                                            variant={variant}
-                                            disabled={true}
-                                        >
-                                            {variant}
-                                        </AndroidButton>
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Style</Form.Label>
+                                <Form.Select value={playStyle} onChange={(e) => setPlayStyle(e.target.value as AndroidButtonStyleTypes)}>
+                                    {StyleTypeList.map((s) => (
+                                        <option key={s.styleType} value={s.styleType}>{s.label}</option>
                                     ))}
-                                </div>
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Shape</Form.Label>
+                                <Form.Select value={playShape} onChange={(e) => setPlayShape(e.target.value as AndroidButtonShapeTypes)}>
+                                    {ShapeList.map((sh) => (
+                                        <option key={sh.shape} value={sh.shape}>{sh.label}</option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={3}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Size</Form.Label>
+                                <Form.Select value={playSize} onChange={(e) => setPlaySize(e.target.value)}>
+                                    {Object.values(SizeTypes).map((sz) => (
+                                        <option key={sz} value={sz}>{sz.toUpperCase()}</option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={6}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Button Text</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={playText}
+                                    onChange={(e) => setPlayText(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={6} className="d-flex align-items-center">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-android-btn-disabled"
+                                label="Disabled State"
+                                checked={playDisabled}
+                                onChange={(e) => setPlayDisabled(e.target.checked)}
+                            />
+                        </Col>
+                    </Row>
+
+                    <Row className="g-4 align-items-start">
+                        <Col xs={12} lg={5}>
+                            <div className="p-4 border rounded bg-white h-100 text-center">
+                                <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
+                                <LionButton
+                                    platform={PlatformTypes.ANDROID}
+                                    type={ButtonTypes.BUTTON}
+                                    variant={playVariant}
+                                    styleType={playStyle}
+                                    shape={playShape}
+                                    size={playSize as SizeTypes}
+                                    disabled={playDisabled}
+                                >
+                                    {playText}
+                                </LionButton>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            ))}
+                        </Col>
+
+                        <Col xs={12} lg={7}>
+                            <div className="p-3 bg-dark text-light rounded position-relative">
+                                <pre
+                                    className="mb-0 text-light bg-transparent p-0"
+                                    style={{ fontSize: "0.825rem", overflowX: "auto" }}
+                                >
+                                    <code>{generatedCodeSnippet}</code>
+                                </pre>
+                            </div>
+                        </Col>
+                    </Row>
+                </Card.Body>
+            </Card>
         </Fragment>
     );
 }

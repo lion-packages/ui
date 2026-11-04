@@ -1,27 +1,22 @@
-import { type ButtonHTMLAttributes, type ReactNode } from "react";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { ButtonTypes } from "../../types/ButtonTypes.tsx";
 import { BootstrapButtonStyleTypes } from "../../types/Web/BootstrapButtonStyleTypes.tsx";
 import { BootstrapButtonShapeTypes } from "../../types/Web/BootstrapButtonShapeTypes.tsx";
+import type { BaseButtonProps } from "./BaseButtonProps.tsx";
 
-export interface BootstrapButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "type" | "size"> {
-    children?: ReactNode;
-    variant?: VariantTypes;
+export interface BootstrapButtonProps extends BaseButtonProps {
     styleType?: BootstrapButtonStyleTypes;
     shape?: BootstrapButtonShapeTypes;
-    size?: SizeTypes;
-    type?: ButtonTypes;
-    className?: string;
 }
 
 export default function BootstrapButton({
                                             children,
-                                            variant = "primary" as VariantTypes,
+                                            variant = VariantTypes.PRIMARY,
                                             styleType = BootstrapButtonStyleTypes.FILLED,
                                             shape = BootstrapButtonShapeTypes.STANDARD,
-                                            size = "md" as SizeTypes,
-                                            type = "button" as ButtonTypes,
+                                            size = SizeTypes.MD,
+                                            type = ButtonTypes.BUTTON,
                                             className = "",
                                             ...props
                                         }: BootstrapButtonProps) {

@@ -4,8 +4,9 @@ import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
-import AndroidSelect from "../../../components/select/AndroidSelect.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import LionSelect from "../../../components/select/LionSelect.tsx";
 
 // Mock raw API data with custom property keys
 const mockRoleOptions = [
@@ -57,7 +58,7 @@ export default function SelectsAndroidSection() {
     // Dynamic code snippet generator reflecting external package imports
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
-    AndroidSelect, 
+    LionSelect, 
     VariantTypes, 
     AndroidInputStyleTypes, 
     AndroidInputShapeTypes, 
@@ -79,7 +80,7 @@ export default function UserRoleForm() {
     };
 
     return (
-        <AndroidSelect
+        <LionSelect
             formId="android-demo-form"
             name="roles_name"
             variant={VariantTypes.${variantEnumName}}
@@ -184,7 +185,8 @@ export default function UserRoleForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <AndroidSelect
+                                <LionSelect
+                                    platform={PlatformTypes.ANDROID}
                                     formId="android-demo-form"
                                     name="roles_name"
                                     variant={playVariant}

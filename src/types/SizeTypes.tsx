@@ -3,8 +3,8 @@ export const SizeTypes = {
     SM: "sm",
     MD: "md",
     LG: "lg",
-    XL: "lg",
-    XXL: "lg",
+    XL: "XL",
+    XXL: "XXL",
 } as const;
 
 export type SizeTypes =
