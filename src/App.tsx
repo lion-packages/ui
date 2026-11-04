@@ -32,7 +32,6 @@ import ModalsIOSSection from "./features/modals/components/ModalsIOSSection.tsx"
 import ModalsWebSection from "./features/modals/components/ModalsWebSection.tsx";
 import LoadingsAppSection from "./features/loadings/LoadingApp/LoadingsAppSection.tsx";
 import LoadingsBarSection from "./features/loadings/LoadingBar/LoadingsBarSection.tsx";
-import InputsCustomSection from "./features/inputs/components/InputsCustomSection.tsx";
 import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
 import SelectsIOSSection from "./features/selects/components/SelectIOSSection.tsx";
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
@@ -60,8 +59,6 @@ export default function App() {
                         </Route>
 
                         <Route path={"inputs"} element={<InputsSection />}>
-                            <Route path={"custom"} element={<InputsCustomSection />} />
-
                             <Route path={"android"} element={<InputsAndroidSection />} />
 
                             <Route path={"ios"} element={<InputsIOSSection />} />
