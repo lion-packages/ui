@@ -36,7 +36,6 @@ import InputsCustomSection from "./features/inputs/components/InputsCustomSectio
 import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
 import SelectsIOSSection from "./features/selects/components/SelectIOSSection.tsx";
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
-import SelectsCustomSection from "./features/selects/components/SelectsCustomSection.tsx";
 import DataTablesSection from "./features/tables/DataTablesSection.tsx";
 import LionTitlesSection from "./features/titles/title/LionTitlesSection.tsx";
 
@@ -71,8 +70,6 @@ export default function App() {
                         </Route>
 
                         <Route path={"selects"} element={<InputsSection />}>
-                            <Route path={"custom"} element={<SelectsCustomSection />} />
-
                             <Route path={"android"} element={<SelectsAndroidSection />} />
 
                             <Route path={"ios"} element={<SelectsIOSSection />} />

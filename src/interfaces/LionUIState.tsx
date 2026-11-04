@@ -1,4 +1,4 @@
-import type { PlatformTypes } from "../types/PlatformTypes.tsx";
+import { PlatformTypes } from "../types/PlatformTypes.tsx";
 
 export interface LionUIState {
     platform: PlatformTypes;
@@ -6,9 +6,11 @@ export interface LionUIState {
     reload: boolean;
     booting: boolean;
     sidebar: boolean;
-    version: string | null,
-    modal?: string | null;
-    logo: File | string | null;
-    background: File | string | null;
+    version: string | null;
+    modal: any;
+    logo: string | null;
+    background: string | null;
     session: boolean;
+    // Map of form validation errors indexed by formId and field name
+    formErrors: Record<string, Record<string, string[]>>;
 }

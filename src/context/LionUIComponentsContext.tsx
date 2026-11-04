@@ -8,9 +8,9 @@ import type { LionUIState } from "../interfaces/LionUIState.tsx";
 const LionUIComponentsContext = createContext<LionUIContextProps | undefined>(undefined);
 
 export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
-                                                                                      children,
-                                                                                      defaultPlatform,
-                                                                                  }) => {
+                                                                                children,
+                                                                                defaultPlatform,
+                                                                            }) => {
     const [state, setState] = useState<LionUIState>(() => {
         let initialPlatform: PlatformTypes = PlatformTypes.WEB;
 
@@ -35,11 +35,50 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             logo: null,
             background: null,
             session: false,
+            formErrors: {},
         };
     });
 
     const updateState = (partial: Partial<LionUIState>) => {
         setState((prev) => ({ ...prev, ...partial }));
+    };
+
+    // Set validation errors for a specific form by its ID
+    const setFormErrors = (formId: string, errors: Record<string, string[]>) => {
+        setState((prev) => ({
+            ...prev,
+            formErrors: {
+                ...prev.formErrors,
+                [formId]: errors,
+            },
+        }));
+    };
+
+    // Clear validation errors for a specific form or a single field inside it
+    const clearFormErrors = (formId: string, fieldName?: string) => {
+        setState((prev) => {
+            const currentFormErrors = prev.formErrors[formId];
+            if (!currentFormErrors) return prev;
+
+            if (fieldName) {
+                const updatedFields = { ...currentFormErrors };
+                delete updatedFields[fieldName];
+                return {
+                    ...prev,
+                    formErrors: {
+                        ...prev.formErrors,
+                        [formId]: updatedFields,
+                    },
+                };
+            } else {
+                const updatedForms = { ...prev.formErrors };
+                delete updatedForms[formId];
+                return {
+                    ...prev,
+                    formErrors: updatedForms,
+                };
+            }
+        });
     };
 
     useEffect(() => {
@@ -58,7 +97,7 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
     }, [defaultPlatform, state.platform]);
 
     return (
-        <LionUIComponentsContext.Provider value={{ state, updateState }}>
+        <LionUIComponentsContext.Provider value={{ state, updateState, setFormErrors, clearFormErrors }}>
             {children}
         </LionUIComponentsContext.Provider>
     );
