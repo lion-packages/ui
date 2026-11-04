@@ -4,8 +4,9 @@ import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { IOSInputStyleTypes } from "../../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../../types/IOS/IOSInputShapeTypes.tsx";
-import IOSSelect from "../../../components/select/IOSSelect.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import LionSelect from "../../../components/select/LionSelect.tsx";
 
 // Mock raw API data with custom property keys
 const mockRoleOptions = [
@@ -60,7 +61,7 @@ export default function SelectsIOSSection() {
     // Dynamic code snippet generator reflecting external package imports
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
-    IOSSelect, 
+    LionSelect, 
     VariantTypes, 
     IOSInputStyleTypes, 
     IOSInputShapeTypes, 
@@ -82,7 +83,7 @@ export default function UserRoleForm() {
     };
 
     return (
-        <IOSSelect
+        <LionSelect
             formId="ios-demo-form"
             name="roles_name"
             variant={VariantTypes.${variantEnumName}}
@@ -188,7 +189,8 @@ export default function UserRoleForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <IOSSelect
+                                <LionSelect
+                                    platform={PlatformTypes.IOS}
                                     formId="ios-demo-form"
                                     name="roles_name"
                                     variant={playVariant}

@@ -5,8 +5,9 @@ import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
-import AndroidInput from "../../../components/inputs/AndroidInput.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import LionInput from "../../../components/inputs/LionInput.tsx";
 
 const stylesList = [
     { type: AndroidInputStyleTypes.OUTLINED, name: "Outlined" },
@@ -49,7 +50,7 @@ export default function InputsAndroidSection() {
     // Code snippet for documentation pointing to the external @lion-npm/ui package
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
-    AndroidInput, 
+    LionInput, 
     VariantTypes, 
     AndroidInputStyleTypes, 
     AndroidInputShapeTypes, 
@@ -71,7 +72,7 @@ export default function AndroidUserInputForm() {
     };
 
     return (
-        <AndroidInput
+        <LionInput
             formId="android-input-form"
             name="username"
             type={InputTypes.TEXT}
@@ -170,7 +171,8 @@ export default function AndroidUserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <AndroidInput
+                                <LionInput
+                                    platform={PlatformTypes.ANDROID}
                                     formId="android-input-form"
                                     name="username"
                                     type={InputTypes.TEXT}
@@ -192,7 +194,6 @@ export default function AndroidUserInputForm() {
 
                         <Col xs={12} lg={7}>
                             <div className="p-3 bg-dark text-light rounded position-relative">
-                                <span className="d-block text-muted small mb-2 fw-bold">GENERATED CODE SNIPPET (COPY & PASTE READY)</span>
                                 <pre className="mb-0 text-light bg-transparent p-0" style={{ fontSize: "0.825rem", overflowX: "auto" }}>
                                     <code>{generatedCodeSnippet}</code>
                                 </pre>

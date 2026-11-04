@@ -1,13 +1,11 @@
-import { type ButtonHTMLAttributes, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { Button } from "react-bootstrap";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { ButtonTypes } from "../../types/ButtonTypes.tsx";
+import type { BaseButtonProps } from "./BaseButtonProps.tsx";
 
-export interface LionModalButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface LionModalButtonProps extends BaseButtonProps {
     children: ReactNode;
-    variant?: VariantTypes | string;
-    type?: ButtonTypes | "button" | "submit" | "reset";
-    className?: string;
 }
 
 export default function LionModalButton({

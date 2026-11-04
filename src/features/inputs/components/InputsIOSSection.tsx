@@ -5,8 +5,9 @@ import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { IOSInputStyleTypes } from "../../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../../types/IOS/IOSInputShapeTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
-import IOSInput from "../../../components/inputs/IOSInput.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import LionInput from "../../../components/inputs/LionInput.tsx";
 
 const stylesList = [
     { type: IOSInputStyleTypes.ROUNDED_BORDER, name: "Rounded Border" },
@@ -51,13 +52,13 @@ export default function InputsIOSSection() {
 
     // Code snippet for documentation pointing to the external @lion-npm/ui package
     const generatedCodeSnippet = `import { useState } from "react";
-import { 
-    IOSInput, 
-    VariantTypes, 
-    IOSInputStyleTypes, 
-    IOSInputShapeTypes, 
-    InputTypes, 
-    useLionUI 
+import {
+    LionInput,
+    VariantTypes,
+    IOSInputStyleTypes,
+    IOSInputShapeTypes,
+    InputTypes,
+    useLionUI
 } from "@lion-npm/ui";
 
 export default function IOSUserInputForm() {
@@ -74,7 +75,7 @@ export default function IOSUserInputForm() {
     };
 
     return (
-        <IOSInput
+        <LionInput
             formId="ios-input-form"
             name="username"
             type={InputTypes.TEXT}
@@ -174,7 +175,8 @@ export default function IOSUserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <IOSInput
+                                <LionInput
+                                    platform={PlatformTypes.IOS}
                                     formId="ios-input-form"
                                     name="username"
                                     type={InputTypes.TEXT}
@@ -197,7 +199,6 @@ export default function IOSUserInputForm() {
 
                         <Col xs={12} lg={7}>
                             <div className="p-3 bg-dark text-light rounded position-relative">
-                                <span className="d-block text-muted small mb-2 fw-bold">GENERATED CODE SNIPPET (COPY & PASTE READY)</span>
                                 <pre className="mb-0 text-light bg-transparent p-0" style={{ fontSize: "0.825rem", overflowX: "auto" }}>
                                     <code>{generatedCodeSnippet}</code>
                                 </pre>

@@ -4,8 +4,9 @@ import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
-import BootstrapSelect from "../../../components/select/BootstrapSelect.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
+import LionSelect from "../../../components/select/LionSelect.tsx";
 
 // Mock raw API data with custom property keys
 const mockRoleOptions = [
@@ -58,7 +59,7 @@ export default function SelectsBootstrapSection() {
     // Dynamic code snippet generator showing external package imports for the user
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
-    BootstrapSelect, 
+    LionSelect, 
     VariantTypes, 
     BootstrapInputStyleTypes, 
     BootstrapInputShapeTypes, 
@@ -80,7 +81,7 @@ export default function UserRoleForm() {
     };
 
     return (
-        <BootstrapSelect
+        <LionSelect
             formId="bootstrap-demo-form"
             name="roles_name"
             variant={VariantTypes.${variantEnumName}}
@@ -185,7 +186,8 @@ export default function UserRoleForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <BootstrapSelect
+                                <LionSelect
+                                    platform={PlatformTypes.WEB}
                                     formId="bootstrap-demo-form"
                                     name="roles_name"
                                     variant={playVariant}

@@ -5,8 +5,9 @@ import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyle
 import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
-import BootstrapInput from "../../../components/inputs/BootstrapInput.tsx";
+import LionInput from "../../../components/inputs/LionInput.tsx";
 
 const stylesList = [
     { type: BootstrapInputStyleTypes.FLOATING, name: "Floating" },
@@ -49,12 +50,12 @@ export default function InputsBootstrapSection() {
 
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
-    BootstrapInput, 
-    VariantTypes, 
-    BootstrapInputStyleTypes, 
-    BootstrapInputShapeTypes, 
-    InputTypes, 
-    useLionUI 
+    LionInput,
+    VariantTypes,
+    BootstrapInputStyleTypes,
+    BootstrapInputShapeTypes,
+    InputTypes,
+    useLionUI
 } from "@lion-npm/ui";
 
 export default function UserInputForm() {
@@ -71,7 +72,7 @@ export default function UserInputForm() {
     };
 
     return (
-        <BootstrapInput
+        <LionInput
             formId="bootstrap-input-form"
             name="username"
             type={InputTypes.TEXT}
@@ -169,7 +170,8 @@ export default function UserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <BootstrapInput
+                                <LionInput
+                                    platform={PlatformTypes.WEB}
                                     formId="bootstrap-input-form"
                                     name="username"
                                     type={InputTypes.TEXT}
@@ -190,7 +192,6 @@ export default function UserInputForm() {
 
                         <Col xs={12} lg={7}>
                             <div className="p-3 bg-dark text-light rounded position-relative">
-                                <span className="d-block text-muted small mb-2 fw-bold">GENERATED CODE SNIPPET (COPY & PASTE READY)</span>
                                 <pre className="mb-0 text-light bg-transparent p-0" style={{ fontSize: "0.825rem", overflowX: "auto" }}>
                                     <code>{generatedCodeSnippet}</code>
                                 </pre>
