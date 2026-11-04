@@ -100,6 +100,9 @@ export default function LionModal({
     const textColorClass = getHeaderTextColor(variant);
     const cancelTextColorClass = getCancelButtonTextColor(variant);
 
+    // Normalize size to lowercase to match Bootstrap classes (.modal-sm, .modal-lg, .modal-xl)
+    const normalizedSize = size ? String(size).toLowerCase() : undefined;
+
     const CancelButton: FC = () => (
         <Button
             type={ButtonTypes.BUTTON}
@@ -121,7 +124,7 @@ export default function LionModal({
             show={modalId === state.modal}
             fullscreen={fullscreen}
             onHide={() => updateState({ modal: null })}
-            size={size}
+            size={normalizedSize as any}
             scrollable
             centered
             className={modalPlatformClass}
