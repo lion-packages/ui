@@ -34,6 +34,10 @@ import SelectsIOSSection from "./features/selects/components/SelectIOSSection.ts
 import SelectsBootstrapSection from "./features/selects/components/SelectBootstrapSection.tsx";
 import DataTablesSection from "./features/tables/DataTablesSection.tsx";
 import LionTitlesSection from "./features/titles/title/LionTitlesSection.tsx";
+import TextareaSection from "./features/textarea/TextareaSection.tsx";
+import TextareasAndroidSection from "./features/textarea/components/TextareasAndroidSection.tsx";
+import TextareasIOSSection from "./features/textarea/components/TextareasIOSSection.tsx";
+import TextareasBootstrapSection from "./features/textarea/components/TextareasBootstrapSection.tsx";
 
 export default function App() {
     return (
@@ -59,6 +63,14 @@ export default function App() {
                             <Route path={PlatformTypes.IOS} element={<InputsIOSSection />} />
 
                             <Route path={PlatformTypes.WEB} element={<InputsBootstrapSection />} />
+                        </Route>
+
+                        <Route path={"textarea"} element={<TextareaSection />}>
+                            <Route path={PlatformTypes.ANDROID} element={<TextareasAndroidSection />} />
+
+                            <Route path={PlatformTypes.IOS} element={<TextareasIOSSection />} />
+
+                            <Route path={PlatformTypes.WEB} element={<TextareasBootstrapSection />} />
                         </Route>
 
                         <Route path={"selects"} element={<InputsSection />}>

@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from "react-router-dom";
+import { PlatformTypes } from "../types/PlatformTypes.tsx";
 
 export default function Header() {
     return (
@@ -18,43 +19,57 @@ export default function Header() {
                     <Nav className="ms-auto">
                         <NavDropdown title="Buttons" id="buttons-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/buttons/android"} href={"#"}>
-                                Android
+                                {PlatformTypes.ANDROID}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/buttons/ios"} href={"#"}>
-                                IOS
+                                {PlatformTypes.IOS}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/buttons/web"} href={"#"}>
-                                Web
+                                {PlatformTypes.WEB}
                             </NavDropdown.Item>
                         </NavDropdown>
 
                         <NavDropdown title="Inputs" id="inputs-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/inputs/android"} href={"#"}>
-                                Android
+                                {PlatformTypes.ANDROID}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/inputs/ios"} href={"#"}>
-                                IOS
+                                {PlatformTypes.IOS}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/inputs/web"} href={"#"}>
-                                Web
+                                {PlatformTypes.WEB}
+                            </NavDropdown.Item>
+                        </NavDropdown>
+
+                        <NavDropdown title="Textarea" id="textarea-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/textarea/android"} href={"#"}>
+                                {PlatformTypes.ANDROID}
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Item as={Link} to={"/textarea/ios"} href={"#"}>
+                                {PlatformTypes.IOS}
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Item as={Link} to={"/textarea/web"} href={"#"}>
+                                {PlatformTypes.WEB}
                             </NavDropdown.Item>
                         </NavDropdown>
 
                         <NavDropdown title="Selects" id="selects-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/selects/android"} href={"#"}>
-                                Android
+                                {PlatformTypes.ANDROID}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/selects/ios"} href={"#"}>
-                                IOS
+                                {PlatformTypes.IOS}
                             </NavDropdown.Item>
 
                             <NavDropdown.Item as={Link} to={"/selects/web"} href={"#"}>
-                                Web
+                                {PlatformTypes.WEB}
                             </NavDropdown.Item>
                         </NavDropdown>
 
