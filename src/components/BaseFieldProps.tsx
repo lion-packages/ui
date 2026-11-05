@@ -14,6 +14,9 @@ export interface BaseFieldProps
     sizeType?: SizeTypes | string;
     label?: string;
     required?: boolean;
+    disabled?: boolean;
+    name?: string;
+    value?: any;
     helperText?: string;
     error?: ValidationErrorStructure;
     formId?: string;       // Global form ID for context error matching
