@@ -26,6 +26,7 @@ export default function LionModalButton({
         .join(" ");
 
     return (
+        // @ts-ignore
         <Button
             type={type}
             variant={variant}
