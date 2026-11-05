@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LION UI LIBRARY - BOOTSTRAP 5 INPUT SYSTEM STYLES
+   LION UI LIBRARY - BOOTSTRAP 5 INPUT & SELECT SYSTEM STYLES
    ========================================================================== */
 
 /* --- Color Variables Mapping per Variant (Inputs) --- */
@@ -25,6 +25,10 @@
 
 .form-control.bootstrap-variant-info {
     --bootstrap-active-color: var(--bs-info, #0dcaf0);
+}
+
+.form-control.bootstrap-variant-light {
+    --bootstrap-active-color: var(--bs-secondary, #6c757d);
 }
 
 .form-control.bootstrap-variant-dark {
@@ -55,6 +59,7 @@
 .form-control.bootstrap-variant-danger:focus,
 .form-control.bootstrap-variant-warning:focus,
 .form-control.bootstrap-variant-info:focus,
+.form-control.bootstrap-variant-light:focus,
 .form-control.bootstrap-variant-dark:focus,
 .form-control.bootstrap-variant-lion-packages:focus,
 .form-control.bootstrap-variant-lion-parking:focus,
@@ -93,6 +98,11 @@
 .form-floating:has(.form-control.bootstrap-variant-info:focus) > label,
 .form-floating:has(.form-control.bootstrap-variant-info:not(:placeholder-shown)) > label {
     color: var(--bs-info);
+}
+
+.form-floating:has(.form-control.bootstrap-variant-light:focus) > label,
+.form-floating:has(.form-control.bootstrap-variant-light:not(:placeholder-shown)) > label {
+    color: var(--bs-secondary, #6c757d);
 }
 
 .form-floating:has(.form-control.bootstrap-variant-dark:focus) > label,
@@ -160,6 +170,10 @@
     --bootstrap-active-color: var(--bs-info, #0dcaf0);
 }
 
+.form-select.bootstrap-variant-light {
+    --bootstrap-active-color: var(--bs-secondary, #6c757d);
+}
+
 .form-select.bootstrap-variant-dark {
     --bootstrap-active-color: var(--bs-dark, #212529);
 }
@@ -188,6 +202,7 @@
 .form-select.bootstrap-variant-danger:focus,
 .form-select.bootstrap-variant-warning:focus,
 .form-select.bootstrap-variant-info:focus,
+.form-select.bootstrap-variant-light:focus,
 .form-select.bootstrap-variant-dark:focus,
 .form-select.bootstrap-variant-lion-packages:focus,
 .form-select.bootstrap-variant-lion-parking:focus,
@@ -226,6 +241,11 @@
 .form-floating:has(.form-select.bootstrap-variant-info:focus) > label,
 .form-floating:has(.form-select.bootstrap-variant-info:not(:placeholder-shown)) > label {
     color: var(--bs-info);
+}
+
+.form-floating:has(.form-select.bootstrap-variant-light:focus) > label,
+.form-floating:has(.form-select.bootstrap-variant-light:not(:placeholder-shown)) > label {
+    color: var(--bs-secondary, #6c757d);
 }
 
 .form-floating:has(.form-select.bootstrap-variant-dark:focus) > label,
