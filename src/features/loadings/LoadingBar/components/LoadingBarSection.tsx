@@ -133,7 +133,6 @@ export default function MyLoadingBarScreen() {
                         <div style={{ minHeight: "10px" }}>
                             {isLoading && (
                                 <LoadingBar
-                                    platform={selectedPlatform}
                                     variant={selectedVariant}
                                 />
                             )}
