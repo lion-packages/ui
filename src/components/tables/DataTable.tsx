@@ -29,6 +29,7 @@ import { InputTypes } from "../../types/InputTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { defaultDictionary, type DataTableDictionary, type SupportedLanguage } from "./DataTable.i18n";
+import LionSelect from "../select/LionSelect.tsx";
 
 const EMPTY_ARRAY: any[] = [];
 
@@ -315,24 +316,18 @@ export default function DataTable<TData extends RowData>({
                     sm={customButtons ? 12 : 6}
                     md={6}
                     lg={customButtons ? 3 : 4}
-                    xl={customButtons ? 2 : 4}
+                    xl={customButtons ? 3 : 4}
                 >
-                    <InputGroup className="mb-1">
-                        <InputGroup.Text>
-                            {t.rowsLabel}
-                        </InputGroup.Text>
-
-                        <Form.Select
-                            value={table.state.pagination.pageSize}
-                            onChange={handlePageSizeChange}
-                        >
-                            {pageSizeOptions.map((option) => (
-                                <option key={option} value={option}>
-                                    {option}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </InputGroup>
+                    <LionSelect
+                        styleType={BootstrapInputStyleTypes.STANDARD}
+                        shape={BootstrapInputShapeTypes.ROUNDED}
+                        variant={variant}
+                        className={"mb-1 float-end"}
+                        autoComplete={"off"}
+                        value={table.state.pagination.pageSize}
+                        onChange={handlePageSizeChange}
+                        options={pageSizeOptions.map(row => (t.rowsLabel + ": " + row))}
+                    />
                 </Col>
 
                 <Col
@@ -340,7 +335,7 @@ export default function DataTable<TData extends RowData>({
                     sm={customButtons ? 12 : 6}
                     md={6}
                     lg={customButtons ? 3 : 8}
-                    xl={customButtons ? 4 : 8}
+                    xl={customButtons ? 3 : 8}
                 >
                     <BootstrapInput
                         type={InputTypes.SEARCH}
