@@ -27,9 +27,6 @@ import InputsAndroidSection from "./features/inputs/components/InputsAndroidSect
 import InputsIOSSection from "./features/inputs/components/InputsIOSSection.tsx";
 import InputsBootstrapSection from "./features/inputs/components/InputsBootstrapSection.tsx";
 import ModalsSection from "./features/modals/ModalsSection.tsx";
-import ModalsAndroidSection from "./features/modals/components/ModalsAndroidSection.tsx";
-import ModalsIOSSection from "./features/modals/components/ModalsIOSSection.tsx";
-import ModalsWebSection from "./features/modals/components/ModalsWebSection.tsx";
 import LoadingsAppSection from "./features/loadings/LoadingApp/LoadingsAppSection.tsx";
 import LoadingsBarSection from "./features/loadings/LoadingBar/LoadingsBarSection.tsx";
 import SelectsAndroidSection from "./features/selects/components/SelectsAndroidSection.tsx";
@@ -72,13 +69,7 @@ export default function App() {
                             <Route path={PlatformTypes.WEB} element={<SelectsBootstrapSection />} />
                         </Route>
 
-                        <Route path={"modals"} element={<ModalsSection />}>
-                            <Route path={PlatformTypes.ANDROID} element={<ModalsAndroidSection />} />
-
-                            <Route path={PlatformTypes.IOS} element={<ModalsIOSSection />} />
-
-                            <Route path={PlatformTypes.WEB} element={<ModalsWebSection />} />
-                        </Route>
+                        <Route path={"modals"} element={<ModalsSection />} />
 
                         <Route path={"loadings"}>
                             <Route path={"app"} element={<LoadingsAppSection />} />

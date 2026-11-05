@@ -58,20 +58,6 @@ export default function Header() {
                             </NavDropdown.Item>
                         </NavDropdown>
 
-                        <NavDropdown title="Modals" id="modals-nav-dropdown">
-                            <NavDropdown.Item as={Link} to={"/modals/android"} href={"#"}>
-                                Android
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Item as={Link} to={"/modals/ios"} href={"#"}>
-                                IOS
-                            </NavDropdown.Item>
-
-                            <NavDropdown.Item as={Link} to={"/modals/web"} href={"#"}>
-                                Web
-                            </NavDropdown.Item>
-                        </NavDropdown>
-
                         <NavDropdown title="Loadings" id="loadings-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/loadings/app"} href={"#"}>
                                 App
@@ -81,6 +67,10 @@ export default function Header() {
                                 Bar
                             </NavDropdown.Item>
                         </NavDropdown>
+
+                        <Nav.Link as={Link} to={"modals"} href="#">
+                            Modals
+                        </Nav.Link>
 
                         <Nav.Link as={Link} to={"tables"} href="#">
                             Tables

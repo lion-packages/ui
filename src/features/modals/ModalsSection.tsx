@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
+import LionModalSection from "./components/LionModalSection.tsx";
 
 export default function ModalsSection() {
-    return <Outlet />
+    return <LionModalSection />
 }
