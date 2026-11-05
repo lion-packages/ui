@@ -38,6 +38,7 @@ import TextareaSection from "./features/textarea/TextareaSection.tsx";
 import TextareasAndroidSection from "./features/textarea/components/TextareasAndroidSection.tsx";
 import TextareasIOSSection from "./features/textarea/components/TextareasIOSSection.tsx";
 import TextareasBootstrapSection from "./features/textarea/components/TextareasBootstrapSection.tsx";
+import GetStarted from "./features/GetStarted.tsx";
 
 export default function App() {
     return (
@@ -47,7 +48,7 @@ export default function App() {
             <Container className={"py-2"}>
                 <LionUIComponentsProvider>
                     <Routes>
-                        <Route path={"/"} element={<h1>Explore the page.</h1>} />
+                        <Route path={"/"} element={<GetStarted />} />
 
                         <Route path={"buttons"} element={<ButtonsSection />}>
                             <Route path={PlatformTypes.ANDROID} element={<ButtonsAndroidSection />} />

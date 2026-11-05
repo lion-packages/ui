@@ -17,6 +17,10 @@ export default function Header() {
 
                 <Navbar.Collapse id="lion-ui-navbar-nav">
                     <Nav className="ms-auto">
+                        <Nav.Link as={Link} to={"/"} href="#">
+                            Get Started
+                        </Nav.Link>
+
                         <NavDropdown title="Buttons" id="buttons-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/buttons/android"} href={"#"}>
                                 {PlatformTypes.ANDROID}
