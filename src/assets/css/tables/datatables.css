@@ -192,6 +192,17 @@
     color: var(--pagination-active-color);
 }
 
+/* --- Pagination Focus & Active Override Fixes --- */
+.pagination[class*="pagination-variant-"] .page-link:focus,
+.pagination[class*="pagination-variant-"] .page-link:active,
+.pagination[class*="pagination-variant-"] .page-item.active .page-link:focus,
+.pagination[class*="pagination-variant-"] .page-item.active .page-link:active {
+    background-color: var(--pagination-active-color);
+    border-color: var(--pagination-active-color);
+    color: var(--pagination-text-color, #ffffff);
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--pagination-active-color) 35%, transparent) !important;
+}
+
 /* --- Unique override rules for light variant pagination icons and text visibility --- */
 .pagination.pagination-variant-light .page-item.active .page-link {
     color: #212529;
@@ -206,4 +217,14 @@
     background-color: rgba(0, 0, 0, 0.08);
     color: #212529;
     border-color: #dee2e6;
+}
+
+.pagination.pagination-variant-light .page-link:focus,
+.pagination.pagination-variant-light .page-link:active,
+.pagination.pagination-variant-light .page-item.active .page-link:focus,
+.pagination.pagination-variant-light .page-item.active .page-link:active {
+    background-color: var(--pagination-active-color);
+    border-color: #dee2e6;
+    color: #212529;
+    box-shadow: 0 0 0 0.25rem rgba(33, 37, 41, 0.15) !important;
 }
