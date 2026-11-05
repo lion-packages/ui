@@ -165,3 +165,61 @@
     box-shadow: none;
     padding: 2rem;
 }
+
+/* ==========================================================================
+   LION UI LIBRARY - ADAPTIVE LOADING APP STYLES
+   ========================================================================== */
+
+.loading-app-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Web Immersive Styles --- */
+.loading-app-container.web-loading-container {
+    background-color: #0b0f19;
+}
+
+.loading-app-container .loading-glass-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2rem;
+}
+
+/* --- Android Material Design 3 Loading Card --- */
+.loading-app-container.android-loading-container {
+    background-color: rgba(28, 27, 31, 0.4);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.android-loading-card {
+    background-color: var(--bs-body-bg, #fff);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+    max-width: 340px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* --- iOS Cupertino / HIG Loading Card --- */
+.loading-app-container.ios-loading-container {
+    background-color: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+}
+
+.ios-loading-card {
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    min-width: 240px;
+    max-width: 300px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
