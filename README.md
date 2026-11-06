@@ -1,4 +1,4 @@
-<img width="1920" height="1080" alt="presentation-lion-packages" src="https://github.com/user-attachments/assets/9d777705-ff36-4054-8b92-03944ddcde35" />
+<img width="1920" height="1080" alt="presentation-lion-packages" src="https://github.com/user-attachments/assets/36482626-723e-4a7b-8007-24baef42d998" />
 
 
 # @lion-npm/ui
@@ -26,6 +26,14 @@ npm install @lion-npm/ui
 yarn add @lion-npm/ui
 # or
 pnpm add @lion-npm/ui
+```
+
+### Other dependencies
+
+These dependencies are necessary for the library to be able to render all types of components.
+
+```bash
+npm install @capacitor/core bootstrap bootstrap-icons react-bootstrap @tanstack/react-table
 ```
 
 ---
