@@ -12,10 +12,10 @@ import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 import "./assets/css/titles/title.css";
 
-import { Fragment } from "react";
+import {Fragment, useEffect} from "react";
 import { Container } from "react-bootstrap";
-import { Routes, Route } from 'react-router-dom';
-import { LionUIComponentsProvider } from "./context/LionUIComponentsContext.tsx";
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useLionUI } from "./context/LionUIComponentsContext.tsx";
 import { PlatformTypes } from "./types/PlatformTypes.tsx";
 import Header from "./features/Header.tsx";
 import ButtonsSection from "./features/buttons/ButtonsSection.tsx";
@@ -41,60 +41,65 @@ import TextareasBootstrapSection from "./features/textarea/components/TextareasB
 import GetStarted from "./features/GetStarted.tsx";
 
 export default function App() {
+    const { pathname } = useLocation();
+    const { updateState } = useLionUI();
+
+    useEffect(() => {
+        updateState({ platform: PlatformTypes.WEB });
+    }, [pathname]);
+
     return (
         <Fragment>
             <Header />
 
             <Container className={"py-2"}>
-                <LionUIComponentsProvider>
-                    <Routes>
-                        <Route path={"/"} element={<GetStarted />} />
+                <Routes>
+                    <Route path={"/"} element={<GetStarted />} />
 
-                        <Route path={"buttons"} element={<ButtonsSection />}>
-                            <Route path={PlatformTypes.ANDROID} element={<ButtonsAndroidSection />} />
+                    <Route path={"buttons"} element={<ButtonsSection />}>
+                        <Route path={PlatformTypes.ANDROID} element={<ButtonsAndroidSection />} />
 
-                            <Route path={PlatformTypes.IOS} element={<ButtonsIOSSection />} />
+                        <Route path={PlatformTypes.IOS} element={<ButtonsIOSSection />} />
 
-                            <Route path={PlatformTypes.WEB} element={<ButtonsBootstrapSection />} />
-                        </Route>
+                        <Route path={PlatformTypes.WEB} element={<ButtonsBootstrapSection />} />
+                    </Route>
 
-                        <Route path={"inputs"} element={<InputsSection />}>
-                            <Route path={PlatformTypes.ANDROID} element={<InputsAndroidSection />} />
+                    <Route path={"inputs"} element={<InputsSection />}>
+                        <Route path={PlatformTypes.ANDROID} element={<InputsAndroidSection />} />
 
-                            <Route path={PlatformTypes.IOS} element={<InputsIOSSection />} />
+                        <Route path={PlatformTypes.IOS} element={<InputsIOSSection />} />
 
-                            <Route path={PlatformTypes.WEB} element={<InputsBootstrapSection />} />
-                        </Route>
+                        <Route path={PlatformTypes.WEB} element={<InputsBootstrapSection />} />
+                    </Route>
 
-                        <Route path={"textarea"} element={<TextareaSection />}>
-                            <Route path={PlatformTypes.ANDROID} element={<TextareasAndroidSection />} />
+                    <Route path={"textarea"} element={<TextareaSection />}>
+                        <Route path={PlatformTypes.ANDROID} element={<TextareasAndroidSection />} />
 
-                            <Route path={PlatformTypes.IOS} element={<TextareasIOSSection />} />
+                        <Route path={PlatformTypes.IOS} element={<TextareasIOSSection />} />
 
-                            <Route path={PlatformTypes.WEB} element={<TextareasBootstrapSection />} />
-                        </Route>
+                        <Route path={PlatformTypes.WEB} element={<TextareasBootstrapSection />} />
+                    </Route>
 
-                        <Route path={"selects"} element={<InputsSection />}>
-                            <Route path={PlatformTypes.ANDROID} element={<SelectsAndroidSection />} />
+                    <Route path={"selects"} element={<InputsSection />}>
+                        <Route path={PlatformTypes.ANDROID} element={<SelectsAndroidSection />} />
 
-                            <Route path={PlatformTypes.IOS} element={<SelectsIOSSection />} />
+                        <Route path={PlatformTypes.IOS} element={<SelectsIOSSection />} />
 
-                            <Route path={PlatformTypes.WEB} element={<SelectsBootstrapSection />} />
-                        </Route>
+                        <Route path={PlatformTypes.WEB} element={<SelectsBootstrapSection />} />
+                    </Route>
 
-                        <Route path={"modals"} element={<ModalsSection />} />
+                    <Route path={"modals"} element={<ModalsSection />} />
 
-                        <Route path={"loadings"}>
-                            <Route path={"app"} element={<LoadingsAppSection />} />
+                    <Route path={"loadings"}>
+                        <Route path={"app"} element={<LoadingsAppSection />} />
 
-                            <Route path={"bar"} element={<LoadingsBarSection />} />
-                        </Route>
+                        <Route path={"bar"} element={<LoadingsBarSection />} />
+                    </Route>
 
-                        <Route path={"tables"} element={<DataTablesSection />} />
+                    <Route path={"tables"} element={<DataTablesSection />} />
 
-                        <Route path={"titles"} element={<LionTitlesSection />} />
-                    </Routes>
-                </LionUIComponentsProvider>
+                    <Route path={"titles"} element={<LionTitlesSection />} />
+                </Routes>
             </Container>
         </Fragment>
     );
