@@ -1,4 +1,4 @@
-import { createContext, type FC, useContext, useEffect, useState } from 'react';
+import { createContext, type FC, useContext, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { PlatformTypes } from "../types/PlatformTypes.tsx";
 import type { LionUIContextProps } from "../interfaces/LionUIContextProps.tsx";
@@ -80,21 +80,6 @@ export const LionUIComponentsProvider: FC<LionUIComponentsProviderProps> = ({
             }
         });
     };
-
-    useEffect(() => {
-        if (!defaultPlatform) {
-            const capPlatform = Capacitor.getPlatform();
-
-            const detected: PlatformTypes =
-                capPlatform === PlatformTypes.IOS || capPlatform === PlatformTypes.ANDROID
-                    ? (capPlatform as PlatformTypes)
-                    : PlatformTypes.WEB;
-
-            if (detected !== state.platform) {
-                setState((prev) => ({ ...prev, platform: detected }));
-            }
-        }
-    }, [defaultPlatform, state.platform]);
 
     return (
         <LionUIComponentsContext.Provider value={{ state, updateState, setFormErrors, clearFormErrors }}>

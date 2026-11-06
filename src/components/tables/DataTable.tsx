@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { Table, Form, Pagination, Row, Col } from "react-bootstrap";
 import {
     useTable,
     tableFeatures,
@@ -16,19 +17,15 @@ import {
     type RowSelectionState,
     type RowData,
 } from "@tanstack/react-table";
-import {
-    Table,
-    Form,
-    InputGroup,
-    Pagination,
-    Row,
-    Col,
-} from "react-bootstrap";
-import BootstrapInput from "../../components/inputs/BootstrapInput.tsx";
 import { InputTypes } from "../../types/InputTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { defaultDictionary, type DataTableDictionary, type SupportedLanguage } from "./DataTable.i18n";
+import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
+import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
+import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
+import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
+import LionInput from "../inputs/LionInput.tsx";
 import LionSelect from "../select/LionSelect.tsx";
 
 const EMPTY_ARRAY: any[] = [];
@@ -272,12 +269,15 @@ export default function DataTable<TData extends RowData>({
     };
 
     const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const pageSize = Number(event.target.value);
+        const rawValue = event.target.value;
+        const pageSize = Number(rawValue.includes(":") ? rawValue.split(":")[1].trim() : rawValue);
 
-        setPagination({
-            pageIndex: 0,
-            pageSize,
-        });
+        if (!isNaN(pageSize)) {
+            setPagination({
+                pageIndex: 0,
+                pageSize,
+            });
+        }
     };
 
     const handleRowClick = (row: any) => {
@@ -319,14 +319,23 @@ export default function DataTable<TData extends RowData>({
                     xl={customButtons ? 3 : 4}
                 >
                     <LionSelect
-                        styleType={BootstrapInputStyleTypes.STANDARD}
-                        shape={BootstrapInputShapeTypes.ROUNDED}
                         variant={variant}
                         className={"mb-1 float-end"}
                         autoComplete={"off"}
-                        value={table.state.pagination.pageSize}
+                        label={t.rowsLabel}
+                        value={String(table.state.pagination.pageSize)}
                         onChange={handlePageSizeChange}
-                        options={pageSizeOptions.map(row => (t.rowsLabel + ": " + row))}
+                        options={pageSizeOptions.map(row => row)}
+                        styleType={{
+                            web: BootstrapInputStyleTypes.STANDARD,
+                            android: AndroidInputStyleTypes.FILLED,
+                            ios: IOSInputStyleTypes.FILLED,
+                        }}
+                        shape={{
+                            web: BootstrapInputShapeTypes.ROUNDED,
+                            android: AndroidInputShapeTypes.SMALL,
+                            ios: IOSInputShapeTypes.ROUNDED,
+                        }}
                     />
                 </Col>
 
@@ -337,16 +346,25 @@ export default function DataTable<TData extends RowData>({
                     lg={customButtons ? 3 : 8}
                     xl={customButtons ? 3 : 8}
                 >
-                    <BootstrapInput
+                    <LionInput
                         type={InputTypes.SEARCH}
-                        styleType={BootstrapInputStyleTypes.STANDARD}
-                        shape={BootstrapInputShapeTypes.ROUNDED}
                         variant={variant}
                         className={"mb-1 float-end"}
+                        label={t.searchPlaceholder}
                         placeholder={t.searchPlaceholder}
                         autoComplete={"off"}
                         value={table.state.globalFilter ?? ""}
                         onChange={handleGlobalFilterChange}
+                        styleType={{
+                            web: BootstrapInputStyleTypes.STANDARD,
+                            android: AndroidInputStyleTypes.FILLED,
+                            ios: IOSInputStyleTypes.FILLED,
+                        }}
+                        shape={{
+                            web: BootstrapInputShapeTypes.ROUNDED,
+                            android: AndroidInputShapeTypes.SMALL,
+                            ios: IOSInputShapeTypes.ROUNDED,
+                        }}
                     />
                 </Col>
             </Row>

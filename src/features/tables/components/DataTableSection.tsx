@@ -1,7 +1,9 @@
-import { useMemo, useState, useCallback, Fragment } from "react";
+import { useMemo, useState, useCallback, Fragment, useEffect } from "react";
 import { Button, Badge, Row, Col, Form, InputGroup, Card } from "react-bootstrap";
 import DataTable from "../../../components/tables/DataTable.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
+import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import VariantList from "../../VariantList.tsx";
 
 interface MockUser {
@@ -12,10 +14,32 @@ interface MockUser {
     status: string;
 }
 
+const platformOptions = [
+    { type: PlatformTypes.WEB, label: "Web / Desktop" },
+    { type: PlatformTypes.ANDROID, label: "Android (MD3)" },
+    { type: PlatformTypes.IOS, label: "iOS (Cupertino)" },
+];
+
 export default function DataTableSection() {
+    const { state, updateState } = useLionUI();
+
     const [selectedRows, setSelectedRows] = useState<MockUser[]>([]);
     const [selectedVariant, setSelectedVariant] = useState<string>(VariantTypes.PRIMARY);
     const [currentLocale, setCurrentLocale] = useState<string>("es");
+
+    // Local state to keep the select responsive instantly without losing sync
+    const [currentPlatform, setCurrentPlatform] = useState<string>(state.platform || PlatformTypes.WEB);
+
+    useEffect(() => {
+        if (state.platform && state.platform !== currentPlatform) {
+            setCurrentPlatform(state.platform);
+        }
+    }, [state.platform]);
+
+    const handlePlatformChange = (newPlatform: string) => {
+        setCurrentPlatform(newPlatform);
+        updateState({ platform: newPlatform });
+    };
 
     const rows = useMemo(() => {
         const names = ["Lion Alpha", "Lion Beta", "Lion Gamma", "Lion Delta", "Lion Omega", "John Doe", "Jane Smith", "Carlos Ruiz", "Ana Gómez", "Lucía Pérez"];
@@ -161,7 +185,7 @@ export default function MyDataTableScreen() {
             </h2>
 
             <p className={"text-muted mb-4"}>
-                Interactive section and live documentation to validate block pagination, global text filtering, column sorting, row clicks, variant themes, and multi-row selection.
+                Interactive section and live documentation to validate global platform context updates, block pagination, row quantity selector, global filtering, sorting, and multi-row selection.
             </p>
 
             <Card className="mb-4 shadow-sm">
@@ -170,7 +194,23 @@ export default function MyDataTableScreen() {
                 </Card.Header>
                 <Card.Body>
                     <Row className="g-3 mb-4">
-                        <Col xs={12} sm={12} md={6} lg={6}>
+                        <Col xs={12} sm={12} md={6} lg={4}>
+                            <InputGroup>
+                                <InputGroup.Text className="fw-bold">Platform</InputGroup.Text>
+                                <Form.Select
+                                    value={currentPlatform}
+                                    onChange={(e) => handlePlatformChange(e.target.value)}
+                                >
+                                    {platformOptions.map((p) => (
+                                        <option key={p.type} value={p.type}>
+                                            {p.label}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                            </InputGroup>
+                        </Col>
+
+                        <Col xs={12} sm={12} md={6} lg={4}>
                             <InputGroup>
                                 <InputGroup.Text className="fw-bold">Table Variant</InputGroup.Text>
                                 <Form.Select
@@ -179,16 +219,16 @@ export default function MyDataTableScreen() {
                                 >
                                     {VariantList.map((variantName) => (
                                         <option key={variantName} value={variantName}>
-                                            {variantName.charAt(0) + variantName.slice(1)}
+                                            {variantName.charAt(0).toUpperCase() + variantName.slice(1)}
                                         </option>
                                     ))}
                                 </Form.Select>
                             </InputGroup>
                         </Col>
 
-                        <Col xs={12} sm={12} md={6} lg={6}>
+                        <Col xs={12} sm={12} md={6} lg={4}>
                             <InputGroup>
-                                <InputGroup.Text className="fw-bold">Language (Locale)</InputGroup.Text>
+                                <InputGroup.Text className="fw-bold">Language</InputGroup.Text>
                                 <Form.Select
                                     value={currentLocale}
                                     onChange={(e) => setCurrentLocale(e.target.value)}
@@ -200,7 +240,6 @@ export default function MyDataTableScreen() {
                         </Col>
                     </Row>
 
-                    {/* Layout de 2 columnas: Columna izquierda para el Componente DataTable y Columna derecha para el Código */}
                     <Row className="g-4 align-items-start">
                         <Col xs={12} lg={6}>
                             <div className="p-3 border rounded bg-white">
