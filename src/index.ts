@@ -66,18 +66,29 @@ export { default as usePlatformStyle } from './hooks/usePlatformStyle';
 export { default as AndroidButton } from './components/buttons/AndroidButton';
 export { default as IOSButton } from './components/buttons/IOSButton';
 export { default as BootstrapButton } from './components/buttons/BootstrapButton';
+export { default as LionButton } from './components/buttons/LionButton';
+
 export { default as AndroidInput } from './components/inputs/AndroidInput';
 export { default as IOSInput } from './components/inputs/IOSInput';
 export { default as BootstrapInput } from './components/inputs/BootstrapInput';
+export { default as LionInput } from './components/inputs/LionInput';
+
 export { default as AndroidSelect } from './components/select/AndroidSelect';
 export { default as BootstrapSelect } from './components/select/BootstrapSelect';
 export { default as IOSSelect } from './components/select/IOSSelect';
+export { default as LionSelect } from './components/select/LionSelect';
+
+export { default as AndroidTextarea } from './components/textarea/AndroidTextarea';
+export { default as BootstrapTextarea } from './components/textarea/BootstrapTextarea';
+export { default as IOSTextarea } from './components/textarea/IOSTextarea';
+export { default as LionTextarea } from './components/textarea/LionTextarea';
+
 export { default as LoadingBar } from './components/loadings/LoadingBar';
 export { default as LoadingApp } from './components/loadings/LoadingApp';
-export { default as LionButton } from './components/buttons/LionButton';
-export { default as LionInput } from './components/inputs/LionInput';
-export { default as LionSelect } from './components/select/LionSelect';
+
 export { default as LionModal } from './components/modals/LionModal';
 export { default as LionModalButton } from './components/buttons/LionModalButton';
+
 export { default as DataTable } from './components/tables/DataTable';
+
 export { default as LionTitle } from './components/titles/LionTitle';

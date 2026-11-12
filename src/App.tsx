@@ -12,7 +12,7 @@ import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 import "./assets/css/titles/title.css";
 
-import {Fragment, useEffect} from "react";
+import { Fragment, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useLionUI } from "./context/LionUIComponentsContext.tsx";
