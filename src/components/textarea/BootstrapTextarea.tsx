@@ -1,4 +1,4 @@
-import { type ChangeEvent, useId, useState } from "react";
+import { type ChangeEvent, Fragment, useId, useState } from "react";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
@@ -83,7 +83,7 @@ export default function BootstrapTextarea({
     const textareaStyle = { height: rows ? `${rows * 1.5 + 1}rem` : undefined };
 
     return (
-        <div className="mb-3 w-100">
+        <Fragment>
             {!isFloating && label && (
                 <label htmlFor={textareaId} className="form-label">
                     {label}
@@ -135,25 +135,23 @@ export default function BootstrapTextarea({
 
             {(helperText || hasError || counter || maxCounter) && (
                 <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                        {hasError && resolvedErrors.length > 0 ? (
-                            <div className="invalid-feedback d-block">
-                                {resolvedErrors.length === 1 ? (
-                                    resolvedErrors[0]
-                                ) : (
-                                    <ul className="mb-0 ps-3">
-                                        {resolvedErrors.map((err, idx) => (
-                                            <li key={idx}>{err}</li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        ) : typeof error === "string" ? (
-                            <div className="invalid-feedback d-block">{error}</div>
-                        ) : helperText ? (
-                            <div className="form-text">{helperText}</div>
-                        ) : null}
-                    </div>
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="invalid-feedback d-block">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : typeof error === "string" ? (
+                        <div className="invalid-feedback d-block">{error}</div>
+                    ) : helperText ? (
+                        <div className="form-text">{helperText}</div>
+                    ) : null}
 
                     {(counter || maxCounter) && (
                         <small className={`form-text ms-auto ${isExceeded ? "text-danger fw-bold" : "text-muted"}`}>
@@ -162,6 +160,6 @@ export default function BootstrapTextarea({
                     )}
                 </div>
             )}
-        </div>
+        </Fragment>
     );
 }

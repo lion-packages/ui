@@ -106,7 +106,7 @@ export default function BootstrapSelect({
     );
 
     return (
-        <div className="mb-3 w-100">
+        <Fragment>
             {!isFloating && label && (
                 <label htmlFor={selectId} className="form-label">
                     {label}
@@ -155,26 +155,24 @@ export default function BootstrapSelect({
             )}
 
             {(helperText || hasError) && (
-                <div>
-                    {hasError && resolvedErrors.length > 0 ? (
-                        <div className="invalid-feedback d-block">
-                            {resolvedErrors.length === 1 ? (
-                                resolvedErrors[0]
-                            ) : (
-                                <ul className="mb-0 ps-3">
-                                    {resolvedErrors.map((err, idx) => (
-                                        <li key={idx}>{err}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    ) : typeof error === "string" ? (
-                        <div className="invalid-feedback d-block">{error}</div>
-                    ) : helperText ? (
-                        <div className="form-text">{helperText}</div>
-                    ) : null}
-                </div>
+                hasError && resolvedErrors.length > 0 ? (
+                    <div className="invalid-feedback d-block">
+                        {resolvedErrors.length === 1 ? (
+                            resolvedErrors[0]
+                        ) : (
+                            <ul className="mb-0 ps-3">
+                                {resolvedErrors.map((err, idx) => (
+                                    <li key={idx}>{err}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                ) : typeof error === "string" ? (
+                    <div className="invalid-feedback d-block">{error}</div>
+                ) : helperText ? (
+                    <div className="form-text">{helperText}</div>
+                ) : null
             )}
-        </div>
+        </Fragment>
     );
 }
