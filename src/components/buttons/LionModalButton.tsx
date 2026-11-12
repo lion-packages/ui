@@ -10,7 +10,6 @@ export interface LionModalButtonProps extends BaseButtonProps {
 
 export default function LionModalButton({
                                             children,
-                                            variant = VariantTypes.MODAL,
                                             type = ButtonTypes.BUTTON,
                                             className = "",
                                             onClick,
@@ -29,7 +28,7 @@ export default function LionModalButton({
         // @ts-ignore
         <Button
             type={type}
-            variant={variant}
+            variant={VariantTypes.MODAL}
             className={combinedClasses}
             onClick={onClick}
             disabled={disabled}
