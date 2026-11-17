@@ -43,7 +43,7 @@ const sizesList = [
 ];
 
 export default function LionModalSection() {
-    const { updateState } = useLionUI();
+    const { state, updateState } = useLionUI();
 
     // Estados para parametrización mediante selects
     const [selectedPlatform, setSelectedPlatform] = useState<PlatformTypes>(PlatformTypes.ANDROID);
@@ -221,7 +221,12 @@ export default function MyComponent() {
                     <LionModalButton
                         variant={VariantTypes.MODAL}
                         type={ButtonTypes.BUTTON}
-                        onClick={() => alert("Action Executed")}
+                        disabled={state.loading}
+                        onClick={() => {
+                            updateState({ loading: true });
+
+                            setTimeout(() => updateState({ loading: false }), 5000);
+                        }}
                     >
                         Confirm
                     </LionModalButton>
