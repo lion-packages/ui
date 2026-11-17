@@ -25,6 +25,7 @@ export default function InputsAndroidSection() {
     const [playVariant, setPlayVariant] = useState<VariantTypes | string>(VariantTypes.PRIMARY);
     const [playStyle, setPlayStyle] = useState<AndroidInputStyleTypes>(AndroidInputStyleTypes.OUTLINED);
     const [playShape, setPlayShape] = useState<AndroidInputShapeTypes>(AndroidInputShapeTypes.NORMAL);
+    const [playType, setPlayType] = useState<InputTypes | string>(InputTypes.TEXT);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
     const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playError, setPlayError] = useState<string>("");
@@ -46,8 +47,8 @@ export default function InputsAndroidSection() {
     const variantEnumName = getEnumKey(VariantTypes, playVariant);
     const styleEnumName = getEnumKey(AndroidInputStyleTypes, playStyle);
     const shapeEnumName = getEnumKey(AndroidInputShapeTypes, playShape);
+    const typeEnumName = getEnumKey(InputTypes, playType);
 
-    // Code snippet for documentation pointing to the external @lion-npm/ui package
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
     LionInput, 
@@ -75,7 +76,7 @@ export default function AndroidUserInputForm() {
         <LionInput
             formId="android-input-form"
             name="username"
-            type={InputTypes.TEXT}
+            type={InputTypes.${typeEnumName}}
             variant={VariantTypes.${variantEnumName}}
             styleType={AndroidInputStyleTypes.${styleEnumName}}
             shape={AndroidInputShapeTypes.${shapeEnumName}}
@@ -92,7 +93,7 @@ export default function AndroidUserInputForm() {
         <Fragment>
             <h2>Inputs (Android MD3)</h2>
             <p className="text-muted">
-                Interactive playground and live documentation for Android Material Design 3 inputs. Test variants, styles, shapes, states, and global context validation handling.
+                Interactive playground and live documentation for Android Material Design 3 inputs. Test variants, styles, shapes, types, states, and global context validation handling.
             </p>
 
             <Card className="mb-4 shadow-sm">
@@ -139,6 +140,17 @@ export default function AndroidUserInputForm() {
 
                         <Col xs={12} md={3}>
                             <Form.Group>
+                                <Form.Label className="fw-bold small">Input Type</Form.Label>
+                                <Form.Select value={playType} onChange={(e) => setPlayType(e.target.value)}>
+                                    {Object.values(InputTypes).map((t) => (
+                                        <option key={t} value={t}>{t}</option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={3}>
+                            <Form.Group>
                                 <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -171,24 +183,28 @@ export default function AndroidUserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionInput
-                                    platform={PlatformTypes.ANDROID}
-                                    formId="android-input-form"
-                                    name="username"
-                                    type={InputTypes.TEXT}
-                                    variant={playVariant}
-                                    styleType={playStyle}
-                                    shape={playShape}
-                                    label="Username"
-                                    placeholder="Enter username..."
-                                    counter={true}
-                                    disabled={playDisabled}
-                                    readOnly={playReadOnly}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Interactive Android input field testing."
-                                />
+
+                                <Form id={"android-input-form"}>
+                                    <LionInput
+                                        platform={PlatformTypes.ANDROID}
+                                        // @ts-ignore
+                                        formId={"android-input-form"}
+                                        name="username"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        label="Username"
+                                        placeholder="Enter username..."
+                                        counter={true}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive Android input field testing."
+                                    />
+                                </Form>
                             </div>
                         </Col>
 

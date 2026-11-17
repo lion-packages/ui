@@ -28,6 +28,7 @@ export default function InputsIOSSection() {
     const [playVariant, setPlayVariant] = useState<VariantTypes | string>(VariantTypes.PRIMARY);
     const [playStyle, setPlayStyle] = useState<IOSInputStyleTypes>(IOSInputStyleTypes.ROUNDED_BORDER);
     const [playShape, setPlayShape] = useState<IOSInputShapeTypes>(IOSInputShapeTypes.ROUNDED);
+    const [playType, setPlayType] = useState<InputTypes | string>(InputTypes.TEXT);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
     const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playError, setPlayError] = useState<string>("");
@@ -49,8 +50,8 @@ export default function InputsIOSSection() {
     const variantEnumName = getEnumKey(VariantTypes, playVariant);
     const styleEnumName = getEnumKey(IOSInputStyleTypes, playStyle);
     const shapeEnumName = getEnumKey(IOSInputShapeTypes, playShape);
+    const typeEnumName = getEnumKey(InputTypes, playType);
 
-    // Code snippet for documentation pointing to the external @lion-npm/ui package
     const generatedCodeSnippet = `import { useState } from "react";
 import {
     LionInput,
@@ -78,7 +79,7 @@ export default function IOSUserInputForm() {
         <LionInput
             formId="ios-input-form"
             name="username"
-            type={InputTypes.TEXT}
+            type={InputTypes.${typeEnumName}}
             variant={VariantTypes.${variantEnumName}}
             styleType={IOSInputStyleTypes.${styleEnumName}}
             shape={IOSInputShapeTypes.${shapeEnumName}}
@@ -96,7 +97,7 @@ export default function IOSUserInputForm() {
         <Fragment>
             <h2>Inputs (iOS SwiftUI)</h2>
             <p className="text-muted">
-                Interactive playground and live documentation for iOS SwiftUI inputs. Test variants, styles, shapes, states, and global context validation handling.
+                Interactive playground and live documentation for iOS SwiftUI inputs. Test variants, styles, shapes, types, states, and global context validation handling.
             </p>
 
             <Card className="mb-4 shadow-sm">
@@ -143,6 +144,17 @@ export default function IOSUserInputForm() {
 
                         <Col xs={12} md={3}>
                             <Form.Group>
+                                <Form.Label className="fw-bold small">Input Type</Form.Label>
+                                <Form.Select value={playType} onChange={(e) => setPlayType(e.target.value)}>
+                                    {Object.values(InputTypes).map((t) => (
+                                        <option key={t} value={t}>{t}</option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={3}>
+                            <Form.Group>
                                 <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -175,25 +187,29 @@ export default function IOSUserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionInput
-                                    platform={PlatformTypes.IOS}
-                                    formId="ios-input-form"
-                                    name="username"
-                                    type={InputTypes.TEXT}
-                                    variant={playVariant}
-                                    styleType={playStyle}
-                                    shape={playShape}
-                                    sizeType={"md"}
-                                    label="Username"
-                                    placeholder="Enter username..."
-                                    clearable={true}
-                                    disabled={playDisabled}
-                                    readOnly={playReadOnly}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Interactive iOS input field testing."
-                                />
+
+                                <Form id={"ios-input-form"}>
+                                    <LionInput
+                                        platform={PlatformTypes.IOS}
+                                        // @ts-ignore
+                                        formId={"ios-input-form"}
+                                        name="username"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        sizeType={"md"}
+                                        label="Username"
+                                        placeholder="Enter username..."
+                                        clearable={true}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive iOS input field testing."
+                                    />
+                                </Form>
                             </div>
                         </Col>
 

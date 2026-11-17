@@ -26,10 +26,12 @@ export default function InputsBootstrapSection() {
     const [playVariant, setPlayVariant] = useState<VariantTypes | string>(VariantTypes.PRIMARY);
     const [playStyle, setPlayStyle] = useState<BootstrapInputStyleTypes>(BootstrapInputStyleTypes.FLOATING);
     const [playShape, setPlayShape] = useState<BootstrapInputShapeTypes>(BootstrapInputShapeTypes.ROUNDED);
+    const [playType, setPlayType] = useState<InputTypes | string>(InputTypes.TEXT);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
     const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playError, setPlayError] = useState<string>("");
-    const [playValue, setPlayValue] = useState<string>("lion.developer");
+    const [playValue, setPlayValue] = useState<string>(playType === InputTypes.FILE ? "" : "lion.developer");
+    const currentValue = playType === InputTypes.FILE ? "" : playValue;
 
     const handleSimulateServerErrors = () => {
         setFormErrors("bootstrap-input-form", {
@@ -40,6 +42,13 @@ export default function InputsBootstrapSection() {
         });
     };
 
+    const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newType = e.target.value;
+        setPlayType(newType);
+
+        setPlayValue("");
+    };
+
     const getEnumKey = (enumObject: Record<string, any>, value: any): string => {
         return Object.keys(enumObject).find((key) => enumObject[key] === value) || value;
     };
@@ -47,6 +56,7 @@ export default function InputsBootstrapSection() {
     const variantEnumName = getEnumKey(VariantTypes, playVariant);
     const styleEnumName = getEnumKey(BootstrapInputStyleTypes, playStyle);
     const shapeEnumName = getEnumKey(BootstrapInputShapeTypes, playShape);
+    const typeEnumName = getEnumKey(InputTypes, playType);
 
     const generatedCodeSnippet = `import { useState } from "react";
 import { 
@@ -75,7 +85,7 @@ export default function UserInputForm() {
         <LionInput
             formId="bootstrap-input-form"
             name="username"
-            type={InputTypes.TEXT}
+            type={InputTypes.${typeEnumName}}
             variant={VariantTypes.${variantEnumName}}
             styleType={BootstrapInputStyleTypes.${styleEnumName}}
             shape={BootstrapInputShapeTypes.${shapeEnumName}}
@@ -91,7 +101,7 @@ export default function UserInputForm() {
         <Fragment>
             <h2>Inputs (Bootstrap 5 Desktop)</h2>
             <p className="text-muted">
-                Interactive playground and live documentation for Bootstrap inputs. Test variants, styles, shapes, states, and global context validation handling.
+                Interactive playground and live documentation for Bootstrap inputs. Test variants, styles, shapes, types, states, and global context validation handling.
             </p>
 
             <Card className="mb-4 shadow-sm">
@@ -138,6 +148,17 @@ export default function UserInputForm() {
 
                         <Col xs={12} md={3}>
                             <Form.Group>
+                                <Form.Label className="fw-bold small">Input Type</Form.Label>
+                                <Form.Select value={playType} onChange={handleTypeChange}>
+                                    {Object.values(InputTypes).map((t) => (
+                                        <option key={t} value={t}>{t}</option>
+                                    ))}
+                                </Form.Select>
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={3}>
+                            <Form.Group>
                                 <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
                                 <Form.Control
                                     type="text"
@@ -170,23 +191,27 @@ export default function UserInputForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionInput
-                                    platform={PlatformTypes.WEB}
-                                    formId="bootstrap-input-form"
-                                    name="username"
-                                    type={InputTypes.TEXT}
-                                    variant={playVariant}
-                                    styleType={playStyle}
-                                    shape={playShape}
-                                    label="Username"
-                                    placeholder="Enter username..."
-                                    disabled={playDisabled}
-                                    readOnly={playReadOnly}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Interactive input field testing."
-                                />
+
+                                <Form id={"bootstrap-input-form"}>
+                                    <LionInput
+                                        platform={PlatformTypes.WEB}
+                                        // @ts-ignore
+                                        formId={"bootstrap-input-form"}
+                                        name="username"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        label="Username"
+                                        placeholder="Enter username..."
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={currentValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive input field testing."
+                                    />
+                                </Form>
                             </div>
                         </Col>
 
