@@ -5,6 +5,7 @@ import { PlatformTypes } from "../../types/PlatformTypes.tsx";
 import { ButtonTypes } from "../../types/ButtonTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
+import LoadingBar from "../loadings/LoadingBar.tsx";
 
 export interface LionModalProps {
     modalId: string;
@@ -130,7 +131,7 @@ export default function LionModal({
             className={modalPlatformClass}
         >
             <Modal.Header
-                closeButton={!state.reload || !state.loading}
+                closeButton={!state.loading}
                 className={`custom-modal-header py-3 px-4 bg-${variant} ${textColorClass}`}
             >
                 <Modal.Title
@@ -141,6 +142,8 @@ export default function LionModal({
                     {title}
                 </Modal.Title>
             </Modal.Header>
+
+            <LoadingBar variant={variant} />
 
             <Modal.Body className="custom-modal-body px-4 py-3">
                 {modalId === state.modal ? body : null}
