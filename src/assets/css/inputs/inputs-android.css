@@ -58,17 +58,14 @@
 }
 
 .android-input-field-wrapper.android-style-outlined .android-input-element:focus,
-.android-input-field-wrapper.android-style-outlined .android-input-element:not(:placeholder-shown) {
+.android-input-field-wrapper.android-style-outlined.is-focused .android-input-element {
     border-color: var(--android-active-color, var(--android-input-color));
-}
-
-.android-input-field-wrapper.android-style-outlined .android-input-element:focus {
     box-shadow: 0 0 0 1px var(--android-active-color, var(--android-input-color));
 }
 
 /* --- Filled Style --- */
 .android-input-field-wrapper.android-style-filled {
-    background-color: color-mix(in srgb, var(--android-active-color, var(--android-input-color)) 8%, var(--bs-body-bg, #ffffff));
+    background-color: transparent;
     border-radius: 4px 4px 0 0;
     border-bottom: 1px solid var(--android-input-border-color);
 }
@@ -87,11 +84,10 @@
     padding: 18px 12px 4px 12px;
 }
 
-/* Active bottom border and background for Filled with focus or value */
-.android-input-field-wrapper.android-style-filled.is-focused,
-.android-input-field-wrapper.android-style-filled:has(.android-input-element:not(:placeholder-shown)) {
+.android-input-field-wrapper.android-style-filled:has(.android-input-element:focus),
+.android-input-field-wrapper.android-style-filled.is-focused {
     border-bottom: 2px solid var(--android-active-color, var(--android-input-color));
-    background-color: color-mix(in srgb, var(--android-active-color, var(--android-input-color)) 14%, var(--bs-body-bg, #ffffff));
+    background-color: color-mix(in srgb, var(--android-active-color, var(--android-input-color)) 10%, var(--bs-body-bg, #ffffff));
 }
 
 /* ==========================================================================
@@ -115,6 +111,7 @@
     max-width: calc(100% - 28px);
     overflow: hidden;
     text-overflow: ellipsis;
+    border: none !important;
 }
 
 .android-input-field-wrapper.android-size-small .android-input-label {
@@ -125,40 +122,49 @@
 
 /* --- Outlined Floating States --- */
 .android-input-field-wrapper.android-style-outlined.android-size-normal .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-outlined.android-size-normal .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+.android-input-field-wrapper.android-style-outlined.android-size-normal .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.android-size-normal.is-focused ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.android-size-normal.is-filled ~ .android-input-label {
     top: 0;
     transform: translateY(-50%);
     font-size: 0.75rem;
-    color: var(--android-active-color, var(--android-input-color));
     background-color: var(--android-input-label-bg);
 }
 
 .android-input-field-wrapper.android-style-outlined.android-size-small .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-outlined.android-size-small .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+.android-input-field-wrapper.android-style-outlined.android-size-small .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.android-size-small.is-focused ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.android-size-small.is-filled ~ .android-input-label {
     top: 0;
     transform: translateY(-50%);
     font-size: 0.68rem;
-    color: var(--android-active-color, var(--android-input-color));
     background-color: var(--android-input-label-bg);
 }
 
-/* --- Filled Floating States (Proportionally adjusted for Normal and Small) --- */
+/* --- Filled Floating States --- */
 .android-input-field-wrapper.android-style-filled.android-size-normal .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-filled.android-size-normal .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+.android-input-field-wrapper.android-style-filled.android-size-normal .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.android-size-normal.is-focused ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.android-size-normal.is-filled ~ .android-input-label {
     top: 7px;
     transform: translateY(0);
     font-size: 0.75rem;
-    color: var(--android-active-color, var(--android-input-color));
     background-color: transparent;
 }
 
 .android-input-field-wrapper.android-style-filled.android-size-small .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-filled.android-size-small .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+.android-input-field-wrapper.android-style-filled.android-size-small .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.android-size-small.is-focused ~ .android-input-label,
+.android-input-field-wrapper.android-style-filled.android-size-small.is-filled ~ .android-input-label {
     top: 5px;
     transform: translateY(0);
     font-size: 0.68rem;
-    color: var(--android-active-color, var(--android-input-color));
     background-color: transparent;
+}
+
+.android-input-field-wrapper .android-input-element:focus ~ .android-input-label,
+.android-input-field-wrapper.is-focused ~ .android-input-label {
+    color: var(--android-active-color, var(--android-input-color)) !important;
 }
 
 /* Hide placeholder at rest */
@@ -233,31 +239,24 @@
 }
 
 /* ==========================================================================
-   ANDROID INPUT ERROR FOCUS OVERRIDES (Fixing Variant Color Interference)
+   ANDROID INPUT ERROR FOCUS OVERRIDES
    ========================================================================== */
 
-/* --- Outlined Style Error Focus Override --- */
 .android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus,
-.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:not(:placeholder-shown) {
+.android-input-field-wrapper.android-style-outlined.has-error.is-focused .android-input-element {
     border-color: var(--android-input-error-color) !important;
-}
-
-.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus {
     box-shadow: 0 0 0 1px var(--android-input-error-color) !important;
 }
 
-/* --- Filled Style Error Focus Override --- */
-.android-input-field-wrapper.android-style-filled.has-error.is-focused,
-.android-input-field-wrapper.android-style-filled.has-error:has(.android-input-element:not(:placeholder-shown)) {
+.android-input-field-wrapper.android-style-filled.has-error.is-focused {
     border-bottom: 2px solid var(--android-input-error-color) !important;
     background-color: color-mix(in srgb, var(--android-input-error-color) 14%, var(--bs-body-bg, #ffffff)) !important;
 }
 
-/* --- Floating Label Color Synchronization on Error Focus --- */
 .android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-outlined.has-error .android-input-element:not(:placeholder-shown) ~ .android-input-label,
+.android-input-field-wrapper.android-style-outlined.has-error.is-focused ~ .android-input-label,
 .android-input-field-wrapper.android-style-filled.has-error .android-input-element:focus ~ .android-input-label,
-.android-input-field-wrapper.android-style-filled.has-error .android-input-element:not(:placeholder-shown) ~ .android-input-label {
+.android-input-field-wrapper.android-style-filled.has-error.is-focused ~ .android-input-label {
     color: var(--android-input-error-color) !important;
 }
 

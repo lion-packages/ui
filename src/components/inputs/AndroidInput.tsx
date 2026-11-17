@@ -53,6 +53,7 @@ export default function AndroidInput({
     const targetErrorKey = errorKey || name;
     const resolvedErrors = useValidationError(error, formId, targetErrorKey);
     const hasError = resolvedErrors.length > 0 || Boolean(error);
+    const hasValue = value !== undefined && value !== null && value !== "" && String(value).trim() !== "";
 
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
@@ -68,6 +69,7 @@ export default function AndroidInput({
         `android-style-${normalizedStyle}`,
         `android-size-${normalizedShape}`,
         isFocused ? "is-focused" : "",
+        hasValue ? "is-filled" : "",
         hasError ? "has-error" : "",
         disabled ? "is-disabled" : "",
         readOnly ? "is-readonly" : "",
