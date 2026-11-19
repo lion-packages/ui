@@ -187,7 +187,6 @@ export default function AndroidUserInputForm() {
                                 <Form id={"android-input-form"}>
                                     <LionInput
                                         platform={PlatformTypes.ANDROID}
-                                        // @ts-ignore
                                         formId={"android-input-form"}
                                         name="username"
                                         type={playType}
