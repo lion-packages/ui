@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
@@ -20,6 +20,7 @@ export default function IOSSelect({
                                       sizeType = SizeTypes.MD,
                                       label,
                                       required = false,
+                                      requiredMessage = "This field is required.",
                                       helperText,
                                       error,
                                       formId,
@@ -35,6 +36,8 @@ export default function IOSSelect({
                                       onChange,
                                       onFocus,
                                       onBlur,
+                                      onInput,
+                                      onInvalid,
                                       id,
                                       name,
                                       className = "",
@@ -97,15 +100,29 @@ export default function IOSSelect({
         if (onBlur) onBlur(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLSelectElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLSelectElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
 
     return (
         <div className={containerClasses}>
             {label && (
-                <label htmlFor={selectId} className="ios-input-label">
+                <Form.Label htmlFor={selectId} className="ios-input-label">
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </label>
+                </Form.Label>
             )}
 
             <div className={wrapperClasses}>
@@ -118,6 +135,8 @@ export default function IOSSelect({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     className={selectClasses}
                     {...rest}
                 >

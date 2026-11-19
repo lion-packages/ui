@@ -93,14 +93,16 @@ export default function AndroidInput({
 
     const handleFocus = (e: FocusEvent) => {
         setIsFocused(true);
-        if (onFocus) { // @ts-ignore
+        if (onFocus) {
+            // @ts-ignore
             onFocus(e);
         }
     };
 
     const handleBlur = (e: FocusEvent) => {
         setIsFocused(false);
-        if (onBlur) { // @ts-ignore
+        if (onBlur) {
+            // @ts-ignore
             onBlur(e);
         }
     };
@@ -126,9 +128,7 @@ export default function AndroidInput({
                     maxLength={maxLen}
                     placeholder={placeholder}
                     onChange={handleChange}
-                    // @ts-ignore
                     onFocus={handleFocus}
-                    // @ts-ignore
                     onBlur={handleBlur}
                     className={inputClasses}
                     {...rest}
@@ -147,14 +147,14 @@ export default function AndroidInput({
 
             {/* Subtext container for helper text, validation errors, and character counter */}
             {(helperText || hasError || counter) && (
-                <div className="android-input-subtext-container">
-                    <div className="android-input-subtext-message-wrapper" style={{ flex: 1, minWidth: 0 }}>
+                <div className={"android-input-subtext-container"}>
+                    <div className={"android-input-subtext-message-wrapper"} style={{ flex: 1, minWidth: 0 }}>
                         {hasError && resolvedErrors.length > 0 ? (
-                            <div className="android-input-error-text">
+                            <div className={"android-input-error-text"}>
                                 {resolvedErrors.length === 1 ? (
                                     resolvedErrors[0]
                                 ) : (
-                                    <ul className="mb-0 ps-3">
+                                    <ul className={"mb-0 ps-3"}>
                                         {resolvedErrors.map((err, idx) => (
                                             <li key={idx}>{err}</li>
                                         ))}
@@ -162,9 +162,9 @@ export default function AndroidInput({
                                 )}
                             </div>
                         ) : hasError && typeof error === "string" ? (
-                            <div className="android-input-error-text">{error}</div>
+                            <div className={"android-input-error-text"}>{error}</div>
                         ) : helperText ? (
-                            <div className="android-input-helper-text">{helperText}</div>
+                            <div className={"android-input-helper-text"}>{helperText}</div>
                         ) : null}
                     </div>
 

@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
@@ -20,6 +20,7 @@ export default function AndroidSelect({
                                           sizeType = SizeTypes.MD,
                                           label,
                                           required = false,
+                                          requiredMessage = "This field is required.",
                                           helperText,
                                           error,
                                           formId,
@@ -35,6 +36,8 @@ export default function AndroidSelect({
                                           onChange,
                                           onFocus,
                                           onBlur,
+                                          onInput,
+                                          onInvalid,
                                           id,
                                           name,
                                           className = "",
@@ -96,6 +99,20 @@ export default function AndroidSelect({
         if (onBlur) onBlur(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLSelectElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLSelectElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const hasValueSelected = currentValue !== "" && currentValue !== undefined && currentValue !== null;
 
@@ -116,6 +133,8 @@ export default function AndroidSelect({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     className={selectClasses}
                     {...rest}
                 >
@@ -137,10 +156,10 @@ export default function AndroidSelect({
                 </select>
 
                 {label && (
-                    <label htmlFor={selectId} className={"android-input-label"}>
+                    <Form.Label htmlFor={selectId} className="android-input-label">
                         {label}
-                        {required && <span className={"text-danger ms-1"}>*</span>}
-                    </label>
+                        {required && <span className="text-danger ms-1">*</span>}
+                    </Form.Label>
                 )}
             </div>
 

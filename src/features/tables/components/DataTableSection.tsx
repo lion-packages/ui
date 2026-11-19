@@ -219,7 +219,7 @@ export default function MyDataTableScreen() {
                                 >
                                     {VariantList.map((variantName) => (
                                         <option key={variantName} value={variantName}>
-                                            {variantName.charAt(0).toUpperCase() + variantName.slice(1)}
+                                            {variantName}
                                         </option>
                                     ))}
                                 </Form.Select>
@@ -241,7 +241,7 @@ export default function MyDataTableScreen() {
                     </Row>
 
                     <Row className="g-4 align-items-start">
-                        <Col xs={12} lg={6}>
+                        <Col xs={12} lg={12}>
                             <div className="p-3 border rounded bg-white">
                                 <span className="d-block text-muted small mb-2 fw-bold">LIVE COMPONENT PREVIEW</span>
                                 <DataTable
@@ -267,7 +267,7 @@ export default function MyDataTableScreen() {
                             </div>
                         </Col>
 
-                        <Col xs={12} lg={6}>
+                        <Col xs={12} lg={12}>
                             <div className="p-3 bg-dark text-light rounded position-relative h-100">
                                 <span className="d-block text-muted small mb-2 fw-bold">GENERATED CODE SNIPPET (COPY & PASTE READY)</span>
                                 <pre className="mb-0 text-light bg-transparent p-0" style={{ fontSize: "0.78rem", overflowX: "auto", maxHeight: "600px" }}>

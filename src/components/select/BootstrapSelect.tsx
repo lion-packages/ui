@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FocusEvent, Fragment, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, type SyntheticEvent, Fragment, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
@@ -20,6 +20,7 @@ export default function BootstrapSelect({
                                             sizeType = SizeTypes.MD,
                                             label,
                                             required = false,
+                                            requiredMessage = "This field is required.",
                                             helperText,
                                             error,
                                             formId,
@@ -35,6 +36,8 @@ export default function BootstrapSelect({
                                             onChange,
                                             onFocus,
                                             onBlur,
+                                            onInput,
+                                            onInvalid,
                                             id,
                                             name,
                                             className = "",
@@ -91,6 +94,20 @@ export default function BootstrapSelect({
         if (onBlur) onBlur(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLSelectElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLSelectElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
 
@@ -123,7 +140,7 @@ export default function BootstrapSelect({
             )}
 
             {isFloating ? (
-                <div className={"form-floating"}>
+                <div className="form-floating">
                     <select
                         id={selectId}
                         name={name}
@@ -134,6 +151,8 @@ export default function BootstrapSelect({
                         onChange={handleChange}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
+                        onInput={handleInput}
+                        onInvalid={handleInvalid}
                         {...rest}
                     >
                         {renderOptions()}
@@ -156,6 +175,8 @@ export default function BootstrapSelect({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     {...rest}
                 >
                     {renderOptions()}

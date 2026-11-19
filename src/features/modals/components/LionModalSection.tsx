@@ -12,6 +12,8 @@ import LionModal from "../../../components/modals/LionModal.tsx";
 import ModalsDefaultForm from "./ModalsDefaultForm.tsx";
 import LionButton from "../../../components/buttons/LionButton.tsx";
 import LionModalButton from "../../../components/buttons/LionModalButton.tsx";
+import {BootstrapButtonShapeTypes} from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
+import {BootstrapButtonStyleTypes} from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 
 const platformsList = [
     { type: PlatformTypes.ANDROID, label: "Android" },
@@ -45,64 +47,39 @@ const sizesList = [
 export default function LionModalSection() {
     const { state, updateState } = useLionUI();
 
-    // Estados para parametrización mediante selects
     const [selectedPlatform, setSelectedPlatform] = useState<PlatformTypes>(PlatformTypes.ANDROID);
     const [selectedVariant, setSelectedVariant] = useState<VariantTypes>(VariantTypes.PRIMARY);
     const [selectedSizeIndex, setSelectedSizeIndex] = useState<number>(0);
 
-    // Obtener configuración del tamaño seleccionado
     const currentSizeObj = sizesList[selectedSizeIndex];
     const platformPrefix = selectedPlatform.toLowerCase();
 
-    // Identificador único y propiedades del modal parametrizado
     const modalId = `custom-modal-${platformPrefix}-${selectedVariant}-${currentSizeObj.label.toLowerCase().replace(/[^a-z]/g, '')}`;
     const modalTitle = `${selectedPlatform} ${selectedVariant.toUpperCase()} ${currentSizeObj.titleSuffix}`;
 
-    // Renderizado del botón disparador según la plataforma activa
     const renderTriggerButton = () => {
-        if (selectedPlatform === PlatformTypes.ANDROID) {
-            return (
-                <LionButton
-                    platform={PlatformTypes.ANDROID}
-                    shape={AndroidButtonShapeTypes.ROUNDED}
-                    styleType={AndroidButtonStyleTypes.TONAL}
-                    variant={selectedVariant}
-                    type={ButtonTypes.BUTTON}
-                    onClick={() => updateState({ modal: modalId })}
-                >
-                    Open Parametrized Modal
-                </LionButton>
-            );
-        }
-
-        if (selectedPlatform === PlatformTypes.IOS) {
-            return (
-                <LionButton
-                    platform={PlatformTypes.IOS}
-                    variant={selectedVariant}
-                    styleType={IOSButtonStyleTypes.TINTED}
-                    shape={IOSButtonShapeTypes.ROUNDED}
-                    type={ButtonTypes.BUTTON}
-                    onClick={() => updateState({ modal: modalId })}
-                >
-                    Open Parametrized Modal
-                </LionButton>
-            );
-        }
-
         return (
             <LionButton
-                platform={PlatformTypes.WEB}
+                platform={selectedPlatform}
                 variant={selectedVariant}
                 type={ButtonTypes.BUTTON}
                 onClick={() => updateState({ modal: modalId })}
+                shape={{
+                    [PlatformTypes.ANDROID]: AndroidButtonShapeTypes.ROUNDED,
+                    [PlatformTypes.IOS]: IOSButtonShapeTypes.ROUNDED,
+                    [PlatformTypes.WEB]: BootstrapButtonShapeTypes.STANDARD,
+                }}
+                styleType={{
+                    [PlatformTypes.ANDROID]: AndroidButtonStyleTypes.TONAL,
+                    [PlatformTypes.IOS]: IOSButtonStyleTypes.TINTED,
+                    [PlatformTypes.WEB]: BootstrapButtonStyleTypes.FILLED,
+                }}
             >
-                Open Parametrized Modal
+                {"Open Parametrized Modal"}
             </LionButton>
         );
     };
 
-    // Generar el código de ejemplo sincronizado con el estado actual
     const dynamicCodeExample = `import { LionModal, LionButton, PlatformTypes, VariantTypes, SizeTypes } from "@lion-npm/ui";
 import { useLionUI } from "@lion-npm/ui";
 
@@ -138,7 +115,6 @@ export default function MyComponent() {
             <h2>LionModal Playground</h2>
             <p className="text-muted">Configure platform, variant, and size to test the modal component dynamically.</p>
 
-            {/* Panel de Parametrización (Selects) */}
             <div className="card p-4 mb-4 bg-light border">
                 <div className="row g-3">
                     {/* Platform Select */}
@@ -195,7 +171,6 @@ export default function MyComponent() {
                 </div>
             </div>
 
-            {/* Documentación con Código de Ejemplo Sincronizado */}
             <div className="card p-4 mb-4 border bg-white shadow-sm">
                 <h4 className="card-title h5 mb-3 text-primary">Usage Documentation & Synchronized Code Example</h4>
                 <p className="card-text text-secondary mb-3">
@@ -206,7 +181,6 @@ export default function MyComponent() {
                 </pre>
             </div>
 
-            {/* Renderizado único del LionModal parametrizado */}
             <LionModal
                 key={modalId}
                 backdrop={selectedPlatform === PlatformTypes.IOS ? "static" : undefined}
