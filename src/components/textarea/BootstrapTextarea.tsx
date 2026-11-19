@@ -1,4 +1,4 @@
-import { type ChangeEvent, useId, useState } from "react";
+import { type ChangeEvent, type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
@@ -12,7 +12,6 @@ export interface BootstrapTextareaProps extends BaseTextareaProps {
     styleType?: BootstrapInputStyleTypes;
     shape?: BootstrapInputShapeTypes;
     sizeType?: "sm" | "md" | "lg" | SizeTypes;
-    rows?: number;
     counter?: boolean | number;
     maxCounter?: number;
 }
@@ -24,6 +23,7 @@ export default function BootstrapTextarea({
                                               sizeType = SizeTypes.MD,
                                               label,
                                               required = false,
+                                              requiredMessage = "This field is required.",
                                               helperText,
                                               error,
                                               formId,
@@ -33,6 +33,8 @@ export default function BootstrapTextarea({
                                               value,
                                               defaultValue,
                                               onChange,
+                                              onInput,
+                                              onInvalid,
                                               id,
                                               name,
                                               className = "",
@@ -87,6 +89,20 @@ export default function BootstrapTextarea({
         if (onChange) onChange(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
     const currentLength = String(currentValue || "").length;
@@ -117,6 +133,8 @@ export default function BootstrapTextarea({
                         maxLength={maxLimit}
                         value={currentValue}
                         onChange={handleChange}
+                        onInput={handleInput}
+                        onInvalid={handleInvalid}
                         style={textareaStyle}
                         {...rest}
                     />
@@ -140,6 +158,8 @@ export default function BootstrapTextarea({
                     maxLength={maxLimit}
                     value={currentValue}
                     onChange={handleChange}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     style={textareaStyle}
                     {...rest}
                 />

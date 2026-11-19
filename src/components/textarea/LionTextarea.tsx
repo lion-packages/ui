@@ -25,6 +25,7 @@ export type LionTextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>
     styleType?: BootstrapInputStyleTypes | AndroidInputStyleTypes | IOSInputStyleTypes | string | PlatformMapping<BootstrapInputStyleTypes | AndroidInputStyleTypes | IOSInputStyleTypes | string>;
     label?: string;
     required?: boolean;
+    requiredMessage?: string;
     formId?: string;
     helperText?: string;
     error?: boolean | string | any;

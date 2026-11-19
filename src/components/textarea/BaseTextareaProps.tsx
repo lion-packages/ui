@@ -1,4 +1,4 @@
-import { type TextareaHTMLAttributes } from "react";
+import type { TextareaHTMLAttributes } from "react";
 import type { BaseFieldProps } from "../BaseFieldProps.tsx";
 
 export interface BaseTextareaProps
@@ -10,4 +10,5 @@ export interface BaseTextareaProps
     rows?: number;
     cols?: number;
     resize?: "none" | "both" | "horizontal" | "vertical";
+    requiredMessage?: string;
 }

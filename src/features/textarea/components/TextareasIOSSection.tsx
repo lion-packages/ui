@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import {Fragment, type SyntheticEvent, useState} from "react";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../../types/SizeTypes.tsx";
@@ -8,6 +8,10 @@ import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
 import { Form } from "react-bootstrap";
+import LionButton from "../../../components/buttons/LionButton.tsx";
+import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
+import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
 
 const stylesList = Object.values(IOSInputStyleTypes);
 const shapesList = Object.values(IOSInputShapeTypes);
@@ -19,6 +23,8 @@ export default function TextareasIOSSection() {
     const [selectedStyle, setSelectedStyle] = useState<IOSInputStyleTypes>(IOSInputStyleTypes.ROUNDED_BORDER);
     const [selectedShape, setSelectedShape] = useState<IOSInputShapeTypes>(IOSInputShapeTypes.ROUNDED);
     const [rows, setRows] = useState<number>(4);
+    const [playRequired, setPlayRequired] = useState<boolean>(false);
+    const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
     const [playValue, setPlayValue] = useState<string>("Lion framework iOS Cupertino textarea content assessment.");
 
@@ -87,12 +93,18 @@ export default function IOSTextareaForm() {
             placeholder="Write comments..."
             rows={${rows}}
             counter={true}
-            maxCounter={200}${playError ? `\n            error="${playError}"` : ""}
+            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playError ? `\n            error="${playError}"` : ""}
             value={comments}
             onChange={(e) => setComments(e.target.value)}
         />
     );
 }`;
+
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log("Submitted!!!");
+    };
 
     return (
         <Fragment>
@@ -159,7 +171,7 @@ export default function IOSTextareaForm() {
                             />
                         </div>
 
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <label className="form-label fw-bold small">Custom Error Prop</label>
                             <input
                                 type="text"
@@ -169,6 +181,28 @@ export default function IOSTextareaForm() {
                                 onChange={(e) => setPlayError(e.target.value)}
                             />
                         </div>
+
+                        <div className="col-md-6">
+                            <label className="form-label fw-bold small">Required Message</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="This field is required."
+                                value={playRequiredMessage}
+                                onChange={(e) => setPlayRequiredMessage(e.target.value)}
+                                disabled={!playRequired}
+                            />
+                        </div>
+
+                        <div className="col-12 d-flex align-items-center gap-3">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-ios-textarea-required-check"
+                                label="Required State"
+                                checked={playRequired}
+                                onChange={(e) => setPlayRequired(e.target.checked)}
+                            />
+                        </div>
                     </div>
 
                     <div className="row g-4 align-items-start">
@@ -176,11 +210,11 @@ export default function IOSTextareaForm() {
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
 
-                                <Form id="ios-textarea-form">
+                                <Form id={"ios-textarea-form"} onSubmit={handleSubmit}>
                                     <LionTextarea
                                         platform={PlatformTypes.IOS}
                                         formId={"ios-textarea-form"}
-                                        name="comments"
+                                        name={"comments"}
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
@@ -190,17 +224,19 @@ export default function IOSTextareaForm() {
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
-                                        helperText="Cupertino native style helper text."
-                                        className="mb-3"
+                                        helperText={"Cupertino native style helper text."}
+                                        className={"mb-3"}
                                     />
 
                                     <LionTextarea
                                         platform={PlatformTypes.IOS}
                                         formId={"ios-textarea-form"}
-                                        name="comments_2"
+                                        name={"comments_2"}
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
@@ -210,11 +246,26 @@ export default function IOSTextareaForm() {
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
-                                        helperText="Cupertino native style helper text."
+                                        helperText={"Cupertino native style helper text."}
                                     />
+
+                                    {playRequired && (
+                                        <LionButton
+                                            platform={PlatformTypes.IOS}
+                                            type={ButtonTypes.SUBMIT}
+                                            variant={selectedVariant}
+                                            className={"mt-3 w-100"}
+                                            shape={IOSButtonShapeTypes.ROUNDED}
+                                            styleType={IOSButtonStyleTypes.TINTED}
+                                        >
+                                            {"Submit"}
+                                        </LionButton>
+                                    )}
                                 </Form>
                             </div>
                         </div>

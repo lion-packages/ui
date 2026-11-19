@@ -119,10 +119,10 @@ export default function IOSSelect({
     return (
         <div className={containerClasses}>
             {label && (
-                <Form.Label htmlFor={selectId} className="ios-input-label">
+                <label htmlFor={selectId} className="ios-input-label">
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </Form.Label>
+                </label>
             )}
 
             <div className={wrapperClasses}>

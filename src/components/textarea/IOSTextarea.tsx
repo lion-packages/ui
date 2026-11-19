@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
@@ -23,6 +23,7 @@ export default function IOSTextarea({
                                         sizeType = SizeTypes.MD,
                                         label,
                                         required = false,
+                                        requiredMessage = "This field is required.",
                                         helperText,
                                         error,
                                         formId,
@@ -34,6 +35,8 @@ export default function IOSTextarea({
                                         onChange,
                                         onFocus,
                                         onBlur,
+                                        onInput,
+                                        onInvalid,
                                         id,
                                         name,
                                         className = "",
@@ -99,6 +102,20 @@ export default function IOSTextarea({
         if (onChange) onChange(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const currentLength = String(currentValue || "").length;
     const maxLimit = maxCounter ?? (typeof counter === "number" ? counter : maxLength);
@@ -127,7 +144,9 @@ export default function IOSTextarea({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    className="ios-input-element"
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
+                    className={"ios-input-element"}
                     style={{ height: rows ? `${rows * 1.5 + 1}rem` : undefined }}
                     {...rest}
                 />
@@ -135,14 +154,14 @@ export default function IOSTextarea({
 
             {/* Subtext row keeping helper/error on the left and counter pinned to the right */}
             {(helperText || hasError || counter || maxCounter) && (
-                <div className="ios-input-subtext-container d-flex flex-row justify-content-between align-items-start gap-2 w-100 mt-1">
-                    <div className="flex-grow-1 min-w-0">
+                <div className={"ios-input-subtext-container d-flex flex-row justify-content-between align-items-start gap-2 w-100 mt-1"}>
+                    <div className={"flex-grow-1 min-w-0"}>
                         {hasError && resolvedErrors.length > 0 ? (
-                            <div className="ios-input-error-text">
+                            <div className={"ios-input-error-text"}>
                                 {resolvedErrors.length === 1 ? (
                                     resolvedErrors[0]
                                 ) : (
-                                    <ul className="mb-0 ps-3">
+                                    <ul className={"mb-0 ps-3"}>
                                         {resolvedErrors.map((err, idx) => (
                                             <li key={idx}>{err}</li>
                                         ))}
@@ -150,9 +169,9 @@ export default function IOSTextarea({
                                 )}
                             </div>
                         ) : hasError && typeof error === "string" ? (
-                            <div className="ios-input-error-text">{error}</div>
+                            <div className={"ios-input-error-text"}>{error}</div>
                         ) : helperText ? (
-                            <div className="ios-input-helper-text">{helperText}</div>
+                            <div className={"ios-input-helper-text"}>{helperText}</div>
                         ) : null}
                     </div>
 
