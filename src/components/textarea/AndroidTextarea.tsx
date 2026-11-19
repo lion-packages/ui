@@ -1,11 +1,11 @@
-import { type ChangeEvent, useId, useState } from "react";
+import { type ChangeEvent, type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
+import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
 import { useValidationError } from "../../hooks/useValidationError.tsx";
 import type { BaseTextareaProps } from "./BaseTextareaProps.tsx";
-import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 
 export interface AndroidTextareaProps extends BaseTextareaProps {
     styleType?: AndroidInputStyleTypes;
@@ -20,6 +20,7 @@ export default function AndroidTextarea({
                                             variant = VariantTypes.PRIMARY,
                                             label,
                                             required = false,
+                                            requiredMessage = "This field is required.",
                                             helperText,
                                             error,
                                             formId,
@@ -31,6 +32,8 @@ export default function AndroidTextarea({
                                             onChange,
                                             onFocus,
                                             onBlur,
+                                            onInput,
+                                            onInvalid,
                                             id,
                                             name,
                                             className = "",
@@ -87,6 +90,20 @@ export default function AndroidTextarea({
         if (onChange) onChange(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLTextAreaElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const currentLength = String(currentValue || "").length;
     const maxLimit = maxCounter ?? (typeof counter === "number" ? counter : maxLength);
@@ -108,6 +125,8 @@ export default function AndroidTextarea({
                     onChange={handleChange}
                     onFocus={(e) => { setIsFocused(true); if (onFocus) onFocus(e); }}
                     onBlur={(e) => { setIsFocused(false); if (onBlur) onBlur(e); }}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     className={textareaClasses}
                     style={{ height: rows ? `${rows * 1.5 + 1}rem` : undefined }}
                     {...rest}
