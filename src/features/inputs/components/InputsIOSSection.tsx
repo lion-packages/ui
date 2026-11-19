@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import {Fragment, type SyntheticEvent, useState} from "react";
 import { Row, Col, Button, Form, Card } from "react-bootstrap";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
@@ -8,6 +8,10 @@ import { InputTypes } from "../../../types/InputTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionInput from "../../../components/inputs/LionInput.tsx";
+import LionButton from "../../../components/buttons/LionButton.tsx";
+import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
+import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
 
 const stylesList = [
     { type: IOSInputStyleTypes.ROUNDED_BORDER, name: "Rounded Border" },
@@ -31,6 +35,8 @@ export default function InputsIOSSection() {
     const [playType, setPlayType] = useState<InputTypes | string>(InputTypes.TEXT);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
     const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
+    const [playRequired, setPlayRequired] = useState<boolean>(false);
+    const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
     const [playValue, setPlayValue] = useState<string>("lion.swiftui");
 
@@ -86,12 +92,18 @@ export default function IOSUserInputForm() {
             sizeType="md"
             label="Username"
             placeholder="Enter username..."
-            clearable={true}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
+            clearable={true}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
         />
     );
 }`;
+
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log("Submitted!!!");
+    };
 
     return (
         <Fragment>
@@ -153,7 +165,7 @@ export default function IOSUserInputForm() {
                             </Form.Group>
                         </Col>
 
-                        <Col xs={12} md={3}>
+                        <Col xs={12} md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
                                 <Form.Control
@@ -161,6 +173,19 @@ export default function IOSUserInputForm() {
                                     placeholder="Enter error message..."
                                     value={playError}
                                     onChange={(e) => setPlayError(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={6}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Required Message</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="This field is required."
+                                    value={playRequiredMessage}
+                                    onChange={(e) => setPlayRequiredMessage(e.target.value)}
+                                    disabled={!playRequired}
                                 />
                             </Form.Group>
                         </Col>
@@ -180,6 +205,13 @@ export default function IOSUserInputForm() {
                                 checked={playReadOnly}
                                 onChange={(e) => setPlayReadOnly(e.target.checked)}
                             />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-ios-required"
+                                label="Required State"
+                                checked={playRequired}
+                                onChange={(e) => setPlayRequired(e.target.checked)}
+                            />
                         </Col>
                     </Row>
 
@@ -188,19 +220,21 @@ export default function IOSUserInputForm() {
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
 
-                                <Form id={"ios-input-form"}>
+                                <Form id="ios-input-form" onSubmit={handleSubmit}>
                                     <LionInput
                                         platform={PlatformTypes.IOS}
-                                        formId={"ios-input-form"}
+                                        formId="ios-input-form"
                                         name="username"
                                         type={playType}
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
-                                        sizeType={"md"}
+                                        sizeType="md"
                                         label="Username"
                                         placeholder="Enter username..."
                                         clearable={true}
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         readOnly={playReadOnly}
                                         error={playError}
@@ -212,16 +246,18 @@ export default function IOSUserInputForm() {
 
                                     <LionInput
                                         platform={PlatformTypes.IOS}
-                                        formId={"ios-input-form"}
+                                        formId="ios-input-form"
                                         name="username_2"
                                         type={playType}
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
-                                        sizeType={"md"}
-                                        label="Username_2"
+                                        sizeType="md"
+                                        label="Username 2"
                                         placeholder="Enter username 2..."
                                         clearable={true}
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         readOnly={playReadOnly}
                                         error={playError}
@@ -229,6 +265,19 @@ export default function IOSUserInputForm() {
                                         onChange={(e) => setPlayValue(e.target.value)}
                                         helperText="Interactive iOS input field testing."
                                     />
+
+                                    {playRequired && (
+                                        <LionButton
+                                            platform={PlatformTypes.IOS}
+                                            type={ButtonTypes.SUBMIT}
+                                            variant={playVariant}
+                                            className={"mt-3 w-100"}
+                                            shape={IOSButtonShapeTypes.ROUNDED}
+                                            styleType={IOSButtonStyleTypes.TINTED}
+                                        >
+                                            {"Submit"}
+                                        </LionButton>
+                                    )}
                                 </Form>
                             </div>
                         </Col>
