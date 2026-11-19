@@ -1,4 +1,5 @@
-import { type ChangeEvent, Fragment, useId, useState } from "react";
+import { type ChangeEvent, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
@@ -47,6 +48,8 @@ export default function BootstrapTextarea({
     const { clearFormErrors } = useLionUI();
 
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
+
+    // Resolve target error key and fetch validation errors via shared hook
     const targetErrorKey = errorKey || name;
     const resolvedErrors = useValidationError(error, formId, targetErrorKey);
     const hasError = resolvedErrors.length > 0 || Boolean(error);
@@ -68,6 +71,7 @@ export default function BootstrapTextarea({
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInternalValue(e.target.value);
 
+        // Clear form validation error when the user edits the field
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
@@ -83,12 +87,12 @@ export default function BootstrapTextarea({
     const textareaStyle = { height: rows ? `${rows * 1.5 + 1}rem` : undefined };
 
     return (
-        <Fragment>
+        <div className="bootstrap-input-container w-100">
             {!isFloating && label && (
-                <label htmlFor={textareaId} className="form-label">
+                <Form.Label htmlFor={textareaId}>
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </label>
+                </Form.Label>
             )}
 
             {isFloating ? (
@@ -109,10 +113,10 @@ export default function BootstrapTextarea({
                         {...rest}
                     />
                     {label && (
-                        <label htmlFor={textareaId}>
+                        <Form.Label htmlFor={textareaId}>
                             {label}
                             {required && <span className="text-danger ms-1">*</span>}
-                        </label>
+                        </Form.Label>
                     )}
                 </div>
             ) : (
@@ -133,33 +137,40 @@ export default function BootstrapTextarea({
                 />
             )}
 
+            {/* Subtext row keeping helper/error on the left and counter pinned to the right */}
             {(helperText || hasError || counter || maxCounter) && (
-                <div className="d-flex justify-content-between align-items-center">
-                    {hasError && resolvedErrors.length > 0 ? (
-                        <div className="invalid-feedback d-block">
-                            {resolvedErrors.length === 1 ? (
-                                resolvedErrors[0]
-                            ) : (
-                                <ul className="mb-0 ps-3">
-                                    {resolvedErrors.map((err, idx) => (
-                                        <li key={idx}>{err}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    ) : typeof error === "string" ? (
-                        <div className="invalid-feedback d-block">{error}</div>
-                    ) : helperText ? (
-                        <div className="form-text">{helperText}</div>
-                    ) : null}
+                <div className="d-flex flex-row justify-content-between align-items-start gap-2 w-100 mt-1">
+                    <div className="flex-grow-1 min-w-0">
+                        {hasError && resolvedErrors.length > 0 ? (
+                            <Form.Control.Feedback type="invalid" className="d-block mt-0">
+                                {resolvedErrors.length === 1 ? (
+                                    resolvedErrors[0]
+                                ) : (
+                                    <ul className="mb-0 ps-3">
+                                        {resolvedErrors.map((err, idx) => (
+                                            <li key={idx}>{err}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </Form.Control.Feedback>
+                        ) : hasError && typeof error === "string" ? (
+                            <Form.Control.Feedback type="invalid" className="d-block mt-0">
+                                {error}
+                            </Form.Control.Feedback>
+                        ) : helperText ? (
+                            <Form.Text className="d-block mt-0">{helperText}</Form.Text>
+                        ) : null}
+                    </div>
 
                     {(counter || maxCounter) && (
-                        <small className={`form-text ms-auto ${isExceeded ? "text-danger fw-bold" : "text-muted"}`}>
+                        <Form.Text
+                            className={`flex-shrink-0 text-nowrap mt-0 ${isExceeded ? "text-danger fw-bold" : "text-muted"}`}
+                        >
                             {currentLength}{maxLimit ? `/${maxLimit}` : ""}
-                        </small>
+                        </Form.Text>
                     )}
                 </div>
             )}
-        </Fragment>
+        </div>
     );
 }

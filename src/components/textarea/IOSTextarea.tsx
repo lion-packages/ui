@@ -1,4 +1,5 @@
 import React, { useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
@@ -48,6 +49,8 @@ export default function IOSTextarea({
     const { clearFormErrors } = useLionUI();
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
+
+    // Resolve target error key and fetch validation errors via shared hook
     const targetErrorKey = errorKey || name;
     const resolvedErrors = useValidationError(error, formId, targetErrorKey);
     const hasError = resolvedErrors.length > 0 || Boolean(error);
@@ -88,6 +91,7 @@ export default function IOSTextarea({
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInternalValue(e.target.value);
 
+        // Clear form validation error when the user edits the field
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
@@ -103,10 +107,10 @@ export default function IOSTextarea({
     return (
         <div className={containerClasses}>
             {label && (
-                <label htmlFor={textareaId} className="ios-input-label">
+                <Form.Label htmlFor={textareaId} className="ios-input-label">
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </label>
+                </Form.Label>
             )}
 
             <div className={wrapperClasses}>
@@ -129,9 +133,10 @@ export default function IOSTextarea({
                 />
             </div>
 
+            {/* Subtext row keeping helper/error on the left and counter pinned to the right */}
             {(helperText || hasError || counter || maxCounter) && (
-                <div className="d-flex justify-content-between align-items-center mt-1">
-                    <div>
+                <div className="ios-input-subtext-container d-flex flex-row justify-content-between align-items-start gap-2 w-100 mt-1">
+                    <div className="flex-grow-1 min-w-0">
                         {hasError && resolvedErrors.length > 0 ? (
                             <div className="ios-input-error-text">
                                 {resolvedErrors.length === 1 ? (
@@ -144,7 +149,7 @@ export default function IOSTextarea({
                                     </ul>
                                 )}
                             </div>
-                        ) : typeof error === "string" ? (
+                        ) : hasError && typeof error === "string" ? (
                             <div className="ios-input-error-text">{error}</div>
                         ) : helperText ? (
                             <div className="ios-input-helper-text">{helperText}</div>
@@ -152,9 +157,11 @@ export default function IOSTextarea({
                     </div>
 
                     {(counter || maxCounter) && (
-                        <span className={`ios-input-counter ms-auto ${isExceeded ? "text-danger fw-bold" : "text-muted"}`} style={{ fontSize: "0.8rem" }}>
+                        <Form.Text
+                            className={`ios-input-counter flex-shrink-0 text-nowrap mt-0 ${isExceeded ? "text-danger fw-bold" : "text-muted"}`}
+                        >
                             {currentLength}{maxLimit ? `/${maxLimit}` : ""}
-                        </span>
+                        </Form.Text>
                     )}
                 </div>
             )}

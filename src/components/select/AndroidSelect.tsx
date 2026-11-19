@@ -1,4 +1,5 @@
 import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../types/Android/AndroidInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
@@ -46,7 +47,7 @@ export default function AndroidSelect({
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
 
-    // Resolve target field key and fetch errors using the external hook
+    // Resolve target field key and fetch errors using the shared validation hook
     const targetErrorKey = errorKey || name;
     const resolvedErrors = useValidationError(error, formId, targetErrorKey);
     const hasError = resolvedErrors.length > 0 || Boolean(error);
@@ -77,7 +78,7 @@ export default function AndroidSelect({
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
 
-        // Automatically clear global form error for this field upon user interaction
+        // Clear form validation error when the user interacts with the select
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
@@ -136,15 +137,16 @@ export default function AndroidSelect({
                 </select>
 
                 {label && (
-                    <label htmlFor={selectId} className="android-input-label">
+                    <Form.Label htmlFor={selectId} className="android-input-label">
                         {label}
                         {required && <span className="text-danger ms-1">*</span>}
-                    </label>
+                    </Form.Label>
                 )}
             </div>
 
+            {/* Subtext container for validation errors and helper text */}
             {(helperText || hasError) && (
-                <div className="android-input-subtext-container">
+                <div className="android-input-subtext-container w-100">
                     {hasError && resolvedErrors.length > 0 ? (
                         <div className="android-input-error-text">
                             {resolvedErrors.length === 1 ? (
@@ -157,9 +159,13 @@ export default function AndroidSelect({
                                 </ul>
                             )}
                         </div>
+                    ) : hasError && typeof error === "string" ? (
+                        <div className="android-input-error-text">{error}</div>
                     ) : helperText ? (
-                        <div className="android-input-helper-text">{helperText}</div>
-                    ) : <div />}
+                        <Form.Text className="android-input-helper-text d-block mt-0">
+                            {helperText}
+                        </Form.Text>
+                    ) : null}
                 </div>
             )}
         </div>

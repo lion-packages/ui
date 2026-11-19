@@ -299,3 +299,36 @@ select.ios-input-element option {
     color: var(--ios-input-color, #212529) !important;
     font-size: inherit;
 }
+
+/* ==========================================================================
+   Subtext Container and Helper Text Styles for iOS
+   ========================================================================== */
+
+.ios-input-subtext-container {
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    box-sizing: border-box;
+    margin-top: 4px;
+}
+
+.ios-input-helper-text {
+    font-size: 12px;
+    color: var(--ios-input-placeholder-color);
+    margin-left: 4px;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    word-break: break-word;
+}
+
+.ios-input-error-text {
+    font-size: 12px;
+    color: var(--ios-input-error-color);
+    margin-left: 4px;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    word-break: break-word;
+}

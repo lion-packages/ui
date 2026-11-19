@@ -1,4 +1,5 @@
 import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { IOSInputStyleTypes } from "../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../types/IOS/IOSInputShapeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
@@ -78,7 +79,7 @@ export default function IOSSelect({
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
 
-        // Automatically clear global form error for this field upon user interaction
+        // Clear form validation error when the user interacts with the select
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
@@ -138,8 +139,9 @@ export default function IOSSelect({
                 </select>
             </div>
 
+            {/* Subtext block for validation errors and helper text */}
             {(helperText || hasError) && (
-                <div>
+                <div className="w-100">
                     {hasError && resolvedErrors.length > 0 ? (
                         <div className="ios-input-error-text">
                             {resolvedErrors.length === 1 ? (
@@ -152,10 +154,12 @@ export default function IOSSelect({
                                 </ul>
                             )}
                         </div>
-                    ) : typeof error === "string" ? (
+                    ) : hasError && typeof error === "string" ? (
                         <div className="ios-input-error-text">{error}</div>
                     ) : helperText ? (
-                        <div className="ios-input-helper-text">{helperText}</div>
+                        <Form.Text className="ios-input-helper-text d-block mt-0">
+                            {helperText}
+                        </Form.Text>
                     ) : null}
                 </div>
             )}

@@ -1,4 +1,4 @@
-import {type ChangeEvent, Fragment, useId, useState} from "react";
+import { type ChangeEvent, useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
@@ -76,7 +76,7 @@ export default function BootstrapInput({
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
 
     return (
-        <Fragment>
+        <div className="bootstrap-input-container">
             {!isFloating && label && (
                 <label htmlFor={inputId} className="form-label">
                     {label}
@@ -122,25 +122,28 @@ export default function BootstrapInput({
                 />
             )}
 
+            {/* Subtext container for helper text and validation errors */}
             {(helperText || hasError) && (
-                hasError && resolvedErrors.length > 0 ? (
-                    <div className="invalid-feedback d-block">
-                        {resolvedErrors.length === 1 ? (
-                            resolvedErrors[0]
-                        ) : (
-                            <ul className="mb-0 ps-3">
-                                {resolvedErrors.map((err, idx) => (
-                                    <li key={idx}>{err}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                ) : typeof error === "string" ? (
-                    <div className="invalid-feedback d-block">{error}</div>
-                ) : helperText ? (
-                    <div className="form-text">{helperText}</div>
-                ) : null
+                <div className="bootstrap-input-subtext-container">
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <div className="invalid-feedback d-block">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : hasError && typeof error === "string" ? (
+                        <div className="invalid-feedback d-block">{error}</div>
+                    ) : helperText ? (
+                        <div className="form-text bootstrap-input-helper-text">{helperText}</div>
+                    ) : null}
+                </div>
             )}
-        </Fragment>
+        </div>
     );
 }

@@ -11,9 +11,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100% !important;
     max-width: 100%;
-    font-family: var(--bs-body-font-family, Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+    font-family: var(--bs-body-font-family, Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif), serif;
     box-sizing: border-box;
 }
 
@@ -65,7 +65,7 @@
 
 /* --- Filled Style --- */
 .android-input-field-wrapper.android-style-filled {
-    background-color: transparent;
+    background-color: color-mix(in srgb, var(--bs-body-color, #212529) 6%, var(--bs-body-bg, #ffffff));
     border-radius: 4px 4px 0 0;
     border-bottom: 1px solid var(--android-input-border-color);
 }
@@ -91,7 +91,7 @@
 }
 
 /* ==========================================================================
-   Android Floating Label Logic (Proportional to Normal and Small sizes)
+   Android Floating Label Logic
    ========================================================================== */
 
 .android-input-label {
@@ -239,7 +239,7 @@
 }
 
 /* ==========================================================================
-   ANDROID INPUT ERROR FOCUS OVERRIDES
+   Android Input Error Focus Overrides
    ========================================================================== */
 
 .android-input-field-wrapper.android-style-outlined.has-error .android-input-element:focus,
@@ -260,34 +260,50 @@
     color: var(--android-input-error-color) !important;
 }
 
+/* ==========================================================================
+   Subtext, Helper Text & Counter Container
+   ========================================================================== */
+
 .android-input-subtext-container {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
+    width: 100% !important;
+    clear: both;
+    box-sizing: border-box;
+    margin-top: 4px;
     padding: 0.25rem 0.25rem 0 0.25rem;
 }
 
 .android-input-error-text {
     font-size: 0.78rem;
     color: var(--android-input-error-color);
-    margin-top: 0.25rem;
     font-weight: 500;
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
 }
 
 .android-input-helper-text {
     font-size: 0.78rem;
     color: var(--bs-secondary-color, #777);
-    margin-top: 0.25rem;
+    display: block;
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
 }
 
 .android-input-counter {
-    margin-left: auto;
-    margin-top: 0.25rem;
+    margin-left: 1rem;
     color: var(--bs-secondary-color, #777);
     font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* ==========================================================================
-   Definitive Android Select Custom Arrow & Spacing Fix
+   Android Select Custom Arrow & Spacing
    ========================================================================== */
 
 select.android-input-element {
