@@ -6,4 +6,5 @@ export interface BaseSelectProps extends BaseFieldProps {
     optionLabelKey?: string;
     optionDisabledKey?: string;
     placeholderOption?: string;
+    requiredMessage?: string;
 }

@@ -1,12 +1,16 @@
-import { Fragment, useState } from "react";
+import {Fragment, type SyntheticEvent, useState} from "react";
 import { Row, Col, Button, Form, Card } from "react-bootstrap";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../../types/Android/AndroidInputStyleTypes.tsx";
 import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShapeTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
+import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionSelect from "../../../components/select/LionSelect.tsx";
+import LionButton from "../../../components/buttons/LionButton.tsx";
 
 // Mock raw API data with custom property keys
 const mockRoleOptions = [
@@ -33,6 +37,8 @@ export default function SelectsAndroidSection() {
     const [playStyle, setPlayStyle] = useState<AndroidInputStyleTypes>(AndroidInputStyleTypes.OUTLINED);
     const [playShape, setPlayShape] = useState<AndroidInputShapeTypes>(AndroidInputShapeTypes.NORMAL);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playRequired, setPlayRequired] = useState<boolean>(false);
+    const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
     const [playValue, setPlayValue] = useState<string>("");
 
@@ -91,12 +97,18 @@ export default function UserRoleForm() {
             options={mockRoleOptions}
             optionValueKey="idroles"
             optionLabelKey="roles_name"
-            optionDisabledKey="is_disabled"${playDisabled ? "\n            disabled={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
+            optionDisabledKey="is_disabled"${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
         />
     );
 }`;
+
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log("Submitted!!!");
+    };
 
     return (
         <Fragment>
@@ -170,7 +182,20 @@ export default function UserRoleForm() {
                             </Form.Group>
                         </Col>
 
-                        <Col xs={12} className="d-flex align-items-center gap-3">
+                        <Col xs={12} md={6}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Required Message</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="This field is required."
+                                    value={playRequiredMessage}
+                                    onChange={(e) => setPlayRequiredMessage(e.target.value)}
+                                    disabled={!playRequired}
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={6} className="d-flex align-items-end gap-4">
                             <Form.Check
                                 type="checkbox"
                                 id="play-android-disabled-check"
@@ -178,29 +203,40 @@ export default function UserRoleForm() {
                                 checked={playDisabled}
                                 onChange={(e) => setPlayDisabled(e.target.checked)}
                             />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-android-required-check"
+                                label="Required State"
+                                checked={playRequired}
+                                onChange={(e) => setPlayRequired(e.target.checked)}
+                            />
                         </Col>
                     </Row>
 
                     <Row className="g-4 align-items-start">
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
-                                <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
+                                <span className="d-block text-muted small mb-3 fw-bold">
+                                    LIVE COMPONENT PREVIEW
+                                </span>
 
-                                <Form id={"android-demo-form"}>
+                                <Form id="android-demo-form" onSubmit={handleSubmit}>
                                     <LionSelect
                                         platform={PlatformTypes.ANDROID}
-                                        formId={"android-demo-form"}
-                                        name={"roles_name"}
+                                        formId="android-demo-form"
+                                        name="roles_name"
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
-                                        sizeType={"md"}
-                                        label={"Playground Select Control"}
-                                        placeholderOption={"Choose a role..."}
+                                        sizeType="md"
+                                        label="Playground Select Control"
+                                        placeholderOption="Choose a role..."
                                         options={mockRoleOptions}
-                                        optionValueKey={"idroles"}
-                                        optionLabelKey={"roles_name"}
-                                        optionDisabledKey={"is_disabled"}
+                                        optionValueKey="idroles"
+                                        optionLabelKey="roles_name"
+                                        optionDisabledKey="is_disabled"
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         error={playError}
                                         value={playValue}
@@ -211,24 +247,39 @@ export default function UserRoleForm() {
 
                                     <LionSelect
                                         platform={PlatformTypes.ANDROID}
-                                        formId={"android-demo-form"}
-                                        name={"roles_name_2"}
+                                        formId="android-demo-form"
+                                        name="roles_name_2"
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
-                                        sizeType={"md"}
-                                        label={"Playground Select Control"}
-                                        placeholderOption={"Choose a role 2..."}
+                                        sizeType="md"
+                                        label="Playground Select Control 2"
+                                        placeholderOption="Choose a role..."
                                         options={mockRoleOptions}
-                                        optionValueKey={"idroles"}
-                                        optionLabelKey={"roles_name"}
-                                        optionDisabledKey={"is_disabled"}
+                                        optionValueKey="idroles"
+                                        optionLabelKey="roles_name"
+                                        optionDisabledKey="is_disabled"
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
                                         helperText="Interacting with this control clears global context errors."
                                     />
+
+                                    {playRequired && (
+                                        <LionButton
+                                            platform={PlatformTypes.ANDROID}
+                                            type={ButtonTypes.SUBMIT}
+                                            variant={playVariant}
+                                            className={"mt-3 w-100"}
+                                            shape={AndroidButtonShapeTypes.ROUNDED}
+                                            styleType={AndroidButtonStyleTypes.TONAL}
+                                        >
+                                            {"Submit"}
+                                        </LionButton>
+                                    )}
                                 </Form>
                             </div>
                         </Col>

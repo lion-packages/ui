@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Table, Form, Pagination, Row, Col } from "react-bootstrap";
 import {
     useTable,
@@ -81,7 +81,6 @@ export default function DataTable<TData extends RowData>({
                                                              locale = "es",
                                                              dictionary = {},
                                                          }: DataTableProps<TData>) {
-
     const t = useMemo((): DataTableDictionary => {
         const baseLang = defaultDictionary[locale] ?? defaultDictionary["es"];
         return {
@@ -190,7 +189,7 @@ export default function DataTable<TData extends RowData>({
                             }
                         }}
                         onChange={tbl.getToggleAllPageRowsSelectedHandler()}
-                        onClick={(event: React.MouseEvent) => {
+                        onClick={(event: MouseEvent) => {
                             event.stopPropagation();
                         }}
                     />
@@ -201,7 +200,7 @@ export default function DataTable<TData extends RowData>({
                         checked={row.getIsSelected()}
                         disabled={!row.getCanSelect()}
                         onChange={row.getToggleSelectedHandler()}
-                        onClick={(event: React.MouseEvent) => {
+                        onClick={(event: MouseEvent) => {
                             event.stopPropagation();
                         }}
                     />
@@ -296,7 +295,7 @@ export default function DataTable<TData extends RowData>({
             className="p-3 bg-white rounded"
             id={id}
         >
-            <Row className="p-0">
+            <Row className={"p-0"}>
                 {customButtons && (
                     <Col
                         xs={12}
@@ -305,7 +304,7 @@ export default function DataTable<TData extends RowData>({
                         lg={6}
                         xl={6}
                     >
-                        <div className="mb-1">
+                        <div className={"mb-1"}>
                             {customButtons}
                         </div>
                     </Col>

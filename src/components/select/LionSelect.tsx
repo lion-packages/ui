@@ -25,6 +25,7 @@ export type LionSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "sha
     styleType?: BootstrapInputStyleTypes | AndroidInputStyleTypes | IOSInputStyleTypes | string | PlatformMapping<BootstrapInputStyleTypes | AndroidInputStyleTypes | IOSInputStyleTypes | string>;
     label?: string;
     required?: boolean;
+    requiredMessage?: string;
     helperText?: string;
     error?: boolean | string;
     formId?: string;
