@@ -188,13 +188,33 @@ export default function AndroidUserInputForm() {
                                     <LionInput
                                         platform={PlatformTypes.ANDROID}
                                         formId={"android-input-form"}
-                                        name="username"
+                                        name="username_1"
                                         type={playType}
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
                                         label="Username"
                                         placeholder="Enter username..."
+                                        counter={true}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive Android input field testing."
+                                        className="mb-3"
+                                    />
+
+                                    <LionInput
+                                        platform={PlatformTypes.ANDROID}
+                                        formId={"android-input-form"}
+                                        name="username_2"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        label="Username 2"
+                                        placeholder="Enter username 2..."
                                         counter={true}
                                         disabled={playDisabled}
                                         readOnly={playReadOnly}

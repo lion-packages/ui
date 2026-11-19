@@ -57,13 +57,21 @@ export default function BootstrapTextarea({
     const sizeClass = sizeType === "sm" ? "form-control-sm" : sizeType === "lg" ? "form-control-lg" : "";
     const variantClass = `bootstrap-variant-${variant}`;
 
+    // Keep outer spacing classes like mb-3 on the wrapper so helper text stays attached to the field
+    const containerClasses = [
+        "bootstrap-input-container",
+        "w-100",
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
+
     const textareaClasses = [
         "form-control",
         shape,
         sizeClass,
         variantClass,
         hasError ? "is-invalid" : "",
-        className,
     ]
         .filter(Boolean)
         .join(" ");
@@ -87,7 +95,7 @@ export default function BootstrapTextarea({
     const textareaStyle = { height: rows ? `${rows * 1.5 + 1}rem` : undefined };
 
     return (
-        <div className="bootstrap-input-container w-100">
+        <div className={containerClasses}>
             {!isFloating && label && (
                 <Form.Label htmlFor={textareaId}>
                     {label}

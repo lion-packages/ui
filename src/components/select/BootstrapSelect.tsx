@@ -54,13 +54,20 @@ export default function BootstrapSelect({
     const sizeClass = sizeType === SizeTypes.SM || sizeType === "sm" ? "form-select-sm" : sizeType === SizeTypes.LG || sizeType === "lg" ? "form-select-lg" : "";
     const variantClass = `bootstrap-variant-${variant}`;
 
+    // Keep outer spacing classes like mb-3 on the wrapper so helper text stays attached to the field
+    const containerClasses = [
+        "w-100",
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
+
     const selectClasses = [
         "form-select",
         shape,
         sizeClass,
         variantClass,
         hasError ? "is-invalid" : "",
-        className,
     ]
         .filter(Boolean)
         .join(" ");
@@ -107,7 +114,7 @@ export default function BootstrapSelect({
     );
 
     return (
-        <div className="w-100">
+        <div className={containerClasses}>
             {!isFloating && label && (
                 <Form.Label htmlFor={selectId}>
                     {label}
@@ -116,7 +123,7 @@ export default function BootstrapSelect({
             )}
 
             {isFloating ? (
-                <div className="form-floating">
+                <div className={"form-floating"}>
                     <select
                         id={selectId}
                         name={name}

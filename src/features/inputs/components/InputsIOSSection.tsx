@@ -207,6 +207,27 @@ export default function IOSUserInputForm() {
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
                                         helperText="Interactive iOS input field testing."
+                                        className="mb-3"
+                                    />
+
+                                    <LionInput
+                                        platform={PlatformTypes.IOS}
+                                        formId={"ios-input-form"}
+                                        name="username_2"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        sizeType={"md"}
+                                        label="Username_2"
+                                        placeholder="Enter username 2..."
+                                        clearable={true}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive iOS input field testing."
                                     />
                                 </Form>
                             </div>

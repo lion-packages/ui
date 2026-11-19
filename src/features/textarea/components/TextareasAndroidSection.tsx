@@ -7,6 +7,7 @@ import { AndroidInputShapeTypes } from "../../../types/Android/AndroidInputShape
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
+import { Form } from "react-bootstrap";
 
 const stylesList = Object.values(AndroidInputStyleTypes);
 const shapesList = Object.values(AndroidInputShapeTypes);
@@ -174,24 +175,47 @@ export default function AndroidTextareaForm() {
                         <div className="col-lg-5">
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionTextarea
-                                    platform={PlatformTypes.ANDROID}
-                                    formId="android-textarea-form"
-                                    name="comments"
-                                    variant={selectedVariant}
-                                    styleType={selectedStyle}
-                                    shape={selectedShape}
-                                    sizeType={SizeTypes.MD}
-                                    label="Android Comments"
-                                    placeholder="Write comments..."
-                                    rows={rows}
-                                    counter={true}
-                                    maxCounter={200}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Android native style helper text."
-                                />
+
+                                <Form id={"android-textarea-form"}>
+                                    <LionTextarea
+                                        platform={PlatformTypes.ANDROID}
+                                        formId={"android-textarea-form"}
+                                        name={"comments"}
+                                        variant={selectedVariant}
+                                        styleType={selectedStyle}
+                                        shape={selectedShape}
+                                        sizeType={SizeTypes.MD}
+                                        label={"Android Comments"}
+                                        placeholder={"Write comments..."}
+                                        rows={rows}
+                                        counter={true}
+                                        maxCounter={200}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText={"Android native style helper text."}
+                                        className={"mb-3"}
+                                    />
+
+                                    <LionTextarea
+                                        platform={PlatformTypes.ANDROID}
+                                        formId={"android-textarea-form"}
+                                        name={"comments_2"}
+                                        variant={selectedVariant}
+                                        styleType={selectedStyle}
+                                        shape={selectedShape}
+                                        sizeType={SizeTypes.MD}
+                                        label={"Android Comments 2"}
+                                        placeholder={"Write comments 2..."}
+                                        rows={rows}
+                                        counter={true}
+                                        maxCounter={200}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText={"Android native style helper text."}
+                                    />
+                                </Form>
                             </div>
                         </div>
 

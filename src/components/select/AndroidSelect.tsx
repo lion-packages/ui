@@ -137,10 +137,10 @@ export default function AndroidSelect({
                 </select>
 
                 {label && (
-                    <Form.Label htmlFor={selectId} className="android-input-label">
+                    <label htmlFor={selectId} className={"android-input-label"}>
                         {label}
-                        {required && <span className="text-danger ms-1">*</span>}
-                    </Form.Label>
+                        {required && <span className={"text-danger ms-1"}>*</span>}
+                    </label>
                 )}
             </div>
 
