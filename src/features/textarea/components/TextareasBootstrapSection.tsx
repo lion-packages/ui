@@ -7,6 +7,7 @@ import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShape
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
+import { Form } from "react-bootstrap";
 
 const stylesList = Object.values(BootstrapInputStyleTypes);
 const shapesList = Object.values(BootstrapInputShapeTypes);
@@ -174,24 +175,47 @@ export default function WebTextareaForm() {
                         <div className="col-lg-5">
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionTextarea
-                                    platform={PlatformTypes.WEB}
-                                    formId="web-textarea-form"
-                                    name="comments"
-                                    variant={selectedVariant}
-                                    styleType={selectedStyle}
-                                    shape={selectedShape}
-                                    sizeType={SizeTypes.MD}
-                                    label="Web Comments"
-                                    placeholder="Write comments..."
-                                    rows={rows}
-                                    counter={true}
-                                    maxCounter={200}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Bootstrap standard form helper text."
-                                />
+                                
+                                <Form id="web-textarea-form">
+                                    <LionTextarea
+                                        platform={PlatformTypes.WEB}
+                                        formId={"web-textarea-form"}
+                                        name={"comments"}
+                                        variant={selectedVariant}
+                                        styleType={selectedStyle}
+                                        shape={selectedShape}
+                                        sizeType={SizeTypes.MD}
+                                        label={"Web Comments"}
+                                        placeholder={"Write comments..."}
+                                        rows={rows}
+                                        counter={true}
+                                        maxCounter={200}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Bootstrap standard form helper text."
+                                        className="mb-3"
+                                    />
+
+                                    <LionTextarea
+                                        platform={PlatformTypes.WEB}
+                                        formId={"web-textarea-form"}
+                                        name={"comments_2"}
+                                        variant={selectedVariant}
+                                        styleType={selectedStyle}
+                                        shape={selectedShape}
+                                        sizeType={SizeTypes.MD}
+                                        label={"Web Comments 2"}
+                                        placeholder={"Write comments 2..."}
+                                        rows={rows}
+                                        counter={true}
+                                        maxCounter={200}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Bootstrap standard form helper text."
+                                    />
+                                </Form>
                             </div>
                         </div>
 

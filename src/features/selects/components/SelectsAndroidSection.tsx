@@ -185,26 +185,51 @@ export default function UserRoleForm() {
                         <Col xs={12} lg={5}>
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
-                                <LionSelect
-                                    platform={PlatformTypes.ANDROID}
-                                    formId="android-demo-form"
-                                    name="roles_name"
-                                    variant={playVariant}
-                                    styleType={playStyle}
-                                    shape={playShape}
-                                    sizeType={"md"}
-                                    label={"Playground Select Control"}
-                                    placeholderOption={"Choose a role..."}
-                                    options={mockRoleOptions}
-                                    optionValueKey="idroles"
-                                    optionLabelKey="roles_name"
-                                    optionDisabledKey="is_disabled"
-                                    disabled={playDisabled}
-                                    error={playError}
-                                    value={playValue}
-                                    onChange={(e) => setPlayValue(e.target.value)}
-                                    helperText="Interacting with this control clears global context errors."
-                                />
+
+                                <Form id={"android-demo-form"}>
+                                    <LionSelect
+                                        platform={PlatformTypes.ANDROID}
+                                        formId={"android-demo-form"}
+                                        name={"roles_name"}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        sizeType={"md"}
+                                        label={"Playground Select Control"}
+                                        placeholderOption={"Choose a role..."}
+                                        options={mockRoleOptions}
+                                        optionValueKey={"idroles"}
+                                        optionLabelKey={"roles_name"}
+                                        optionDisabledKey={"is_disabled"}
+                                        disabled={playDisabled}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interacting with this control clears global context errors."
+                                        className="mb-3"
+                                    />
+
+                                    <LionSelect
+                                        platform={PlatformTypes.ANDROID}
+                                        formId={"android-demo-form"}
+                                        name={"roles_name_2"}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        sizeType={"md"}
+                                        label={"Playground Select Control"}
+                                        placeholderOption={"Choose a role 2..."}
+                                        options={mockRoleOptions}
+                                        optionValueKey={"idroles"}
+                                        optionLabelKey={"roles_name"}
+                                        optionDisabledKey={"is_disabled"}
+                                        disabled={playDisabled}
+                                        error={playError}
+                                        value={playValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interacting with this control clears global context errors."
+                                    />
+                                </Form>
                             </div>
                         </Col>
 

@@ -209,6 +209,25 @@ export default function UserInputForm() {
                                         value={currentValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
                                         helperText="Interactive input field testing."
+                                        className="mb-3"
+                                    />
+
+                                    <LionInput
+                                        platform={PlatformTypes.WEB}
+                                        formId={"bootstrap-input-form"}
+                                        name="username_2"
+                                        type={playType}
+                                        variant={playVariant}
+                                        styleType={playStyle}
+                                        shape={playShape}
+                                        label="Username_2"
+                                        placeholder="Enter username 2..."
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
+                                        error={playError}
+                                        value={currentValue}
+                                        onChange={(e) => setPlayValue(e.target.value)}
+                                        helperText="Interactive input field testing."
                                     />
                                 </Form>
                             </div>

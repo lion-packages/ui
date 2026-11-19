@@ -1,4 +1,5 @@
 import { type ChangeEvent, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { InputTypes } from "../../types/InputTypes";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
@@ -51,13 +52,20 @@ export default function BootstrapInput({
     const sizeClass = sizeType === "sm" ? "form-control-sm" : sizeType === "lg" ? "form-control-lg" : "";
     const variantClass = `bootstrap-variant-${variant}`;
 
+    // Keep layout spacing utilities like mb-3 on the outer field container rather than the input itself
+    const containerClasses = [
+        "bootstrap-input-container",
+        className,
+    ]
+        .filter(Boolean)
+        .join(" ");
+
     const inputClasses = [
         "form-control",
         shape,
         sizeClass,
         variantClass,
         hasError ? "is-invalid" : "",
-        className,
     ]
         .filter(Boolean)
         .join(" ");
@@ -76,12 +84,12 @@ export default function BootstrapInput({
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
 
     return (
-        <div className="bootstrap-input-container">
+        <div className={containerClasses}>
             {!isFloating && label && (
-                <label htmlFor={inputId} className="form-label">
+                <Form.Label htmlFor={inputId}>
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </label>
+                </Form.Label>
             )}
 
             {isFloating ? (
@@ -100,10 +108,10 @@ export default function BootstrapInput({
                         {...rest}
                     />
                     {label && (
-                        <label htmlFor={inputId}>
+                        <Form.Label htmlFor={inputId}>
                             {label}
                             {required && <span className="text-danger ms-1">*</span>}
-                        </label>
+                        </Form.Label>
                     )}
                 </div>
             ) : (
@@ -126,7 +134,7 @@ export default function BootstrapInput({
             {(helperText || hasError) && (
                 <div className="bootstrap-input-subtext-container">
                     {hasError && resolvedErrors.length > 0 ? (
-                        <div className="invalid-feedback d-block">
+                        <Form.Control.Feedback type="invalid" className="d-block">
                             {resolvedErrors.length === 1 ? (
                                 resolvedErrors[0]
                             ) : (
@@ -136,11 +144,13 @@ export default function BootstrapInput({
                                     ))}
                                 </ul>
                             )}
-                        </div>
+                        </Form.Control.Feedback>
                     ) : hasError && typeof error === "string" ? (
-                        <div className="invalid-feedback d-block">{error}</div>
+                        <Form.Control.Feedback type="invalid" className="d-block">
+                            {error}
+                        </Form.Control.Feedback>
                     ) : helperText ? (
-                        <div className="form-text bootstrap-input-helper-text">{helperText}</div>
+                        <Form.Text className="bootstrap-input-helper-text">{helperText}</Form.Text>
                     ) : null}
                 </div>
             )}
