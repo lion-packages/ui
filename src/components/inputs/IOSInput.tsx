@@ -158,8 +158,9 @@ export default function IOSInput({
                 {endIcon && <div className="ios-input-icon-right">{endIcon}</div>}
             </div>
 
+            {/* Subtext container for helper text and validation errors */}
             {(helperText || hasError) && (
-                <div>
+                <div className="ios-input-subtext-container">
                     {hasError && resolvedErrors.length > 0 ? (
                         <div className="ios-input-error-text">
                             {resolvedErrors.length === 1 ? (
@@ -172,7 +173,7 @@ export default function IOSInput({
                                 </ul>
                             )}
                         </div>
-                    ) : typeof error === "string" ? (
+                    ) : hasError && typeof error === "string" ? (
                         <div className="ios-input-error-text">{error}</div>
                     ) : helperText ? (
                         <div className="ios-input-helper-text">{helperText}</div>

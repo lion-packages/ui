@@ -1,4 +1,5 @@
 import { type ChangeEvent, type FocusEvent, Fragment, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { BootstrapInputShapeTypes } from "../../types/Web/BootstrapInputShapeTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../types/Web/BootstrapInputStyleTypes.tsx";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
@@ -67,7 +68,7 @@ export default function BootstrapSelect({
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setInternalValue(e.target.value);
 
-        // Automatically clear global form error for this field upon user interaction
+        // Clear form validation error when the user interacts with the select
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
@@ -106,12 +107,12 @@ export default function BootstrapSelect({
     );
 
     return (
-        <Fragment>
+        <div className="w-100">
             {!isFloating && label && (
-                <label htmlFor={selectId} className="form-label">
+                <Form.Label htmlFor={selectId}>
                     {label}
                     {required && <span className="text-danger ms-1">*</span>}
-                </label>
+                </Form.Label>
             )}
 
             {isFloating ? (
@@ -131,10 +132,10 @@ export default function BootstrapSelect({
                         {renderOptions()}
                     </select>
                     {label && (
-                        <label htmlFor={selectId}>
+                        <Form.Label htmlFor={selectId}>
                             {label}
                             {required && <span className="text-danger ms-1">*</span>}
-                        </label>
+                        </Form.Label>
                     )}
                 </div>
             ) : (
@@ -154,25 +155,30 @@ export default function BootstrapSelect({
                 </select>
             )}
 
+            {/* Subtext block for validation errors and helper text */}
             {(helperText || hasError) && (
-                hasError && resolvedErrors.length > 0 ? (
-                    <div className="invalid-feedback d-block">
-                        {resolvedErrors.length === 1 ? (
-                            resolvedErrors[0]
-                        ) : (
-                            <ul className="mb-0 ps-3">
-                                {resolvedErrors.map((err, idx) => (
-                                    <li key={idx}>{err}</li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                ) : typeof error === "string" ? (
-                    <div className="invalid-feedback d-block">{error}</div>
-                ) : helperText ? (
-                    <div className="form-text">{helperText}</div>
-                ) : null
+                <div className="w-100 mt-1">
+                    {hasError && resolvedErrors.length > 0 ? (
+                        <Form.Control.Feedback type="invalid" className="d-block mt-0">
+                            {resolvedErrors.length === 1 ? (
+                                resolvedErrors[0]
+                            ) : (
+                                <ul className="mb-0 ps-3">
+                                    {resolvedErrors.map((err, idx) => (
+                                        <li key={idx}>{err}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </Form.Control.Feedback>
+                    ) : hasError && typeof error === "string" ? (
+                        <Form.Control.Feedback type="invalid" className="d-block mt-0">
+                            {error}
+                        </Form.Control.Feedback>
+                    ) : helperText ? (
+                        <Form.Text className="d-block mt-0">{helperText}</Form.Text>
+                    ) : null}
+                </div>
             )}
-        </Fragment>
+        </div>
     );
 }

@@ -145,25 +145,28 @@ export default function AndroidInput({
                 {endIcon && <div className="android-input-end-icon">{endIcon}</div>}
             </div>
 
+            {/* Subtext container for helper text, validation errors, and character counter */}
             {(helperText || hasError || counter) && (
                 <div className="android-input-subtext-container">
-                    {hasError && resolvedErrors.length > 0 ? (
-                        <div className="android-input-error-text">
-                            {resolvedErrors.length === 1 ? (
-                                resolvedErrors[0]
-                            ) : (
-                                <ul className="mb-0 ps-3">
-                                    {resolvedErrors.map((err, idx) => (
-                                        <li key={idx}>{err}</li>
-                                    ))}
-                                </ul>
-                            )}
-                        </div>
-                    ) : typeof error === "string" ? (
-                        <div className="android-input-error-text">{error}</div>
-                    ) : helperText ? (
-                        <div className="android-input-helper-text">{helperText}</div>
-                    ) : <div />}
+                    <div className="android-input-subtext-message-wrapper" style={{ flex: 1, minWidth: 0 }}>
+                        {hasError && resolvedErrors.length > 0 ? (
+                            <div className="android-input-error-text">
+                                {resolvedErrors.length === 1 ? (
+                                    resolvedErrors[0]
+                                ) : (
+                                    <ul className="mb-0 ps-3">
+                                        {resolvedErrors.map((err, idx) => (
+                                            <li key={idx}>{err}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        ) : hasError && typeof error === "string" ? (
+                            <div className="android-input-error-text">{error}</div>
+                        ) : helperText ? (
+                            <div className="android-input-helper-text">{helperText}</div>
+                        ) : null}
+                    </div>
 
                     {counter && (
                         <span className="android-input-counter">

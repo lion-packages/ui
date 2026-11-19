@@ -1,4 +1,5 @@
 import { type ChangeEvent, useId, useState } from "react";
+import { Form } from "react-bootstrap";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
 import { useLionUI } from "../../context/LionUIComponentsContext.tsx";
@@ -45,6 +46,8 @@ export default function AndroidTextarea({
     const { clearFormErrors } = useLionUI();
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
+
+    // Resolve target error key and fetch validation errors via shared hook
     const targetErrorKey = errorKey || name;
     const resolvedErrors = useValidationError(error, formId, targetErrorKey);
     const hasError = resolvedErrors.length > 0 || Boolean(error);
@@ -75,9 +78,12 @@ export default function AndroidTextarea({
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setInternalValue(e.target.value);
+
+        // Clear form validation error when the user edits the field
         if (formId && targetErrorKey && hasError) {
             clearFormErrors(formId, targetErrorKey);
         }
+
         if (onChange) onChange(e);
     };
 
@@ -108,29 +114,34 @@ export default function AndroidTextarea({
                 />
 
                 {label && (
-                    <label htmlFor={textareaId} className="android-input-label">
+                    <Form.Label htmlFor={textareaId} className="android-input-label">
                         {label}
                         {required && <span className="text-danger ms-1">*</span>}
-                    </label>
+                    </Form.Label>
                 )}
             </div>
 
+            {/* Subtext row keeping helper/error on the left and counter pinned to the right */}
             {(helperText || hasError || counter || maxCounter) && (
-                <div className="android-input-subtext-container">
-                    {hasError && resolvedErrors.length > 0 ? (
-                        <div className="android-input-error-text">
-                            {resolvedErrors.length === 1 ? resolvedErrors[0] : (
-                                <ul className="mb-0 ps-3">
-                                    {resolvedErrors.map((err, idx) => (<li key={idx}>{err}</li>))}
-                                </ul>
-                            )}
-                        </div>
-                    ) : helperText ? (
-                        <div className="android-input-helper-text">{helperText}</div>
-                    ) : <div />}
+                <div className="android-input-subtext-container d-flex flex-row align-items-start justify-content-between gap-2 w-100">
+                    <div className="flex-grow-1 min-w-0">
+                        {hasError && resolvedErrors.length > 0 ? (
+                            <div className="android-input-error-text">
+                                {resolvedErrors.length === 1 ? resolvedErrors[0] : (
+                                    <ul className="mb-0 ps-3">
+                                        {resolvedErrors.map((err, idx) => (<li key={idx}>{err}</li>))}
+                                    </ul>
+                                )}
+                            </div>
+                        ) : hasError && typeof error === "string" ? (
+                            <div className="android-input-error-text">{error}</div>
+                        ) : helperText ? (
+                            <div className="android-input-helper-text">{helperText}</div>
+                        ) : null}
+                    </div>
 
                     {(counter || maxCounter) && (
-                        <span className={`android-input-counter ${isExceeded ? "text-danger fw-bold" : ""}`}>
+                        <span className={`android-input-counter flex-shrink-0 text-nowrap ${isExceeded ? "text-danger fw-bold" : ""}`}>
                             {currentLength}{maxLimit ? `/${maxLimit}` : ""}
                         </span>
                     )}
