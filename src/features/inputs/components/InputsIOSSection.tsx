@@ -191,7 +191,6 @@ export default function IOSUserInputForm() {
                                 <Form id={"ios-input-form"}>
                                     <LionInput
                                         platform={PlatformTypes.IOS}
-                                        // @ts-ignore
                                         formId={"ios-input-form"}
                                         name="username"
                                         type={playType}

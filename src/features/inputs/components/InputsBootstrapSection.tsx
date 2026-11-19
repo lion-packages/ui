@@ -195,7 +195,6 @@ export default function UserInputForm() {
                                 <Form id={"bootstrap-input-form"}>
                                     <LionInput
                                         platform={PlatformTypes.WEB}
-                                        // @ts-ignore
                                         formId={"bootstrap-input-form"}
                                         name="username"
                                         type={playType}

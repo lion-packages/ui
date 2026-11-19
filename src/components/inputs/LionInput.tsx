@@ -27,6 +27,7 @@ export type LionInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "shape"
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
+    formId?: string;
     startIcon?: ReactNode;
     endIcon?: ReactNode;
     prefixText?: string;

@@ -27,6 +27,7 @@ export type LionSelectProps = Omit<SelectHTMLAttributes<HTMLSelectElement>, "sha
     required?: boolean;
     helperText?: string;
     error?: boolean | string;
+    formId?: string;
     options: any[]; // Allow raw API objects or standard options arrays
     optionValueKey?: string;   // Dynamic property key for option value
     optionLabelKey?: string;   // Dynamic property key for option label
