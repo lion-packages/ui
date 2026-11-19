@@ -1,4 +1,4 @@
-import { type ChangeEvent, type FocusEvent, useId, useState } from "react";
+import { type ChangeEvent, type FocusEvent, type SyntheticEvent, useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { AndroidInputStyleTypes } from "../../types/Android/AndroidInputStyleTypes.tsx";
@@ -19,6 +19,7 @@ export default function AndroidInput({
                                          variant = VariantTypes.PRIMARY,
                                          label,
                                          required = false,
+                                         requiredMessage = "This field is required.",
                                          helperText,
                                          error,
                                          formId,
@@ -35,6 +36,8 @@ export default function AndroidInput({
                                          onChange,
                                          onFocus,
                                          onBlur,
+                                         onInput,
+                                         onInvalid,
                                          id,
                                          name,
                                          className = "",
@@ -58,6 +61,7 @@ export default function AndroidInput({
     const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
     const normalizedShape = String(shape).toLowerCase();
 
+    // Keep spacing classes such as mb-3 on the outer wrapper so subtext stays attached to the control
     const containerClasses = [
         "android-input-container",
         `android-variant-${variant}`,
@@ -91,20 +95,32 @@ export default function AndroidInput({
         if (onChange) onChange(e);
     };
 
-    const handleFocus = (e: FocusEvent) => {
+    const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
         setIsFocused(true);
         if (onFocus) {
-            // @ts-ignore
             onFocus(e);
         }
     };
 
-    const handleBlur = (e: FocusEvent) => {
+    const handleBlur = (e: FocusEvent<HTMLInputElement>) => {
         setIsFocused(false);
         if (onBlur) {
-            // @ts-ignore
             onBlur(e);
         }
+    };
+
+    const handleInput = (e: SyntheticEvent<HTMLInputElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLInputElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
     };
 
     const currentValue = value !== undefined ? value : internalValue;
@@ -130,6 +146,8 @@ export default function AndroidInput({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     className={inputClasses}
                     {...rest}
                 />
@@ -147,14 +165,14 @@ export default function AndroidInput({
 
             {/* Subtext container for helper text, validation errors, and character counter */}
             {(helperText || hasError || counter) && (
-                <div className={"android-input-subtext-container"}>
-                    <div className={"android-input-subtext-message-wrapper"} style={{ flex: 1, minWidth: 0 }}>
+                <div className="android-input-subtext-container">
+                    <div className="android-input-subtext-message-wrapper" style={{ flex: 1, minWidth: 0 }}>
                         {hasError && resolvedErrors.length > 0 ? (
-                            <div className={"android-input-error-text"}>
+                            <div className="android-input-error-text">
                                 {resolvedErrors.length === 1 ? (
                                     resolvedErrors[0]
                                 ) : (
-                                    <ul className={"mb-0 ps-3"}>
+                                    <ul className="mb-0 ps-3">
                                         {resolvedErrors.map((err, idx) => (
                                             <li key={idx}>{err}</li>
                                         ))}
@@ -162,9 +180,9 @@ export default function AndroidInput({
                                 )}
                             </div>
                         ) : hasError && typeof error === "string" ? (
-                            <div className={"android-input-error-text"}>{error}</div>
+                            <div className="android-input-error-text">{error}</div>
                         ) : helperText ? (
-                            <div className={"android-input-helper-text"}>{helperText}</div>
+                            <div className="android-input-helper-text">{helperText}</div>
                         ) : null}
                     </div>
 

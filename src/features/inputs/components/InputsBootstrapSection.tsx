@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import {Fragment, type SyntheticEvent, useState} from "react";
 import { Row, Col, Button, Form, Card } from "react-bootstrap";
 import VariantList from "../../VariantList.tsx";
 import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyleTypes.tsx";
@@ -8,6 +8,12 @@ import { InputTypes } from "../../../types/InputTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionInput from "../../../components/inputs/LionInput.tsx";
+import LionButton from "../../../components/buttons/LionButton.tsx";
+import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
+import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
+import {BootstrapButtonShapeTypes} from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
+import {BootstrapButtonStyleTypes} from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 
 const stylesList = [
     { type: BootstrapInputStyleTypes.FLOATING, name: "Floating" },
@@ -29,6 +35,8 @@ export default function InputsBootstrapSection() {
     const [playType, setPlayType] = useState<InputTypes | string>(InputTypes.TEXT);
     const [playDisabled, setPlayDisabled] = useState<boolean>(false);
     const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
+    const [playRequired, setPlayRequired] = useState<boolean>(false);
+    const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
     const [playValue, setPlayValue] = useState<string>(playType === InputTypes.FILE ? "" : "lion.developer");
     const currentValue = playType === InputTypes.FILE ? "" : playValue;
@@ -90,12 +98,18 @@ export default function UserInputForm() {
             styleType={BootstrapInputStyleTypes.${styleEnumName}}
             shape={BootstrapInputShapeTypes.${shapeEnumName}}
             label="Username"
-            placeholder="Enter username..."${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
+            placeholder="Enter username..."${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
         />
     );
 }`;
+
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        console.log("Submitted!!!");
+    };
 
     return (
         <Fragment>
@@ -157,7 +171,7 @@ export default function UserInputForm() {
                             </Form.Group>
                         </Col>
 
-                        <Col xs={12} md={3}>
+                        <Col xs={12} md={6}>
                             <Form.Group>
                                 <Form.Label className="fw-bold small">Custom Error Prop</Form.Label>
                                 <Form.Control
@@ -165,6 +179,19 @@ export default function UserInputForm() {
                                     placeholder="Enter error message..."
                                     value={playError}
                                     onChange={(e) => setPlayError(e.target.value)}
+                                />
+                            </Form.Group>
+                        </Col>
+
+                        <Col xs={12} md={6}>
+                            <Form.Group>
+                                <Form.Label className="fw-bold small">Required Message</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="This field is required."
+                                    value={playRequiredMessage}
+                                    onChange={(e) => setPlayRequiredMessage(e.target.value)}
+                                    disabled={!playRequired}
                                 />
                             </Form.Group>
                         </Col>
@@ -184,6 +211,13 @@ export default function UserInputForm() {
                                 checked={playReadOnly}
                                 onChange={(e) => setPlayReadOnly(e.target.checked)}
                             />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-bootstrap-required"
+                                label="Required State"
+                                checked={playRequired}
+                                onChange={(e) => setPlayRequired(e.target.checked)}
+                            />
                         </Col>
                     </Row>
 
@@ -192,10 +226,10 @@ export default function UserInputForm() {
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
 
-                                <Form id={"bootstrap-input-form"}>
+                                <Form id="bootstrap-input-form" onSubmit={handleSubmit}>
                                     <LionInput
                                         platform={PlatformTypes.WEB}
-                                        formId={"bootstrap-input-form"}
+                                        formId="bootstrap-input-form"
                                         name="username"
                                         type={playType}
                                         variant={playVariant}
@@ -203,6 +237,8 @@ export default function UserInputForm() {
                                         shape={playShape}
                                         label="Username"
                                         placeholder="Enter username..."
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         readOnly={playReadOnly}
                                         error={playError}
@@ -214,14 +250,16 @@ export default function UserInputForm() {
 
                                     <LionInput
                                         platform={PlatformTypes.WEB}
-                                        formId={"bootstrap-input-form"}
+                                        formId="bootstrap-input-form"
                                         name="username_2"
                                         type={playType}
                                         variant={playVariant}
                                         styleType={playStyle}
                                         shape={playShape}
-                                        label="Username_2"
+                                        label="Username 2"
                                         placeholder="Enter username 2..."
+                                        required={playRequired}
+                                        requiredMessage={playRequiredMessage}
                                         disabled={playDisabled}
                                         readOnly={playReadOnly}
                                         error={playError}
@@ -229,6 +267,19 @@ export default function UserInputForm() {
                                         onChange={(e) => setPlayValue(e.target.value)}
                                         helperText="Interactive input field testing."
                                     />
+
+                                    {playRequired && (
+                                        <LionButton
+                                            platform={PlatformTypes.WEB}
+                                            type={ButtonTypes.SUBMIT}
+                                            variant={playVariant}
+                                            className={"mt-3 w-100"}
+                                            shape={BootstrapButtonShapeTypes.STANDARD}
+                                            styleType={BootstrapButtonStyleTypes.FILLED}
+                                        >
+                                            {"Submit"}
+                                        </LionButton>
+                                    )}
                                 </Form>
                             </div>
                         </Col>

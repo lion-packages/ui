@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { type SyntheticEvent, useId, useState } from "react";
 import { InputTypes } from "../../types/InputTypes";
 import { SizeTypes } from "../../types/SizeTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
@@ -22,6 +22,7 @@ export default function IOSInput({
                                      sizeType = SizeTypes.MD,
                                      label,
                                      required = false,
+                                     requiredMessage = "This field is required.",
                                      helperText,
                                      error,
                                      formId,
@@ -38,6 +39,8 @@ export default function IOSInput({
                                      onChange,
                                      onFocus,
                                      onBlur,
+                                     onInput,
+                                     onInvalid,
                                      id,
                                      name,
                                      className = "",
@@ -101,6 +104,20 @@ export default function IOSInput({
         if (onChange) onChange(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLInputElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLInputElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const handleClear = () => {
         setInternalValue("");
         if (onChange) {
@@ -139,6 +156,8 @@ export default function IOSInput({
                     onChange={handleChange}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     className="ios-input-element"
                     {...rest}
                 />

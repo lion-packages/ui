@@ -11,6 +11,7 @@ export interface BaseInputProps
     sizeType?: string | SizeTypes;
     label?: string;
     required?: boolean;
+    requiredMessage?: string;
     helperText?: string;
     error?: ValidationErrorStructure;
     formId?: string;       // Form identifier for global context validation matching

@@ -1,4 +1,4 @@
-import { type ChangeEvent, useId, useState } from "react";
+import { type ChangeEvent, type SyntheticEvent, useId, useState } from "react";
 import { Form } from "react-bootstrap";
 import { InputTypes } from "../../types/InputTypes";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
@@ -23,6 +23,7 @@ export default function BootstrapInput({
                                            sizeType = SizeTypes.MD,
                                            label,
                                            required = false,
+                                           requiredMessage = "This field is required.",
                                            helperText,
                                            error,
                                            formId,
@@ -32,6 +33,8 @@ export default function BootstrapInput({
                                            value,
                                            defaultValue,
                                            onChange,
+                                           onInput,
+                                           onInvalid,
                                            id,
                                            name,
                                            className = "",
@@ -80,6 +83,20 @@ export default function BootstrapInput({
         if (onChange) onChange(e);
     };
 
+    const handleInput = (e: SyntheticEvent<HTMLInputElement>) => {
+        e.currentTarget.setCustomValidity("");
+        if (onInput) { // @ts-ignore
+            onInput(e);
+        }
+    };
+
+    const handleInvalid = (e: SyntheticEvent<HTMLInputElement>) => {
+        if (required) {
+            e.currentTarget.setCustomValidity(requiredMessage);
+        }
+        if (onInvalid) onInvalid(e);
+    };
+
     const currentValue = value !== undefined ? value : internalValue;
     const isFloating = styleType === BootstrapInputStyleTypes.FLOATING;
 
@@ -105,6 +122,8 @@ export default function BootstrapInput({
                         required={required}
                         value={currentValue}
                         onChange={handleChange}
+                        onInput={handleInput}
+                        onInvalid={handleInvalid}
                         {...rest}
                     />
                     {label && (
@@ -126,6 +145,8 @@ export default function BootstrapInput({
                     required={required}
                     value={currentValue}
                     onChange={handleChange}
+                    onInput={handleInput}
+                    onInvalid={handleInvalid}
                     {...rest}
                 />
             )}
