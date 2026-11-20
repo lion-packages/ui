@@ -6,14 +6,12 @@ import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShape
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { InputTypes } from "../../../types/InputTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { BootstrapButtonShapeTypes } from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
+import { BootstrapButtonStyleTypes } from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionInput from "../../../components/inputs/LionInput.tsx";
 import LionButton from "../../../components/buttons/LionButton.tsx";
-import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
-import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
-import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
-import {BootstrapButtonShapeTypes} from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
-import {BootstrapButtonStyleTypes} from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 
 const stylesList = [
     { type: BootstrapInputStyleTypes.FLOATING, name: "Floating" },
