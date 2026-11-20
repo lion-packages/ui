@@ -1,17 +1,17 @@
-import {Fragment, type SyntheticEvent, useState} from "react";
+import { Fragment, type SyntheticEvent, useState } from "react";
+import { Form } from "react-bootstrap";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../../types/SizeTypes.tsx";
 import { IOSInputStyleTypes } from "../../../types/IOS/IOSInputStyleTypes.tsx";
 import { IOSInputShapeTypes } from "../../../types/IOS/IOSInputShapeTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { IOSButtonShapeTypes } from "../../../types/IOS/IOSButtonShapeTypes.tsx";
+import { IOSButtonStyleTypes } from "../../../types/IOS/IOSButtonStyleTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
-import { Form } from "react-bootstrap";
 import LionButton from "../../../components/buttons/LionButton.tsx";
-import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
-import {IOSButtonShapeTypes} from "../../../types/IOS/IOSButtonShapeTypes.tsx";
-import {IOSButtonStyleTypes} from "../../../types/IOS/IOSButtonStyleTypes.tsx";
 
 const stylesList = Object.values(IOSInputStyleTypes);
 const shapesList = Object.values(IOSInputShapeTypes);
@@ -23,6 +23,8 @@ export default function TextareasIOSSection() {
     const [selectedStyle, setSelectedStyle] = useState<IOSInputStyleTypes>(IOSInputStyleTypes.ROUNDED_BORDER);
     const [selectedShape, setSelectedShape] = useState<IOSInputShapeTypes>(IOSInputShapeTypes.ROUNDED);
     const [rows, setRows] = useState<number>(4);
+    const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playRequired, setPlayRequired] = useState<boolean>(false);
     const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
@@ -93,7 +95,7 @@ export default function IOSTextareaForm() {
             placeholder="Write comments..."
             rows={${rows}}
             counter={true}
-            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playError ? `\n            error="${playError}"` : ""}
+            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={comments}
             onChange={(e) => setComments(e.target.value)}
         />
@@ -194,7 +196,21 @@ export default function IOSTextareaForm() {
                             />
                         </div>
 
-                        <div className="col-12 d-flex align-items-center gap-3">
+                        <div className="col-12 d-flex align-items-center gap-4">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-ios-textarea-disabled-check"
+                                label="Disabled State"
+                                checked={playDisabled}
+                                onChange={(e) => setPlayDisabled(e.target.checked)}
+                            />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-ios-textarea-readonly-check"
+                                label="Readonly State"
+                                checked={playReadOnly}
+                                onChange={(e) => setPlayReadOnly(e.target.checked)}
+                            />
                             <Form.Check
                                 type="checkbox"
                                 id="play-ios-textarea-required-check"
@@ -210,48 +226,52 @@ export default function IOSTextareaForm() {
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
 
-                                <Form id={"ios-textarea-form"} onSubmit={handleSubmit}>
+                                <Form id="ios-textarea-form" onSubmit={handleSubmit}>
                                     <LionTextarea
                                         platform={PlatformTypes.IOS}
-                                        formId={"ios-textarea-form"}
-                                        name={"comments"}
+                                        formId="ios-textarea-form"
+                                        name="comments"
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
                                         sizeType={SizeTypes.MD}
-                                        label={"iOS Comments"}
-                                        placeholder={"Write comments..."}
+                                        label="iOS Comments"
+                                        placeholder="Write comments..."
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
-                                        helperText={"Cupertino native style helper text."}
-                                        className={"mb-3"}
+                                        helperText="Cupertino native style helper text."
+                                        className="mb-3"
                                     />
 
                                     <LionTextarea
                                         platform={PlatformTypes.IOS}
-                                        formId={"ios-textarea-form"}
-                                        name={"comments_2"}
+                                        formId="ios-textarea-form"
+                                        name="comments_2"
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
                                         sizeType={SizeTypes.MD}
-                                        label={"iOS Comments 2"}
-                                        placeholder={"Write comments 2..."}
+                                        label="iOS Comments 2"
+                                        placeholder="Write comments 2..."
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
-                                        helperText={"Cupertino native style helper text."}
+                                        helperText="Cupertino native style helper text."
                                     />
 
                                     {playRequired && (
@@ -259,11 +279,11 @@ export default function IOSTextareaForm() {
                                             platform={PlatformTypes.IOS}
                                             type={ButtonTypes.SUBMIT}
                                             variant={selectedVariant}
-                                            className={"mt-3 w-100"}
+                                            className="mt-3 w-100"
                                             shape={IOSButtonShapeTypes.ROUNDED}
                                             styleType={IOSButtonStyleTypes.TINTED}
                                         >
-                                            {"Submit"}
+                                            Submit
                                         </LionButton>
                                     )}
                                 </Form>

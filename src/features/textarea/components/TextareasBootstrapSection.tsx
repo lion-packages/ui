@@ -1,17 +1,17 @@
-import {Fragment, type SyntheticEvent, useState} from "react";
+import { Fragment, type SyntheticEvent, useState } from "react";
+import { Form } from "react-bootstrap";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../../types/SizeTypes.tsx";
 import { BootstrapInputStyleTypes } from "../../../types/Web/BootstrapInputStyleTypes.tsx";
 import { BootstrapInputShapeTypes } from "../../../types/Web/BootstrapInputShapeTypes.tsx";
 import { PlatformTypes } from "../../../types/PlatformTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { BootstrapButtonShapeTypes } from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
+import { BootstrapButtonStyleTypes } from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
-import { Form } from "react-bootstrap";
 import LionButton from "../../../components/buttons/LionButton.tsx";
-import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
-import {BootstrapButtonShapeTypes} from "../../../types/Web/BootstrapButtonShapeTypes.tsx";
-import {BootstrapButtonStyleTypes} from "../../../types/Web/BootstrapButtonStyleTypes.tsx";
 
 const stylesList = Object.values(BootstrapInputStyleTypes);
 const shapesList = Object.values(BootstrapInputShapeTypes);
@@ -23,6 +23,8 @@ export default function TextareasBootstrapSection() {
     const [selectedStyle, setSelectedStyle] = useState<BootstrapInputStyleTypes>(BootstrapInputStyleTypes.FLOATING);
     const [selectedShape, setSelectedShape] = useState<BootstrapInputShapeTypes>(BootstrapInputShapeTypes.ROUNDED);
     const [rows, setRows] = useState<number>(4);
+    const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playRequired, setPlayRequired] = useState<boolean>(false);
     const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
@@ -93,7 +95,7 @@ export default function WebTextareaForm() {
             placeholder="Write comments..."
             rows={${rows}}
             counter={true}
-            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playError ? `\n            error="${playError}"` : ""}
+            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={comments}
             onChange={(e) => setComments(e.target.value)}
         />
@@ -194,7 +196,21 @@ export default function WebTextareaForm() {
                             />
                         </div>
 
-                        <div className="col-12 d-flex align-items-center gap-3">
+                        <div className="col-12 d-flex align-items-center gap-4">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-web-textarea-disabled-check"
+                                label="Disabled State"
+                                checked={playDisabled}
+                                onChange={(e) => setPlayDisabled(e.target.checked)}
+                            />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-web-textarea-readonly-check"
+                                label="Readonly State"
+                                checked={playReadOnly}
+                                onChange={(e) => setPlayReadOnly(e.target.checked)}
+                            />
                             <Form.Check
                                 type="checkbox"
                                 id="play-web-textarea-required-check"
@@ -210,22 +226,24 @@ export default function WebTextareaForm() {
                             <div className="p-4 border rounded bg-white h-100">
                                 <span className="d-block text-muted small mb-3 fw-bold">LIVE COMPONENT PREVIEW</span>
 
-                                <Form id={"web-textarea-form"} onSubmit={handleSubmit}>
+                                <Form id="web-textarea-form" onSubmit={handleSubmit}>
                                     <LionTextarea
                                         platform={PlatformTypes.WEB}
-                                        formId={"web-textarea-form"}
-                                        name={"comments"}
+                                        formId="web-textarea-form"
+                                        name="comments"
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
                                         sizeType={SizeTypes.MD}
-                                        label={"Web Comments"}
-                                        placeholder={"Write comments..."}
+                                        label="Web Comments"
+                                        placeholder="Write comments..."
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
@@ -235,19 +253,21 @@ export default function WebTextareaForm() {
 
                                     <LionTextarea
                                         platform={PlatformTypes.WEB}
-                                        formId={"web-textarea-form"}
-                                        name={"comments_2"}
+                                        formId="web-textarea-form"
+                                        name="comments_2"
                                         variant={selectedVariant}
                                         styleType={selectedStyle}
                                         shape={selectedShape}
                                         sizeType={SizeTypes.MD}
-                                        label={"Web Comments 2"}
-                                        placeholder={"Write comments 2..."}
+                                        label="Web Comments 2"
+                                        placeholder="Write comments 2..."
                                         rows={rows}
                                         counter={true}
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
@@ -259,11 +279,11 @@ export default function WebTextareaForm() {
                                             platform={PlatformTypes.WEB}
                                             type={ButtonTypes.SUBMIT}
                                             variant={selectedVariant}
-                                            className={"mt-3 w-100"}
+                                            className="mt-3 w-100"
                                             shape={BootstrapButtonShapeTypes.STANDARD}
                                             styleType={BootstrapButtonStyleTypes.FILLED}
                                         >
-                                            {"Submit"}
+                                            Submit
                                         </LionButton>
                                     )}
                                 </Form>

@@ -1,4 +1,4 @@
-import {Fragment, type SyntheticEvent, useState} from "react";
+import { Fragment, type SyntheticEvent, useState } from "react";
 import VariantList from "../../VariantList.tsx";
 import { VariantTypes } from "../../../types/VariantTypes.tsx";
 import { SizeTypes } from "../../../types/SizeTypes.tsx";
@@ -9,9 +9,9 @@ import { useLionUI } from "../../../context/LionUIComponentsContext.tsx";
 import LionTextarea from "../../../components/textarea/LionTextarea.tsx";
 import { Form } from "react-bootstrap";
 import LionButton from "../../../components/buttons/LionButton.tsx";
-import {ButtonTypes} from "../../../types/ButtonTypes.tsx";
-import {AndroidButtonShapeTypes} from "../../../types/Android/AndroidButtonShapeTypes.tsx";
-import {AndroidButtonStyleTypes} from "../../../types/Android/AndroidButtonStyleTypes.tsx";
+import { ButtonTypes } from "../../../types/ButtonTypes.tsx";
+import { AndroidButtonShapeTypes } from "../../../types/Android/AndroidButtonShapeTypes.tsx";
+import { AndroidButtonStyleTypes } from "../../../types/Android/AndroidButtonStyleTypes.tsx";
 
 const stylesList = Object.values(AndroidInputStyleTypes);
 const shapesList = Object.values(AndroidInputShapeTypes);
@@ -23,6 +23,8 @@ export default function TextareasAndroidSection() {
     const [selectedStyle, setSelectedStyle] = useState<AndroidInputStyleTypes>(AndroidInputStyleTypes.OUTLINED);
     const [selectedShape, setSelectedShape] = useState<AndroidInputShapeTypes>(AndroidInputShapeTypes.NORMAL);
     const [rows, setRows] = useState<number>(4);
+    const [playDisabled, setPlayDisabled] = useState<boolean>(false);
+    const [playReadOnly, setPlayReadOnly] = useState<boolean>(false);
     const [playRequired, setPlayRequired] = useState<boolean>(false);
     const [playRequiredMessage, setPlayRequiredMessage] = useState<string>("This field is required.");
     const [playError, setPlayError] = useState<string>("");
@@ -93,7 +95,7 @@ export default function AndroidTextareaForm() {
             placeholder="Write comments..."
             rows={${rows}}
             counter={true}
-            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playError ? `\n            error="${playError}"` : ""}
+            maxCounter={200}${playRequired ? "\n            required={true}" : ""}${playRequired && playRequiredMessage ? `\n            requiredMessage="${playRequiredMessage}"` : ""}${playDisabled ? "\n            disabled={true}" : ""}${playReadOnly ? "\n            readOnly={true}" : ""}${playError ? `\n            error="${playError}"` : ""}
             value={comments}
             onChange={(e) => setComments(e.target.value)}
         />
@@ -194,7 +196,21 @@ export default function AndroidTextareaForm() {
                             />
                         </div>
 
-                        <div className="col-12 d-flex align-items-center gap-3">
+                        <div className="col-12 d-flex align-items-center gap-4">
+                            <Form.Check
+                                type="checkbox"
+                                id="play-android-textarea-disabled-check"
+                                label="Disabled State"
+                                checked={playDisabled}
+                                onChange={(e) => setPlayDisabled(e.target.checked)}
+                            />
+                            <Form.Check
+                                type="checkbox"
+                                id="play-android-textarea-readonly-check"
+                                label="Readonly State"
+                                checked={playReadOnly}
+                                onChange={(e) => setPlayReadOnly(e.target.checked)}
+                            />
                             <Form.Check
                                 type="checkbox"
                                 id="play-android-textarea-required-check"
@@ -226,6 +242,8 @@ export default function AndroidTextareaForm() {
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
@@ -248,6 +266,8 @@ export default function AndroidTextareaForm() {
                                         maxCounter={200}
                                         required={playRequired}
                                         requiredMessage={playRequiredMessage}
+                                        disabled={playDisabled}
+                                        readOnly={playReadOnly}
                                         error={playError}
                                         value={playValue}
                                         onChange={(e) => setPlayValue(e.target.value)}
