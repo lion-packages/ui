@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Android Material Design 3 - Alert Component
+   ========================================================================== */
+
+.android-alert {
+    --android-alert-accent: var(--bs-primary, #0d6efd);
+    --android-alert-on-filled: #ffffff;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    font-family: var(--bs-body-font-family, Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif), serif;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1), border-color 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* --- Variant Mapping --- */
+.android-alert.android-alert-variant-primary { --android-alert-accent: var(--bs-primary, #0d6efd); }
+.android-alert.android-alert-variant-secondary { --android-alert-accent: var(--bs-secondary, #6c757d); }
+.android-alert.android-alert-variant-success { --android-alert-accent: var(--bs-success, #198754); }
+.android-alert.android-alert-variant-danger { --android-alert-accent: var(--bs-danger, #dc3545); }
+.android-alert.android-alert-variant-warning { --android-alert-accent: var(--bs-warning, #ffc107); --android-alert-on-filled: #1c1b1f; }
+.android-alert.android-alert-variant-info { --android-alert-accent: var(--bs-info, #0dcaf0); --android-alert-on-filled: #1c1b1f; }
+.android-alert.android-alert-variant-dark { --android-alert-accent: var(--bs-dark, #212529); }
+
+/* Custom Lion Variants */
+.android-alert.android-alert-variant-lion-packages { --android-alert-accent: var(--lion-packages, #6f42c1); }
+.android-alert.android-alert-variant-lion-parking { --android-alert-accent: var(--lion-parking, #20c997); }
+.android-alert.android-alert-variant-lion-tech { --android-alert-accent: var(--lion-tech, #fd7e14); }
+.android-alert.android-alert-variant-lion-glam { --android-alert-accent: var(--lion-glam, #e83e8c); }
+
+/* --- Styles (MD3 Surface Containers) --- */
+.android-alert.android-alert-style-tonal {
+    background-color: color-mix(in srgb, var(--android-alert-accent) 13%, var(--bs-body-bg, #ffffff));
+    color: var(--bs-body-color, #1c1b1f);
+    border: 1px solid transparent;
+}
+
+.android-alert.android-alert-style-tonal .android-alert-icon {
+    color: var(--android-alert-accent);
+}
+
+.android-alert.android-alert-style-filled {
+    background-color: var(--android-alert-accent);
+    color: var(--android-alert-on-filled);
+    border: 1px solid var(--android-alert-accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+}
+
+.android-alert.android-alert-style-filled .android-alert-icon,
+.android-alert.android-alert-style-filled .android-alert-close {
+    color: var(--android-alert-on-filled);
+}
+
+.android-alert.android-alert-style-outlined {
+    background-color: var(--bs-body-bg, #ffffff);
+    color: var(--bs-body-color, #1c1b1f);
+    border: 1px solid color-mix(in srgb, var(--android-alert-accent) 55%, var(--bs-border-color, #cac4d0));
+}
+
+.android-alert.android-alert-style-outlined .android-alert-icon {
+    color: var(--android-alert-accent);
+}
+
+/* --- Shapes --- */
+.android-alert.android-alert-shape-rounded {
+    border-radius: 12px;
+}
+
+.android-alert.android-alert-shape-square {
+    border-radius: 4px;
+}
+
+/* --- Inner Elements --- */
+.android-alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+.android-alert-content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.android-alert-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.35;
+}
+
+.android-alert-message {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    opacity: 0.9;
+}
+
+.android-alert-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: -4px -6px -4px 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--bs-secondary-color, #49454f);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.16s ease;
+}
+
+.android-alert-close:hover {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+}

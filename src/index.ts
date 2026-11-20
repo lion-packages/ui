@@ -16,6 +16,9 @@ import "./assets/css/loadings/loadings-bar.css";
 import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 import "./assets/css/titles/title.css";
+import "./assets/css/alerts/alerts-android.css";
+import "./assets/css/alerts/alerts-bootstrap.css";
+import "./assets/css/alerts/alerts-ios.css";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------
@@ -27,14 +30,23 @@ export * from './types/Android/AndroidButtonShapeTypes';
 export * from './types/Android/AndroidButtonStyleTypes';
 export * from './types/Android/AndroidInputShapeTypes';
 export * from './types/Android/AndroidInputStyleTypes';
+export * from './types/Android/AndroidAlertShapeTypes';
+export * from './types/Android/AndroidAlertStyleTypes';
+
 export * from './types/IOS/IOSButtonShapeTypes';
 export * from './types/IOS/IOSButtonStyleTypes';
 export * from './types/IOS/IOSInputShapeTypes';
 export * from './types/IOS/IOSInputStyleTypes';
+export * from './types/IOS/IOSAlertShapeTypes';
+export * from './types/IOS/IOSAlertStyleTypes';
+
 export * from './types/Web/BootstrapButtonShapeTypes';
 export * from './types/Web/BootstrapButtonStyleTypes';
 export * from './types/Web/BootstrapInputShapeTypes';
 export * from './types/Web/BootstrapInputStyleTypes';
+export * from './types/Web/BootstrapAlertShapeTypes';
+export * from './types/Web/BootstrapAlertStyleTypes';
+
 export * from './types/ButtonTypes';
 export * from './types/InputTypes';
 export * from './types/PlatformTypes';
@@ -62,6 +74,11 @@ export { default as usePlatformStyle } from './hooks/usePlatformStyle';
  * COMPONENTS
  * ---------------------------------------------------------------------------------------------------------------------
  */
+
+export { default as AndroidAlert } from './components/alerts/AndroidAlert';
+export { default as IOSAlert } from './components/alerts/IOSAlert';
+export { default as BootstrapAlert } from './components/alerts/BootstrapAlert';
+export { default as LionAlert } from './components/alerts/LionAlert';
 
 export { default as AndroidButton } from './components/buttons/AndroidButton';
 export { default as IOSButton } from './components/buttons/IOSButton';

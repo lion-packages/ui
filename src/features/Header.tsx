@@ -21,6 +21,20 @@ export default function Header() {
                             Get Started
                         </Nav.Link>
 
+                        <NavDropdown title="Alerts" id="alerts-nav-dropdown">
+                            <NavDropdown.Item as={Link} to={"/alerts/android"} href={"#"}>
+                                {PlatformTypes.ANDROID}
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Item as={Link} to={"/alerts/ios"} href={"#"}>
+                                {PlatformTypes.IOS}
+                            </NavDropdown.Item>
+
+                            <NavDropdown.Item as={Link} to={"/alerts/web"} href={"#"}>
+                                {PlatformTypes.WEB}
+                            </NavDropdown.Item>
+                        </NavDropdown>
+
                         <NavDropdown title="Buttons" id="buttons-nav-dropdown">
                             <NavDropdown.Item as={Link} to={"/buttons/android"} href={"#"}>
                                 {PlatformTypes.ANDROID}

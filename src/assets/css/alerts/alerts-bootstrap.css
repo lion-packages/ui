@@ -1,0 +1,111 @@
+/* ==========================================================================
+   Web Bootstrap - Lion Alert Extensions (Styles, Shapes & Custom Variants)
+   ========================================================================== */
+
+.lion-bootstrap-alert {
+    --lion-alert-accent: var(--bs-primary, #0d6efd);
+    --lion-alert-contrast: #ffffff;
+    position: relative;
+    transition: all 0.18s ease-in-out;
+}
+
+/* --- Variant Accent Mapping --- */
+.lion-bootstrap-alert.lion-bs-variant-primary { --lion-alert-accent: var(--bs-primary, #0d6efd); }
+.lion-bootstrap-alert.lion-bs-variant-secondary { --lion-alert-accent: var(--bs-secondary, #6c757d); }
+.lion-bootstrap-alert.lion-bs-variant-success { --lion-alert-accent: var(--bs-success, #198754); }
+.lion-bootstrap-alert.lion-bs-variant-danger { --lion-alert-accent: var(--bs-danger, #dc3545); }
+.lion-bootstrap-alert.lion-bs-variant-warning { --lion-alert-accent: var(--bs-warning, #ffc107); --lion-alert-contrast: #212529; }
+.lion-bootstrap-alert.lion-bs-variant-info { --lion-alert-accent: var(--bs-info, #0dcaf0); --lion-alert-contrast: #212529; }
+.lion-bootstrap-alert.lion-bs-variant-dark { --lion-alert-accent: var(--bs-dark, #212529); }
+.lion-bootstrap-alert.lion-bs-variant-light { --lion-alert-accent: var(--bs-light, #f8f9fa); --lion-alert-contrast: #212529; }
+
+/* Custom Lion Variants */
+.lion-bootstrap-alert.lion-bs-variant-lion-packages { --lion-alert-accent: var(--lion-packages, #6f42c1); }
+.lion-bootstrap-alert.lion-bs-variant-lion-parking { --lion-alert-accent: var(--lion-parking, #20c997); }
+.lion-bootstrap-alert.lion-bs-variant-lion-tech { --lion-alert-accent: var(--lion-tech, #fd7e14); }
+.lion-bootstrap-alert.lion-bs-variant-lion-glam { --lion-alert-accent: var(--lion-glam, #e83e8c); }
+
+/* Custom Lion Soft Fallback (since Bootstrap doesn't ship alert-lion-* by default) */
+.lion-bootstrap-alert[class*="lion-bs-variant-lion-"].lion-bs-style-soft {
+    background-color: color-mix(in srgb, var(--lion-alert-accent) 14%, var(--bs-body-bg, #ffffff));
+    border-color: color-mix(in srgb, var(--lion-alert-accent) 32%, var(--bs-body-bg, #ffffff));
+    color: color-mix(in srgb, var(--lion-alert-accent) 85%, #000000);
+}
+
+/* --- Styles --- */
+.lion-bootstrap-alert.lion-bs-style-filled {
+    background-color: var(--lion-alert-accent);
+    border-color: var(--lion-alert-accent);
+    color: var(--lion-alert-contrast);
+}
+
+.lion-bootstrap-alert.lion-bs-style-filled .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.lion-bootstrap-alert.lion-bs-variant-warning.lion-bs-style-filled .btn-close,
+.lion-bootstrap-alert.lion-bs-variant-info.lion-bs-style-filled .btn-close,
+.lion-bootstrap-alert.lion-bs-variant-light.lion-bs-style-filled .btn-close {
+    filter: none;
+}
+
+.lion-bootstrap-alert.lion-bs-style-outlined {
+    background-color: var(--bs-body-bg, #ffffff);
+    border: 1.5px solid var(--lion-alert-accent);
+    color: var(--bs-body-color, #212529);
+}
+
+.lion-bootstrap-alert.lion-bs-style-outlined .lion-bs-alert-icon-wrapper,
+.lion-bootstrap-alert.lion-bs-style-outlined .lion-bs-alert-title {
+    color: var(--lion-alert-accent);
+}
+
+/* --- Shapes --- */
+.lion-bootstrap-alert.lion-bs-shape-rounded {
+    border-radius: var(--bs-border-radius, 0.375rem);
+}
+
+.lion-bootstrap-alert.lion-bs-shape-pill {
+    border-radius: 50rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.lion-bootstrap-alert.lion-bs-shape-pill.alert-dismissible {
+    padding-right: 3.25rem;
+}
+
+.lion-bootstrap-alert.lion-bs-shape-square {
+    border-radius: 0;
+}
+
+/* --- Inner Layout --- */
+.lion-bs-alert-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.lion-bs-alert-icon-wrapper {
+    display: flex;
+    align-items: center;
+    font-size: 1.15rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+}
+
+.lion-bs-alert-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.lion-bs-alert-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.lion-bs-alert-message {
+    font-size: 0.925rem;
+    line-height: 1.45;
+}
