@@ -24,7 +24,7 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    transition: all 0.4s ease-in-out;
+    transition: background-color 0.18s cubic-bezier(0.2, 0, 0, 1), border-color 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* --- Real Input Element --- */
@@ -39,7 +39,7 @@
     font-size: 1rem;
     outline: none;
     box-sizing: border-box;
-    transition: border-color 0.4s, box-shadow 0.4s, background-color 0.4s;
+    transition: border-color 0.18s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.18s cubic-bezier(0.2, 0, 0, 1), background-color 0.18s cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* Android Sizes */
@@ -65,9 +65,30 @@
 
 /* --- Filled Style --- */
 .android-input-field-wrapper.android-style-filled {
+    position: relative;
     background-color: color-mix(in srgb, var(--bs-body-color, #212529) 6%, var(--bs-body-bg, #ffffff));
     border-radius: 4px 4px 0 0;
     border-bottom: 1px solid var(--android-input-border-color);
+}
+
+.android-input-field-wrapper.android-style-filled::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background-color: var(--android-active-color, var(--android-input-color));
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1);
+    pointer-events: none;
+}
+
+.android-input-field-wrapper.android-style-filled:has(.android-input-element:focus)::after,
+.android-input-field-wrapper.android-style-filled.is-focused::after {
+    transform: scaleX(1);
 }
 
 .android-input-field-wrapper.android-style-filled .android-input-element {
@@ -86,7 +107,6 @@
 
 .android-input-field-wrapper.android-style-filled:has(.android-input-element:focus),
 .android-input-field-wrapper.android-style-filled.is-focused {
-    border-bottom: 2px solid var(--android-active-color, var(--android-input-color));
     background-color: color-mix(in srgb, var(--android-active-color, var(--android-input-color)) 10%, var(--bs-body-bg, #ffffff));
 }
 
@@ -248,8 +268,11 @@
     box-shadow: 0 0 0 1px var(--android-input-error-color) !important;
 }
 
+.android-input-field-wrapper.android-style-filled.has-error::after {
+    background-color: var(--android-input-error-color) !important;
+}
+
 .android-input-field-wrapper.android-style-filled.has-error.is-focused {
-    border-bottom: 2px solid var(--android-input-error-color) !important;
     background-color: color-mix(in srgb, var(--android-input-error-color) 14%, var(--bs-body-bg, #ffffff)) !important;
 }
 
