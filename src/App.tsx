@@ -11,6 +11,9 @@ import "./assets/css/loadings/loadings-bar.css";
 import "./assets/css/loadings/loadings-app.css";
 import "./assets/css/tables/datatables.css";
 import "./assets/css/titles/title.css";
+import "./assets/css/alerts/alerts-android.css";
+import "./assets/css/alerts/alerts-bootstrap.css";
+import "./assets/css/alerts/alerts-ios.css";
 
 import { Fragment, useEffect } from "react";
 import { Container } from "react-bootstrap";
@@ -39,6 +42,10 @@ import TextareasAndroidSection from "./features/textarea/components/TextareasAnd
 import TextareasIOSSection from "./features/textarea/components/TextareasIOSSection.tsx";
 import TextareasBootstrapSection from "./features/textarea/components/TextareasBootstrapSection.tsx";
 import GetStarted from "./features/GetStarted.tsx";
+import AlertsSection from "./features/alerts/AlertsSection.tsx";
+import AlertsBootstrapSection from "./features/alerts/components/AlertsBootstrapSection.tsx";
+import AlertsAndroidSection from "./features/alerts/components/AlertsAndroidSection.tsx";
+import AlertsIOSSection from "./features/alerts/components/AlertsIOSSection.tsx";
 
 export default function App() {
     const { pathname } = useLocation();
@@ -55,6 +62,14 @@ export default function App() {
             <Container className={"py-2"}>
                 <Routes>
                     <Route path={"/"} element={<GetStarted />} />
+
+                    <Route path={"alerts"} element={<AlertsSection />}>
+                        <Route path={PlatformTypes.ANDROID} element={<AlertsAndroidSection />} />
+
+                        <Route path={PlatformTypes.IOS} element={<AlertsIOSSection />} />
+
+                        <Route path={PlatformTypes.WEB} element={<AlertsBootstrapSection />} />
+                    </Route>
 
                     <Route path={"buttons"} element={<ButtonsSection />}>
                         <Route path={PlatformTypes.ANDROID} element={<ButtonsAndroidSection />} />
