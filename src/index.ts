@@ -5,20 +5,25 @@
  */
 
 import "./assets/css/index.css";
-import "./assets/css/buttons/buttons-android.css";
-import "./assets/css/buttons/buttons-ios.css";
-import "./assets/css/buttons/buttons-web.css";
-import "./assets/css/inputs/inputs-android.css";
-import "./assets/css/inputs/inputs-ios.css";
-import "./assets/css/inputs/inputs-bootstrap.css";
-import "./assets/css/modals/modals.css";
-import "./assets/css/loadings/loadings-bar.css";
-import "./assets/css/loadings/loadings-app.css";
-import "./assets/css/tables/datatables.css";
-import "./assets/css/titles/title.css";
+
 import "./assets/css/alerts/alerts-android.css";
 import "./assets/css/alerts/alerts-bootstrap.css";
 import "./assets/css/alerts/alerts-ios.css";
+
+import "./assets/css/buttons/buttons-android.css";
+import "./assets/css/buttons/buttons-ios.css";
+import "./assets/css/buttons/buttons-web.css";
+
+import "./assets/css/inputs/inputs-android.css";
+import "./assets/css/inputs/inputs-ios.css";
+import "./assets/css/inputs/inputs-bootstrap.css";
+
+import "./assets/css/loadings/loadings-bar.css";
+import "./assets/css/loadings/loadings-app.css";
+
+import "./assets/css/modals/modals.css";
+import "./assets/css/tables/datatables.css";
+import "./assets/css/titles/title.css";
 
 /**
  * ---------------------------------------------------------------------------------------------------------------------
