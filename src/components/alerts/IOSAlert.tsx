@@ -1,50 +1,47 @@
-import React from "react";
-import type { LionAlertProps } from "./LionAlertProps.tsx";
+import type { BaseAlertProps } from "./LionAlertProps.tsx";
+import { PlatformTypes } from "../../types/PlatformTypes.tsx";
 import { VariantTypes } from "../../types/VariantTypes.tsx";
 import { IOSAlertStyleTypes } from "../../types/IOS/IOSAlertStyleTypes.tsx";
 import { IOSAlertShapeTypes } from "../../types/IOS/IOSAlertShapeTypes.tsx";
+import { resolveAlertDefaultIcon } from "../../types/AlertIconTypes.tsx";
 
-const IOS_ICONS: Record<string, string> = {
-    primary: "bi-info-circle-fill",
-    secondary: "bi-bubble-left-fill",
-    success: "bi-check-circle-fill",
-    danger: "bi-exclamation-circle-fill",
-    warning: "bi-exclamation-triangle-fill",
-    info: "bi-info-circle-fill",
-    dark: "bi-bell-fill",
-};
+export interface IOSAlertProps extends BaseAlertProps {
+    styleType?: IOSAlertStyleTypes | string;
+    shape?: IOSAlertShapeTypes | string;
+}
 
-/**
- * iOS Cupertino / SwiftUI Alert built from scratch with tinted, filled, and plain surfaces.
- */
-export const IOSAlert: React.FC<LionAlertProps> = ({
-                                                       variant = VariantTypes.PRIMARY,
-                                                       styleType = IOSAlertStyleTypes.TINTED,
-                                                       shape = IOSAlertShapeTypes.ROUNDED,
-                                                       title,
-                                                       message,
-                                                       children,
-                                                       icon,
-                                                       showIcon = true,
-                                                       dismissible = false,
-                                                       show = true,
-                                                       onClose,
-                                                       className = "",
-                                                   }) => {
+export default function IOSAlert({
+                                     variant = VariantTypes.PRIMARY,
+                                     styleType = IOSAlertStyleTypes.TINTED,
+                                     shape = IOSAlertShapeTypes.ROUNDED,
+                                     title,
+                                     message,
+                                     children,
+                                     icon,
+                                     showIcon = true,
+                                     dismissible = false,
+                                     show = true,
+                                     onClose,
+                                     className = "",
+                                 }: IOSAlertProps) {
     if (!show) return null;
+
+    const normalizedStyle = String(styleType).toLowerCase().replace(/_/g, "-");
+    const normalizedShape = String(shape).toLowerCase().replace(/_/g, "-");
+    const defaultIconClass = resolveAlertDefaultIcon(variant, PlatformTypes.IOS);
 
     const resolvedIcon =
         icon !== undefined ? (
             icon
         ) : showIcon ? (
-            <i className={`bi ${IOS_ICONS[variant] || "bi-info-circle-fill"}`} aria-hidden="true" />
+            <i className={`bi ${defaultIconClass}`} aria-hidden="true" />
         ) : null;
 
     const classes = [
         "ios-alert",
         `ios-alert-variant-${variant}`,
-        `ios-alert-style-${styleType}`,
-        `ios-alert-shape-${shape}`,
+        `ios-alert-style-${normalizedStyle}`,
+        `ios-alert-shape-${normalizedShape}`,
         className,
     ]
         .filter(Boolean)
@@ -72,6 +69,4 @@ export const IOSAlert: React.FC<LionAlertProps> = ({
             )}
         </div>
     );
-};
-
-export default IOSAlert;
+}
